@@ -12,7 +12,6 @@ export class CommandBlock extends BaseBlock {
     set: boolean;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string) {
         super(GameState, X, Y, H, W, Color);
-        // this.gameState = GameState;
         this.mouseDown = true;
         this.set = false;
         this.gameState.blocks.push(this);
@@ -25,16 +24,16 @@ export class CommandBlock extends BaseBlock {
             this.set = false;
         }
         if (!this.mouseDown && !this.set) {
-            // this.gameState.blocks.
-            console.log("KILL THIS BLOCK");
+            var index = this.gameState.blocks.indexOf(this);
+            this.gameState.blocks.splice(index, 1);
         }
     }
 
     // onClick() {
-    //     console.log(this.color);
     // }
 }
 
+// CONSIDER: extending CommandBlock class
 export class CommandBlockButton extends BaseBlock {
     gameState: GameState;
     x: number;

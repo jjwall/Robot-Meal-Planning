@@ -30,7 +30,8 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
                 this.set = false;
             }
             if (!this.mouseDown && !this.set) {
-                console.log("KILL THIS BLOCK");
+                var index = this.gameState.blocks.indexOf(this);
+                this.gameState.blocks.splice(index, 1);
             }
         };
         return CommandBlock;
