@@ -1,6 +1,7 @@
 import { GameState } from "./main";
+import { BaseBlock } from "./BaseBlock";
 
-export class CommandBlock {
+export class CommandBlock extends BaseBlock {
     gameState: GameState;
     x: number;
     y: number;
@@ -8,15 +9,11 @@ export class CommandBlock {
     h: number;
     color: string;
     mouseDown: boolean;
-    constructor(GameState, X, Y, Color) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string) {
+        super(X, Y, H, W, Color);
         this.gameState = GameState;
-        this.x = X;
-        this.y = Y;
-        this.w = 50;
-        this.h = 50;
-        this.color = Color;
         this.mouseDown = false;
-        this.gameState.entities.push(this);
+        this.gameState.blocks.push(this);
     }
 
     update() : void {
@@ -30,3 +27,9 @@ export class CommandBlock {
     //     console.log(this.color);
     // }
 }
+
+// export function isCommandBlock(obj: object) : obj is CommandBlock {
+//     var commandBlockObj : CommandBlock = <CommandBlock>obj;
+    
+//     return commandBlockObj.mouseDown !== undefined;
+// }

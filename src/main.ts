@@ -1,16 +1,17 @@
 import { CommandBlock } from "./CommandBlock";
 import { CommandPallete } from "./CommandPalette";
+import { BaseBlock } from "./BaseBlock";
 
 export class GameState {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
-    entities:any[];
+    blocks: BaseBlock[];
     mouseX: number;
     mouseY: number;
     constructor() {
         this.canvas = <HTMLCanvasElement> document.getElementById("gameScreen");
         this.ctx = <CanvasRenderingContext2D> this.canvas.getContext("2d");
-        this.entities = [];
+        this.blocks = [];
         this.mouseX = 0;
         this.mouseY = 0;
     }
@@ -19,24 +20,29 @@ export class GameState {
 // set up game state
 var gameState = new GameState();
 new CommandPallete(gameState, 5, 5, "lightblue");
-new CommandBlock(gameState, 50, 325, "orange");
-new CommandBlock(gameState, 400, 325, "purple");
+new CommandBlock(gameState, 50, 325, 50, 50, "orange");
+new CommandBlock(gameState, 400, 325, 50, 50, "purple");
 
 // set up canvas event listeners
-gameState.canvas.addEventListener('mousedown', function() {
-    // Collision detection between clicked offset and element.
-    gameState.entities.forEach(function(element) {
-        if (gameState.mouseY > element.y && gameState.mouseY < element.y + element.h
-            && gameState.mouseX > element.x && gameState.mouseX < element.x + element.w) {
-            element.mouseDown = true;
+gameState.canvas.addEventListener('mousedown', function() : void {
+    // Collision detection between clicked offset and block.
+    gameState.blocks.forEach(function(block) : void {
+        if (gameState.mouseY > block.y && gameState.mouseY < block.y + block.h
+            && gameState.mouseX > block.x && gameState.mouseX < block.x + block.w) {
+            if (block instanceof CommandBlock) {
+                block.mouseDown = true;
+            }
         }
     })
 }, false);
 
-gameState.canvas.addEventListener('mouseup', function(evt) {
-    gameState.entities.forEach(function(entity) {
-        if (entity.mouseDown)
-            entity.mouseDown = false;
+gameState.canvas.addEventListener('mouseup', function() : void {
+    gameState.blocks.forEach(function(block) {
+        if (block instanceof CommandBlock) {
+            if (block.mouseDown) {
+                block.mouseDown = false;
+            }
+        }
     })
 }, false);
 
@@ -50,7 +56,7 @@ function draw() : void {
     gameState.ctx.strokeStyle = 'black';
     gameState.ctx.clearRect(0, 0, 800, 450);
     gameState.ctx.beginPath();
-    gameState.entities.forEach(entity => {
+    gameState.blocks.forEach(entity => {
         //ctx.strokeStyle = entity.color;
         gameState.ctx.fillStyle = entity.color;
         gameState.ctx.fillRect(entity.x, entity.y, entity.w, entity.h);
@@ -61,12 +67,12 @@ function draw() : void {
 }
 
 function update() : void {
-    gameState.entities.forEach(entity => {
+    gameState.blocks.forEach(entity => {
         entity.update();
     })
 }
 
-setInterval(function(){
+setInterval(function() : void {
     update();
     draw();
 }, 12);

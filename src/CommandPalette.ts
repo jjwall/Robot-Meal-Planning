@@ -1,17 +1,16 @@
 import { GameState } from "./main";
+import { BaseBlock } from "./BaseBlock";
 
 export class CommandPallete {
-    // squaresHigh: number;
-    // squaresWide: number;
     gameState: GameState;
-    constructor(GameState: GameState, SquaresHigh: number, SquaresWide: number, SquareColor: string) {
+    constructor(GameState: GameState, BlocksHigh: number, BlocksWide: number, BlockColor: string) {
         this.gameState = GameState;
         var yOffset = 5;
         var xOffset = 5;
 
-        for (var i = 0; i < SquaresHigh; i++) {
-            for (var j = 0; j < SquaresWide; j++) {
-                this.gameState.entities.push(new GridSquare(xOffset, yOffset, SquareColor));
+        for (var i = 0; i < BlocksHigh; i++) {
+            for (var j = 0; j < BlocksWide; j++) {
+                this.gameState.blocks.push(new GridBlock(xOffset, yOffset, 50, 50, BlockColor));
                 xOffset += 55;
             }
             yOffset += 55;
@@ -20,18 +19,14 @@ export class CommandPallete {
     } 
 }
 
-class GridSquare {
+class GridBlock extends BaseBlock {
     x: number;
     y: number;
     h: number;
     w: number;
     color: string;
-    constructor(X: number, Y: number, Color: string) {
-        this.x = X;
-        this.y = Y;
-        this.h = 50;
-        this.w = 50;
-        this.color = Color;
+    constructor(X: number, Y: number, H: number, W: number, Color: string) {
+        super(X, Y, H, W, Color);
     }
 
     update() : void {
