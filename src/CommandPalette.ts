@@ -45,6 +45,7 @@ export class GridBlock extends BaseBlock {
                         if (this.empty) {
                             block.x = this.x;
                             block.y = this.y;
+                            block.set = true;
                             this.empty = false;
                         }
                     }

@@ -14,13 +14,16 @@ define(["require", "exports", "./CommandBlock", "./CommandPalette"], function (r
     exports.GameState = GameState;
     var gameState = new GameState();
     new CommandPalette_1.CommandPallete(gameState, 5, 5, "lightblue");
-    new CommandBlock_1.CommandBlock(gameState, 50, 325, 50, 50, "orange");
-    new CommandBlock_1.CommandBlock(gameState, 400, 325, 50, 50, "purple");
+    new CommandBlock_1.CommandBlockButton(gameState, 5, 300, 50, 50, "orange", "move");
+    new CommandBlock_1.CommandBlockButton(gameState, 60, 300, 50, 50, "purple", "angle");
+    new CommandBlock_1.CommandBlockButton(gameState, 115, 300, 50, 50, "green", "laser");
+    new CommandBlock_1.CommandBlockButton(gameState, 170, 300, 50, 50, "darkblue", "scan");
+    new CommandBlock_1.CommandBlockButton(gameState, 225, 300, 50, 50, "maroon", "grapple");
     gameState.canvas.addEventListener('mousedown', function () {
         gameState.blocks.forEach(function (block) {
             if (gameState.mouseY > block.y && gameState.mouseY < block.y + block.h
                 && gameState.mouseX > block.x && gameState.mouseX < block.x + block.w) {
-                if (block instanceof CommandBlock_1.CommandBlock) {
+                if (block instanceof CommandBlock_1.CommandBlock || block instanceof CommandBlock_1.CommandBlockButton) {
                     block.mouseDown = true;
                 }
                 else if (block instanceof CommandPalette_1.GridBlock) {

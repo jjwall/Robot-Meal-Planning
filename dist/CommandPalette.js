@@ -50,6 +50,7 @@ define(["require", "exports", "./BaseBlock", "./CommandBlock"], function (requir
                             if (_this.empty) {
                                 block.x = _this.x;
                                 block.y = _this.y;
+                                block.set = true;
                                 _this.empty = false;
                             }
                         }

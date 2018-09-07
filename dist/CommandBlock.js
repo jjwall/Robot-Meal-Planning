@@ -18,7 +18,8 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
         __extends(CommandBlock, _super);
         function CommandBlock(GameState, X, Y, H, W, Color) {
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
-            _this.mouseDown = false;
+            _this.mouseDown = true;
+            _this.set = false;
             _this.gameState.blocks.push(_this);
             return _this;
         }
@@ -26,10 +27,32 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
             if (this.mouseDown) {
                 this.x = this.gameState.mouseX - this.w / 2;
                 this.y = this.gameState.mouseY - this.h / 2;
+                this.set = false;
+            }
+            if (!this.mouseDown && !this.set) {
+                console.log("KILL THIS BLOCK");
             }
         };
         return CommandBlock;
     }(BaseBlock_1.BaseBlock));
     exports.CommandBlock = CommandBlock;
+    var CommandBlockButton = (function (_super) {
+        __extends(CommandBlockButton, _super);
+        function CommandBlockButton(GameState, X, Y, H, W, Color, Type) {
+            var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
+            _this.type = Type;
+            _this.mouseDown = false;
+            _this.gameState.blocks.push(_this);
+            return _this;
+        }
+        CommandBlockButton.prototype.update = function () {
+            if (this.mouseDown) {
+                this.mouseDown = false;
+                new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color);
+            }
+        };
+        return CommandBlockButton;
+    }(BaseBlock_1.BaseBlock));
+    exports.CommandBlockButton = CommandBlockButton;
 });
 //# sourceMappingURL=CommandBlock.js.map

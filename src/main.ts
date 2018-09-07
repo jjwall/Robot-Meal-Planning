@@ -1,4 +1,4 @@
-import { CommandBlock } from "./CommandBlock";
+import { CommandBlock, CommandBlockButton } from "./CommandBlock";
 import { CommandPallete, GridBlock } from "./CommandPalette";
 import { BaseBlock } from "./BaseBlock";
 
@@ -19,9 +19,21 @@ export class GameState {
 
 // set up game state
 var gameState = new GameState();
+// set up Pallete
 new CommandPallete(gameState, 5, 5, "lightblue");
-new CommandBlock(gameState, 50, 325, 50, 50, "orange");
-new CommandBlock(gameState, 400, 325, 50, 50, "purple");
+// test move button
+new CommandBlockButton(gameState, 5, 300, 50, 50, "orange", "move");
+// test angle button
+new CommandBlockButton(gameState, 60, 300, 50, 50, "purple", "angle");
+// test laser button
+new CommandBlockButton(gameState, 115, 300, 50, 50, "green", "laser");
+// test scan button
+new CommandBlockButton(gameState, 170, 300, 50, 50, "darkblue", "scan");
+// test grapple button
+new CommandBlockButton(gameState, 225, 300, 50, 50, "maroon", "grapple");
+
+// new CommandBlock(gameState, 50, 325, 50, 50, "orange");
+// new CommandBlock(gameState, 400, 325, 50, 50, "purple");
 
 // set up canvas event listeners
 gameState.canvas.addEventListener('mousedown', function() : void {
@@ -29,7 +41,7 @@ gameState.canvas.addEventListener('mousedown', function() : void {
     gameState.blocks.forEach(function(block) : void {
         if (gameState.mouseY > block.y && gameState.mouseY < block.y + block.h
             && gameState.mouseX > block.x && gameState.mouseX < block.x + block.w) {
-            if (block instanceof CommandBlock) {
+            if (block instanceof CommandBlock || block instanceof CommandBlockButton) {
                 block.mouseDown = true;
             }
             else if (block instanceof GridBlock) {
