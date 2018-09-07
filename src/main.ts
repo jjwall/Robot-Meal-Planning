@@ -1,5 +1,5 @@
 import { CommandBlock } from "./CommandBlock";
-import { CommandPallete } from "./CommandPalette";
+import { CommandPallete, GridBlock } from "./CommandPalette";
 import { BaseBlock } from "./BaseBlock";
 
 export class GameState {
@@ -31,6 +31,9 @@ gameState.canvas.addEventListener('mousedown', function() : void {
             && gameState.mouseX > block.x && gameState.mouseX < block.x + block.w) {
             if (block instanceof CommandBlock) {
                 block.mouseDown = true;
+            }
+            else if (block instanceof GridBlock) {
+                block.empty = true;
             }
         }
     })

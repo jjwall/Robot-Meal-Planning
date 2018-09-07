@@ -2,12 +2,14 @@ define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var BaseBlock = (function () {
-        function BaseBlock(X, Y, H, W, Color) {
+        function BaseBlock(GameState, X, Y, H, W, Color) {
+            this.GameState = GameState;
             this.X = X;
             this.Y = Y;
             this.H = H;
             this.W = W;
             this.Color = Color;
+            this.gameState = GameState;
             this.x = X;
             this.y = Y;
             this.h = H;

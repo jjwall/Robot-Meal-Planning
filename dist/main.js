@@ -23,6 +23,9 @@ define(["require", "exports", "./CommandBlock", "./CommandPalette"], function (r
                 if (block instanceof CommandBlock_1.CommandBlock) {
                     block.mouseDown = true;
                 }
+                else if (block instanceof CommandPalette_1.GridBlock) {
+                    block.empty = true;
+                }
             }
         });
     }, false);

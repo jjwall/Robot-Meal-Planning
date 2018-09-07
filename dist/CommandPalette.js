@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBlock_1) {
+define(["require", "exports", "./BaseBlock", "./CommandBlock"], function (require, exports, BaseBlock_1, CommandBlock_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var CommandPallete = (function () {
@@ -21,7 +21,7 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
             var xOffset = 5;
             for (var i = 0; i < BlocksHigh; i++) {
                 for (var j = 0; j < BlocksWide; j++) {
-                    this.gameState.blocks.push(new GridBlock(xOffset, yOffset, 50, 50, BlockColor));
+                    this.gameState.blocks.push(new GridBlock(this.gameState, xOffset, yOffset, 50, 50, BlockColor));
                     xOffset += 55;
                 }
                 yOffset += 55;
@@ -33,12 +33,32 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
     exports.CommandPallete = CommandPallete;
     var GridBlock = (function (_super) {
         __extends(GridBlock, _super);
-        function GridBlock(X, Y, H, W, Color) {
-            return _super.call(this, X, Y, H, W, Color) || this;
+        function GridBlock(GameState, X, Y, H, W, Color) {
+            var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
+            _this.empty = true;
+            return _this;
         }
         GridBlock.prototype.update = function () {
+            var _this = this;
+            this.gameState.blocks.forEach(function (block) {
+                if (block instanceof CommandBlock_1.CommandBlock) {
+                    if (block.mouseDown === false) {
+                        if (block.x < _this.x + _this.w &&
+                            block.x + block.w > _this.x &&
+                            block.y < _this.y + _this.h &&
+                            block.h + block.y > _this.y) {
+                            if (_this.empty) {
+                                block.x = _this.x;
+                                block.y = _this.y;
+                                _this.empty = false;
+                            }
+                        }
+                    }
+                }
+            });
         };
         return GridBlock;
     }(BaseBlock_1.BaseBlock));
+    exports.GridBlock = GridBlock;
 });
 //# sourceMappingURL=CommandPalette.js.map

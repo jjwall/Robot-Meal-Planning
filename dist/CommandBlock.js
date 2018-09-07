@@ -17,8 +17,7 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
     var CommandBlock = (function (_super) {
         __extends(CommandBlock, _super);
         function CommandBlock(GameState, X, Y, H, W, Color) {
-            var _this = _super.call(this, X, Y, H, W, Color) || this;
-            _this.gameState = GameState;
+            var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
             _this.mouseDown = false;
             _this.gameState.blocks.push(_this);
             return _this;

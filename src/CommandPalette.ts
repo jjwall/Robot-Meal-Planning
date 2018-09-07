@@ -1,5 +1,6 @@
 import { GameState } from "./main";
 import { BaseBlock } from "./BaseBlock";
+import { CommandBlock } from "./CommandBlock";
 
 export class CommandPallete {
     gameState: GameState;
@@ -10,7 +11,7 @@ export class CommandPallete {
 
         for (var i = 0; i < BlocksHigh; i++) {
             for (var j = 0; j < BlocksWide; j++) {
-                this.gameState.blocks.push(new GridBlock(xOffset, yOffset, 50, 50, BlockColor));
+                this.gameState.blocks.push(new GridBlock(this.gameState, xOffset, yOffset, 50, 50, BlockColor));
                 xOffset += 55;
             }
             yOffset += 55;
@@ -19,17 +20,36 @@ export class CommandPallete {
     } 
 }
 
-class GridBlock extends BaseBlock {
+export class GridBlock extends BaseBlock {
+    gameState: GameState;
     x: number;
     y: number;
     h: number;
     w: number;
+    empty: boolean
     color: string;
-    constructor(X: number, Y: number, H: number, W: number, Color: string) {
-        super(X, Y, H, W, Color);
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string) {
+        super(GameState, X, Y, H, W, Color);
+        this.empty = true;
     }
 
     update() : void {
-        
+        this.gameState.blocks.forEach(block => {
+            if (block instanceof CommandBlock) {
+                if (block.mouseDown === false) {
+                    if (block.x < this.x + this.w &&
+                        block.x + block.w > this.x &&
+                        block.y < this.y + this.h &&
+                        block.h + block.y > this.y)
+                    {
+                        if (this.empty) {
+                            block.x = this.x;
+                            block.y = this.y;
+                            this.empty = false;
+                        }
+                    }
+                }
+            }
+        })
     }
 }

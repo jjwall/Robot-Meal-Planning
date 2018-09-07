@@ -1,17 +1,19 @@
-// import { GameState } from "./main";
+import { GameState } from "./main";
 
 export abstract class BaseBlock {
-    // gameState: GameState;
+    gameState: GameState;
     x: number;
     y: number;
     h: number;
     w: number;
     color: string;
-    constructor(public X: number,
+    constructor(public GameState: GameState,
+                public X: number,
                 public Y: number,
                 public H: number,
                 public W: number,
                 public Color: string) {
+        this.gameState = GameState;
         this.x = X;
         this.y = Y;
         this.h = H;

@@ -10,8 +10,8 @@ export class CommandBlock extends BaseBlock {
     color: string;
     mouseDown: boolean;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string) {
-        super(X, Y, H, W, Color);
-        this.gameState = GameState;
+        super(GameState, X, Y, H, W, Color);
+        // this.gameState = GameState;
         this.mouseDown = false;
         this.gameState.blocks.push(this);
     }
