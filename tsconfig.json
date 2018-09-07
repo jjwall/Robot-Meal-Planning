@@ -12,5 +12,7 @@
     "compileOnSave": true,
     "files": [
         "src/main.ts",
+        "src/CommandPalette.ts",
+        "src/CommandBlock.ts",
     ]
 }

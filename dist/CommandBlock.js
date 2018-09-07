@@ -10,6 +10,7 @@ define(["require", "exports"], function (require, exports) {
             this.h = 50;
             this.color = Color;
             this.mouseDown = false;
+            this.gameState.entities.push(this);
         }
         CommandBlock.prototype.update = function () {
             if (this.mouseDown) {

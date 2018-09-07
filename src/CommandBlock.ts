@@ -16,6 +16,7 @@ export class CommandBlock {
         this.h = 50;
         this.color = Color;
         this.mouseDown = false;
+        this.gameState.entities.push(this);
     }
 
     update() : void {
