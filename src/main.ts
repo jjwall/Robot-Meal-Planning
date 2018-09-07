@@ -19,6 +19,7 @@ export class GameState {
 
 // set up game state
 var gameState = new GameState();
+var rect = <ClientRect | DOMRect> gameState.canvas.getBoundingClientRect();
 // set up Pallete
 new CommandPallete(gameState, 5, 5, "lightblue");
 // test move button
@@ -62,7 +63,6 @@ gameState.canvas.addEventListener('mouseup', function() : void {
 }, false);
 
 gameState.canvas.addEventListener('mousemove', function(evt: MouseEvent) : void {
-    var rect = <ClientRect | DOMRect> gameState.canvas.getBoundingClientRect();
     gameState.mouseX = (evt.clientX - rect.left) / (rect.right - rect.left) * gameState.canvas.width;
     gameState.mouseY = (evt.clientY - rect.top) / (rect.bottom - rect.top) * gameState.canvas.height;
 }, false);

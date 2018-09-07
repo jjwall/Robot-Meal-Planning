@@ -13,6 +13,7 @@ define(["require", "exports", "./CommandBlock", "./CommandPalette"], function (r
     }());
     exports.GameState = GameState;
     var gameState = new GameState();
+    var rect = gameState.canvas.getBoundingClientRect();
     new CommandPalette_1.CommandPallete(gameState, 5, 5, "lightblue");
     new CommandBlock_1.CommandBlockButton(gameState, 5, 300, 50, 50, "orange", "move");
     new CommandBlock_1.CommandBlockButton(gameState, 60, 300, 50, 50, "purple", "angle");
@@ -42,7 +43,6 @@ define(["require", "exports", "./CommandBlock", "./CommandPalette"], function (r
         });
     }, false);
     gameState.canvas.addEventListener('mousemove', function (evt) {
-        var rect = gameState.canvas.getBoundingClientRect();
         gameState.mouseX = (evt.clientX - rect.left) / (rect.right - rect.left) * gameState.canvas.width;
         gameState.mouseY = (evt.clientY - rect.top) / (rect.bottom - rect.top) * gameState.canvas.height;
     }, false);

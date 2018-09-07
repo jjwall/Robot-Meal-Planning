@@ -21,7 +21,7 @@ define(["require", "exports", "./BaseBlock", "./CommandBlock"], function (requir
             var xOffset = 5;
             for (var i = 0; i < BlocksHigh; i++) {
                 for (var j = 0; j < BlocksWide; j++) {
-                    this.gameState.blocks.push(new GridBlock(this.gameState, xOffset, yOffset, 50, 50, BlockColor));
+                    new GridBlock(this.gameState, xOffset, yOffset, 50, 50, BlockColor);
                     xOffset += 55;
                 }
                 yOffset += 55;
@@ -36,6 +36,7 @@ define(["require", "exports", "./BaseBlock", "./CommandBlock"], function (requir
         function GridBlock(GameState, X, Y, H, W, Color) {
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
             _this.empty = true;
+            _this.gameState.blocks.push(_this);
             return _this;
         }
         GridBlock.prototype.update = function () {

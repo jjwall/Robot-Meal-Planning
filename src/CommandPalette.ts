@@ -11,7 +11,7 @@ export class CommandPallete {
 
         for (var i = 0; i < BlocksHigh; i++) {
             for (var j = 0; j < BlocksWide; j++) {
-                this.gameState.blocks.push(new GridBlock(this.gameState, xOffset, yOffset, 50, 50, BlockColor));
+                new GridBlock(this.gameState, xOffset, yOffset, 50, 50, BlockColor);
                 xOffset += 55;
             }
             yOffset += 55;
@@ -31,6 +31,7 @@ export class GridBlock extends BaseBlock {
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string) {
         super(GameState, X, Y, H, W, Color);
         this.empty = true;
+        this.gameState.blocks.push(this);
     }
 
     update() : void {
