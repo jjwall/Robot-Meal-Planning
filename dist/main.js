@@ -1,4 +1,4 @@
-define(["require", "exports", "./CommandBlock", "./CommandPalette"], function (require, exports, CommandBlock_1, CommandPalette_1) {
+define(["require", "exports", "./CommandBlock", "./GridBlock", "./level1", "./LevelCreator"], function (require, exports, CommandBlock_1, GridBlock_1, level1_1, LevelCreator_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var GameState = (function () {
@@ -14,12 +14,7 @@ define(["require", "exports", "./CommandBlock", "./CommandPalette"], function (r
     exports.GameState = GameState;
     var gameState = new GameState();
     var rect = gameState.canvas.getBoundingClientRect();
-    new CommandPalette_1.CommandPallete(gameState, 5, 5, "lightblue");
-    new CommandBlock_1.CommandBlockButton(gameState, 5, 300, 50, 50, "orange", "move");
-    new CommandBlock_1.CommandBlockButton(gameState, 60, 300, 50, 50, "purple", "angle");
-    new CommandBlock_1.CommandBlockButton(gameState, 115, 300, 50, 50, "green", "laser");
-    new CommandBlock_1.CommandBlockButton(gameState, 170, 300, 50, 50, "darkblue", "scan");
-    new CommandBlock_1.CommandBlockButton(gameState, 225, 300, 50, 50, "maroon", "grapple");
+    LevelCreator_1.LevelCreator(gameState, level1_1.level1, "lightblue");
     gameState.canvas.addEventListener('mousedown', function () {
         gameState.blocks.forEach(function (block) {
             if (gameState.mouseY > block.y && gameState.mouseY < block.y + block.h
@@ -27,7 +22,7 @@ define(["require", "exports", "./CommandBlock", "./CommandPalette"], function (r
                 if (block instanceof CommandBlock_1.CommandBlock || block instanceof CommandBlock_1.CommandBlockButton) {
                     block.mouseDown = true;
                 }
-                else if (block instanceof CommandPalette_1.GridBlock) {
+                else if (block instanceof GridBlock_1.GridBlock) {
                     block.empty = true;
                 }
             }

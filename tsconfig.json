@@ -13,7 +13,7 @@
     "files": [
         "src/main.ts",
         "src/BaseBlock.ts",
-        "src/CommandPalette.ts",
+        "src/GridBlock.ts",
         "src/CommandBlock.ts",
         "src/LevelCreator.ts",
         "src/level1.ts"

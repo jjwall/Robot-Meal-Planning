@@ -14,23 +14,6 @@ var __extends = (this && this.__extends) || (function () {
 define(["require", "exports", "./BaseBlock", "./CommandBlock"], function (require, exports, BaseBlock_1, CommandBlock_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var CommandPallete = (function () {
-        function CommandPallete(GameState, BlocksHigh, BlocksWide, BlockColor) {
-            this.gameState = GameState;
-            var yOffset = 5;
-            var xOffset = 5;
-            for (var i = 0; i < BlocksHigh; i++) {
-                for (var j = 0; j < BlocksWide; j++) {
-                    new GridBlock(this.gameState, xOffset, yOffset, 50, 50, BlockColor);
-                    xOffset += 55;
-                }
-                yOffset += 55;
-                xOffset = 5;
-            }
-        }
-        return CommandPallete;
-    }());
-    exports.CommandPallete = CommandPallete;
     var GridBlock = (function (_super) {
         __extends(GridBlock, _super);
         function GridBlock(GameState, X, Y, H, W, Color) {
@@ -63,4 +46,4 @@ define(["require", "exports", "./BaseBlock", "./CommandBlock"], function (requir
     }(BaseBlock_1.BaseBlock));
     exports.GridBlock = GridBlock;
 });
-//# sourceMappingURL=CommandPalette.js.map
+//# sourceMappingURL=GridBlock.js.map

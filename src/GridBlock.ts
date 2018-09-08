@@ -2,24 +2,6 @@ import { GameState } from "./main";
 import { BaseBlock } from "./BaseBlock";
 import { CommandBlock } from "./CommandBlock";
 
-export class CommandPallete {
-    gameState: GameState;
-    constructor(GameState: GameState, BlocksHigh: number, BlocksWide: number, BlockColor: string) {
-        this.gameState = GameState;
-        var yOffset = 5;
-        var xOffset = 5;
-
-        for (var i = 0; i < BlocksHigh; i++) {
-            for (var j = 0; j < BlocksWide; j++) {
-                new GridBlock(this.gameState, xOffset, yOffset, 50, 50, BlockColor);
-                xOffset += 55;
-            }
-            yOffset += 55;
-            xOffset = 5;
-        }
-    } 
-}
-
 export class GridBlock extends BaseBlock {
     gameState: GameState;
     x: number;
@@ -35,6 +17,7 @@ export class GridBlock extends BaseBlock {
     }
 
     update() : void {
+        // see if command block is being dropped on empty grid block
         this.gameState.blocks.forEach(block => {
             if (block instanceof CommandBlock) {
                 if (block.mouseDown === false) {

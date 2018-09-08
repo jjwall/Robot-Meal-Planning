@@ -1,10 +1,11 @@
 /// <reference path="./declarations/json.d.ts" />
 
 import { CommandBlock, CommandBlockButton } from "./CommandBlock";
-import { CommandPallete, GridBlock } from "./CommandPalette";
+import { GridBlock } from "./GridBlock";
 import { BaseBlock } from "./BaseBlock";
 // import level1 from '../data/levels/level1.json';
 import { level1 } from "./level1";
+import { LevelCreator } from "./LevelCreator";
 
 export class GameState {
     canvas: HTMLCanvasElement;
@@ -24,21 +25,7 @@ export class GameState {
 // set up game state
 var gameState = new GameState();
 var rect = <ClientRect | DOMRect> gameState.canvas.getBoundingClientRect();
-// set up Pallete
-new CommandPallete(gameState, 5, 5, "lightblue");
-// test move button
-new CommandBlockButton(gameState, 5, 300, 50, 50, "orange", "move");
-// test angle button
-new CommandBlockButton(gameState, 60, 300, 50, 50, "purple", "angle");
-// test laser button
-new CommandBlockButton(gameState, 115, 300, 50, 50, "green", "laser");
-// test scan button
-new CommandBlockButton(gameState, 170, 300, 50, 50, "darkblue", "scan");
-// test grapple button
-new CommandBlockButton(gameState, 225, 300, 50, 50, "maroon", "grapple");
-
-// new CommandBlock(gameState, 50, 325, 50, 50, "orange");
-// new CommandBlock(gameState, 400, 325, 50, 50, "purple");
+LevelCreator(gameState, level1, "lightblue");
 
 // set up canvas event listeners
 gameState.canvas.addEventListener('mousedown', function() : void {
