@@ -1,10 +1,11 @@
-define(["require", "exports", "./CommandBlock", "./GridBlock", "./level1", "./LevelCreator"], function (require, exports, CommandBlock_1, GridBlock_1, level1_1, LevelCreator_1) {
+define(["require", "exports", "./level1", "./LevelCreator", "./SetUpEventListeners"], function (require, exports, level1_1, LevelCreator_1, SetUpEventListeners_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var GameState = (function () {
         function GameState() {
             this.canvas = document.getElementById("gameScreen");
             this.ctx = this.canvas.getContext("2d");
+            this.rect = this.canvas.getBoundingClientRect();
             this.blocks = [];
             this.mouseX = 0;
             this.mouseY = 0;
@@ -13,34 +14,8 @@ define(["require", "exports", "./CommandBlock", "./GridBlock", "./level1", "./Le
     }());
     exports.GameState = GameState;
     var gameState = new GameState();
-    var rect = gameState.canvas.getBoundingClientRect();
     LevelCreator_1.LevelCreator(gameState, level1_1.level1, "lightblue");
-    gameState.canvas.addEventListener('mousedown', function () {
-        gameState.blocks.forEach(function (block) {
-            if (gameState.mouseY > block.y && gameState.mouseY < block.y + block.h
-                && gameState.mouseX > block.x && gameState.mouseX < block.x + block.w) {
-                if (block instanceof CommandBlock_1.CommandBlock || block instanceof CommandBlock_1.CommandBlockButton) {
-                    block.mouseDown = true;
-                }
-                else if (block instanceof GridBlock_1.GridBlock) {
-                    block.empty = true;
-                }
-            }
-        });
-    }, false);
-    gameState.canvas.addEventListener('mouseup', function () {
-        gameState.blocks.forEach(function (block) {
-            if (block instanceof CommandBlock_1.CommandBlock) {
-                if (block.mouseDown) {
-                    block.mouseDown = false;
-                }
-            }
-        });
-    }, false);
-    gameState.canvas.addEventListener('mousemove', function (evt) {
-        gameState.mouseX = (evt.clientX - rect.left) / (rect.right - rect.left) * gameState.canvas.width;
-        gameState.mouseY = (evt.clientY - rect.top) / (rect.bottom - rect.top) * gameState.canvas.height;
-    }, false);
+    SetUpEventListeners_1.SetUpEventListeners(gameState);
     function draw() {
         gameState.ctx.strokeStyle = 'black';
         gameState.ctx.clearRect(0, 0, 800, 450);
