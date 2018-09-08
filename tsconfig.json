@@ -15,5 +15,7 @@
         "src/BaseBlock.ts",
         "src/CommandPalette.ts",
         "src/CommandBlock.ts",
+        "src/LevelCreator.ts",
+        "src/level1.ts"
     ]
 }

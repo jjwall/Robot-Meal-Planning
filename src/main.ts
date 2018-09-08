@@ -1,6 +1,10 @@
+/// <reference path="./declarations/json.d.ts" />
+
 import { CommandBlock, CommandBlockButton } from "./CommandBlock";
 import { CommandPallete, GridBlock } from "./CommandPalette";
 import { BaseBlock } from "./BaseBlock";
+// import level1 from '../data/levels/level1.json';
+import { level1 } from "./level1";
 
 export class GameState {
     canvas: HTMLCanvasElement;
