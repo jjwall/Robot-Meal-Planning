@@ -15,6 +15,7 @@
         "src/BaseBlock.ts",
         "src/GridBlock.ts",
         "src/CommandBlock.ts",
+        "src/FlowBlock.ts",
         "src/LevelCreator.ts",
         "src/level1.ts"
     ]

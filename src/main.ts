@@ -1,12 +1,12 @@
 /// <reference path="./declarations/json.d.ts" />
-
-import { CommandBlock, CommandBlockButton } from "./CommandBlock";
-import { GridBlock } from "./GridBlock";
 import { BaseBlock } from "./BaseBlock";
 // import level1 from '../data/levels/level1.json';
 import { level1 } from "./level1";
 import { LevelCreator } from "./LevelCreator";
 import { SetUpEventListeners } from "./SetUpEventListeners";
+import { GridBlock } from "./GridBlock";
+import { CommandBlock, CommandBlockButton } from "./CommandBlock";
+import { FlowBlock, FlowBlockButton } from "./FlowBlock";
 
 export class GameState {
     canvas: HTMLCanvasElement;
@@ -15,6 +15,8 @@ export class GameState {
     blocks: BaseBlock[];
     mouseX: number;
     mouseY: number;
+    commandControl: boolean;
+    flowControl: boolean;
     constructor() {
         this.canvas = <HTMLCanvasElement> document.getElementById("gameScreen");
         this.ctx = <CanvasRenderingContext2D> this.canvas.getContext("2d");
@@ -22,6 +24,8 @@ export class GameState {
         this.blocks = [];
         this.mouseX = 0;
         this.mouseY = 0;
+        this.commandControl = true;
+        this.flowControl = false;
     }
 }
 
@@ -29,18 +33,26 @@ export class GameState {
 var gameState = new GameState();
 LevelCreator(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
+// test flow button
+new FlowBlockButton(gameState, 300, 5, 50, 50, "yellow", "left");
 
 function draw() : void {
-    gameState.ctx.strokeStyle = 'black';
-    gameState.ctx.clearRect(0, 0, 800, 450);
+    gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
     gameState.ctx.beginPath();
-    gameState.blocks.forEach(entity => {
-        //ctx.strokeStyle = entity.color;
-        gameState.ctx.fillStyle = entity.color;
-        gameState.ctx.fillRect(entity.x, entity.y, entity.w, entity.h);
-        // ctx.fillRect(50, 50, 150, 100);
-        // entity.draw(ctx);
+    gameState.blocks.forEach(block => {
+        if (block instanceof CommandBlock
+            || block instanceof CommandBlockButton
+            || block instanceof GridBlock) {
+            gameState.ctx.fillStyle = block.color;
+            gameState.ctx.fillRect(block.x, block.y, block.w, block.h);
+        }
+        else if (block instanceof FlowBlock
+                || block instanceof FlowBlockButton) {
+            gameState.ctx.strokeStyle = block.color;
+            gameState.ctx.rect(block.x, block.y, block.w, block.h);
+        }
     });
+
     gameState.ctx.stroke();
 }
 
