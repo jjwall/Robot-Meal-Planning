@@ -16,11 +16,27 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
     Object.defineProperty(exports, "__esModule", { value: true });
     var FlowBlock = (function (_super) {
         __extends(FlowBlock, _super);
-        function FlowBlock(GameState, X, Y, H, W, Color) {
+        function FlowBlock(GameState, X, Y, H, W, Color, Type) {
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
             _this.gameState = GameState;
+            _this.type = Type;
             _this.mouseDown = true;
             _this.set = false;
+            _this.image = new Image();
+            switch (Type) {
+                case "up":
+                    _this.image.src = "data/textures/UpArrow.png";
+                    break;
+                case "down":
+                    _this.image.src = "data/textures/DownArrow.png";
+                    break;
+                case "left":
+                    _this.image.src = "data/textures/LeftArrow.png";
+                    break;
+                case "right":
+                    _this.image.src = "data/textures/RightArrow.png";
+                    break;
+            }
             _this.gameState.blocks.push(_this);
             return _this;
         }
@@ -35,6 +51,13 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
                 this.gameState.blocks.splice(index, 1);
             }
         };
+        FlowBlock.prototype.draw = function () {
+            this.gameState.ctx.translate(this.x, this.y);
+            this.gameState.ctx.drawImage(this.image, 0, 0);
+            this.gameState.ctx.translate(-this.x, -this.y);
+            this.gameState.ctx.strokeStyle = this.color;
+            this.gameState.ctx.rect(this.x, this.y, this.w, this.h);
+        };
         return FlowBlock;
     }(BaseBlock_1.BaseBlock));
     exports.FlowBlock = FlowBlock;
@@ -44,14 +67,36 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
             _this.type = Type;
             _this.mouseDown = false;
+            _this.image = new Image();
+            switch (Type) {
+                case "up":
+                    _this.image.src = "data/textures/UpArrow.png";
+                    break;
+                case "down":
+                    _this.image.src = "data/textures/DownArrow.png";
+                    break;
+                case "left":
+                    _this.image.src = "data/textures/LeftArrow.png";
+                    break;
+                case "right":
+                    _this.image.src = "data/textures/RightArrow.png";
+                    break;
+            }
             _this.gameState.blocks.push(_this);
             return _this;
         }
         FlowBlockButton.prototype.update = function () {
             if (this.mouseDown) {
                 this.mouseDown = false;
-                new FlowBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color);
+                new FlowBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color, this.type);
             }
+        };
+        FlowBlockButton.prototype.draw = function () {
+            this.gameState.ctx.translate(this.x, this.y);
+            this.gameState.ctx.drawImage(this.image, 0, 0);
+            this.gameState.ctx.translate(-this.x, -this.y);
+            this.gameState.ctx.strokeStyle = this.color;
+            this.gameState.ctx.rect(this.x, this.y, this.w, this.h);
         };
         return FlowBlockButton;
     }(BaseBlock_1.BaseBlock));

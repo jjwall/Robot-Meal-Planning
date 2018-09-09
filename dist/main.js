@@ -1,4 +1,4 @@
-define(["require", "exports", "./level1", "./LevelCreator", "./SetUpEventListeners", "./GridBlock", "./CommandBlock", "./FlowBlock"], function (require, exports, level1_1, LevelCreator_1, SetUpEventListeners_1, GridBlock_1, CommandBlock_1, FlowBlock_1) {
+define(["require", "exports", "./level1", "./LevelCreator", "./SetUpEventListeners", "./FlowBlock"], function (require, exports, level1_1, LevelCreator_1, SetUpEventListeners_1, FlowBlock_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var GameState = (function () {
@@ -18,22 +18,15 @@ define(["require", "exports", "./level1", "./LevelCreator", "./SetUpEventListene
     var gameState = new GameState();
     LevelCreator_1.LevelCreator(gameState, level1_1.level1, "lightblue");
     SetUpEventListeners_1.SetUpEventListeners(gameState);
-    new FlowBlock_1.FlowBlockButton(gameState, 300, 5, 50, 50, "yellow", "left");
+    new FlowBlock_1.FlowBlockButton(gameState, 300, 5, 50, 50, "yellow", "up");
+    new FlowBlock_1.FlowBlockButton(gameState, 300, 60, 50, 50, "yellow", "down");
+    new FlowBlock_1.FlowBlockButton(gameState, 300, 115, 50, 50, "yellow", "left");
+    new FlowBlock_1.FlowBlockButton(gameState, 300, 170, 50, 50, "yellow", "right");
     function draw() {
         gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
         gameState.ctx.beginPath();
         gameState.blocks.forEach(function (block) {
-            if (block instanceof CommandBlock_1.CommandBlock
-                || block instanceof CommandBlock_1.CommandBlockButton
-                || block instanceof GridBlock_1.GridBlock) {
-                gameState.ctx.fillStyle = block.color;
-                gameState.ctx.fillRect(block.x, block.y, block.w, block.h);
-            }
-            else if (block instanceof FlowBlock_1.FlowBlock
-                || block instanceof FlowBlock_1.FlowBlockButton) {
-                gameState.ctx.strokeStyle = block.color;
-                gameState.ctx.rect(block.x, block.y, block.w, block.h);
-            }
+            block.draw();
         });
         gameState.ctx.stroke();
     }

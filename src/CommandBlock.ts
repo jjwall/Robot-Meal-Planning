@@ -28,6 +28,11 @@ export class CommandBlock extends BaseBlock {
             this.gameState.blocks.splice(index, 1);
         }
     }
+    
+    draw() : void {
+        this.gameState.ctx.fillStyle = this.color;
+        this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
 
     // onClick() {
     // }
@@ -49,13 +54,20 @@ export class CommandBlockButton extends BaseBlock {
         this.mouseDown = false;
         this.gameState.blocks.push(this);
     }
-    update () : void {
+
+    update() : void {
         if (this.mouseDown) {
             this.mouseDown = false;
             // TODO: Add type to CommandBlock constructor
             new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color);
         }
     }
+
+    draw() : void {
+        this.gameState.ctx.fillStyle = this.color;
+        this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+
 }
 
 // export function isCommandBlock(obj: object) : obj is CommandBlock {

@@ -34,6 +34,10 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
                 this.gameState.blocks.splice(index, 1);
             }
         };
+        CommandBlock.prototype.draw = function () {
+            this.gameState.ctx.fillStyle = this.color;
+            this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
+        };
         return CommandBlock;
     }(BaseBlock_1.BaseBlock));
     exports.CommandBlock = CommandBlock;
@@ -51,6 +55,10 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
                 this.mouseDown = false;
                 new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color);
             }
+        };
+        CommandBlockButton.prototype.draw = function () {
+            this.gameState.ctx.fillStyle = this.color;
+            this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
         };
         return CommandBlockButton;
     }(BaseBlock_1.BaseBlock));

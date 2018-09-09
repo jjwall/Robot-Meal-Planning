@@ -50,4 +50,9 @@ export class GridBlock extends BaseBlock {
             }
         })
     }
+
+    draw() : void {
+        this.gameState.ctx.fillStyle = this.color;
+        this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
 }

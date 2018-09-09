@@ -33,24 +33,28 @@ export class GameState {
 var gameState = new GameState();
 LevelCreator(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
-// test flow button
-new FlowBlockButton(gameState, 300, 5, 50, 50, "yellow", "left");
+// test flow buttons
+new FlowBlockButton(gameState, 300, 5, 50, 50, "yellow", "up");
+new FlowBlockButton(gameState, 300, 60, 50, 50, "yellow", "down");
+new FlowBlockButton(gameState, 300, 115, 50, 50, "yellow", "left");
+new FlowBlockButton(gameState, 300, 170, 50, 50, "yellow", "right");
 
 function draw() : void {
     gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
     gameState.ctx.beginPath();
     gameState.blocks.forEach(block => {
-        if (block instanceof CommandBlock
-            || block instanceof CommandBlockButton
-            || block instanceof GridBlock) {
-            gameState.ctx.fillStyle = block.color;
-            gameState.ctx.fillRect(block.x, block.y, block.w, block.h);
-        }
-        else if (block instanceof FlowBlock
-                || block instanceof FlowBlockButton) {
-            gameState.ctx.strokeStyle = block.color;
-            gameState.ctx.rect(block.x, block.y, block.w, block.h);
-        }
+        block.draw();
+        // if (block instanceof CommandBlock
+        //     || block instanceof CommandBlockButton
+        //     || block instanceof GridBlock) {
+        //     gameState.ctx.fillStyle = block.color;
+        //     gameState.ctx.fillRect(block.x, block.y, block.w, block.h);
+        // }
+        // else if (block instanceof FlowBlock
+        //         || block instanceof FlowBlockButton) {
+        //     gameState.ctx.strokeStyle = block.color;
+        //     gameState.ctx.rect(block.x, block.y, block.w, block.h);
+        // }
     });
 
     gameState.ctx.stroke();

@@ -52,6 +52,10 @@ define(["require", "exports", "./BaseBlock", "./CommandBlock", "./FlowBlock"], f
                 }
             });
         };
+        GridBlock.prototype.draw = function () {
+            this.gameState.ctx.fillStyle = this.color;
+            this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
+        };
         return GridBlock;
     }(BaseBlock_1.BaseBlock));
     exports.GridBlock = GridBlock;
