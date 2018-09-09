@@ -26,13 +26,20 @@ define(["require", "exports", "./level1", "./LevelCreator", "./SetUpEventListene
         gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
         gameState.ctx.beginPath();
         gameState.blocks.forEach(function (block) {
-            block.draw();
+            if (!(block instanceof FlowBlock_1.FlowBlock)) {
+                block.draw();
+            }
+        });
+        gameState.blocks.forEach(function (block) {
+            if (block instanceof FlowBlock_1.FlowBlock) {
+                block.draw();
+            }
         });
         gameState.ctx.stroke();
     }
     function update() {
-        gameState.blocks.forEach(function (entity) {
-            entity.update();
+        gameState.blocks.forEach(function (block) {
+            block.update();
         });
     }
     setInterval(function () {

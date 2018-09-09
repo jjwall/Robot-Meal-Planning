@@ -4,9 +4,12 @@ import { BaseBlock } from "./BaseBlock";
 import { level1 } from "./level1";
 import { LevelCreator } from "./LevelCreator";
 import { SetUpEventListeners } from "./SetUpEventListeners";
-import { GridBlock } from "./GridBlock";
-import { CommandBlock, CommandBlockButton } from "./CommandBlock";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";
+
+// TODO: switch spacebar control button to clickable radio button
+// TODO: add start command block
+// TODO: make sprites for command blocks
+// TODO: add code matrix for program
 
 export class GameState {
     canvas: HTMLCanvasElement;
@@ -42,27 +45,27 @@ new FlowBlockButton(gameState, 300, 170, 50, 50, "yellow", "right");
 function draw() : void {
     gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
     gameState.ctx.beginPath();
+
+    // render all non-flow blocks first
     gameState.blocks.forEach(block => {
-        block.draw();
-        // if (block instanceof CommandBlock
-        //     || block instanceof CommandBlockButton
-        //     || block instanceof GridBlock) {
-        //     gameState.ctx.fillStyle = block.color;
-        //     gameState.ctx.fillRect(block.x, block.y, block.w, block.h);
-        // }
-        // else if (block instanceof FlowBlock
-        //         || block instanceof FlowBlockButton) {
-        //     gameState.ctx.strokeStyle = block.color;
-        //     gameState.ctx.rect(block.x, block.y, block.w, block.h);
-        // }
+        if (!(block instanceof FlowBlock)) {
+            block.draw();
+        }
+    });
+
+    // render all flow blocks last to layer them on top of command blocks
+    gameState.blocks.forEach(block => {
+        if (block instanceof FlowBlock) {
+            block.draw();
+        }
     });
 
     gameState.ctx.stroke();
 }
 
 function update() : void {
-    gameState.blocks.forEach(entity => {
-        entity.update();
+    gameState.blocks.forEach(block => {
+        block.update();
     })
 }
 

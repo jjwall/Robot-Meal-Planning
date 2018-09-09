@@ -56,6 +56,7 @@ export class FlowBlock extends BaseBlock {
     }
 }
 
+// CONSIDER: Extending FlowBlock here
 export class FlowBlockButton extends BaseBlock {
     gameState: GameState;
     x: number;
@@ -90,7 +91,6 @@ export class FlowBlockButton extends BaseBlock {
     update() : void {
         if (this.mouseDown) {
             this.mouseDown = false;
-            // TODO: Add type to FlowBlock constructor
             new FlowBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color, this.type);
         }
     }
