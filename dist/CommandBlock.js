@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBlock_1) {
+define(["require", "exports", "./BaseBlock", "./Enums"], function (require, exports, BaseBlock_1, Enums_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var CommandBlock = (function (_super) {
@@ -22,13 +22,13 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
             _this.set = false;
             _this.image = new Image();
             switch (Type) {
-                case "start":
+                case Enums_1.CommandBlockTypes.Start:
                     _this.image.src = "data/textures/StartBlock.png";
                     break;
-                case "move":
+                case Enums_1.CommandBlockTypes.Move:
                     _this.image.src = "data/textures/MoveBlock.png";
                     break;
-                case "angle":
+                case Enums_1.CommandBlockTypes.Angle:
                     _this.image.src = "data/textures/AngleBlock.png";
                     break;
             }
@@ -64,13 +64,13 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
             _this.mouseDown = false;
             _this.image = new Image();
             switch (Type) {
-                case "start":
+                case Enums_1.CommandBlockTypes.Start:
                     _this.image.src = "data/textures/StartBlock.png";
                     break;
-                case "move":
+                case Enums_1.CommandBlockTypes.Move:
                     _this.image.src = "data/textures/MoveBlock.png";
                     break;
-                case "angle":
+                case Enums_1.CommandBlockTypes.Angle:
                     _this.image.src = "data/textures/AngleBlock.png";
                     break;
             }

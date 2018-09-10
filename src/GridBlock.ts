@@ -31,19 +31,20 @@ export class GridBlock extends BaseBlock {
                         block.h + block.y > this.y)
                     {
                         if (this.commandEmpty
-                            && block instanceof CommandBlock) {
+                            && block instanceof CommandBlock)
+                        {
                             block.x = this.x;
                             block.y = this.y;
                             block.set = true;
                             this.commandEmpty = false;
                         }
                         else if (this.flowEmpty
-                                && block instanceof FlowBlock) {
+                                && block instanceof FlowBlock)
+                        {
                             block.x = this.x;
                             block.y = this.y;
                             block.set = true;
                             this.flowEmpty = false;
-
                         }
                     }
                 }

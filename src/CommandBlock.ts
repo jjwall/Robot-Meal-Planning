@@ -1,5 +1,6 @@
 import { GameState } from "./main";
 import { BaseBlock } from "./BaseBlock";
+import { CommandBlockTypes } from "./Enums";
 
 export class CommandBlock extends BaseBlock {
     gameState: GameState;
@@ -10,21 +11,21 @@ export class CommandBlock extends BaseBlock {
     color: string;
     mouseDown: boolean;
     set: boolean;
-    type: string;
+    type: CommandBlockTypes;
     image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: string) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: CommandBlockTypes) {
         super(GameState, X, Y, H, W, Color);
         this.mouseDown = true;
         this.set = false;
         this.image = new Image();
         switch(Type) {
-            case "start":
+            case CommandBlockTypes.Start:
                 this.image.src = "data/textures/StartBlock.png";
                 break;
-            case "move":
+            case CommandBlockTypes.Move:
                 this.image.src = "data/textures/MoveBlock.png";
                 break;
-            case "angle":
+            case CommandBlockTypes.Angle:
                 this.image.src = "data/textures/AngleBlock.png";
                 break;
         }
@@ -64,21 +65,21 @@ export class CommandBlockButton extends BaseBlock {
     h: number;
     color: string;
     mouseDown: boolean;
-    type: string;
+    type: CommandBlockTypes;
     image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: string) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: CommandBlockTypes) {
         super(GameState, X, Y, H, W, Color);
         this.type = Type;
         this.mouseDown = false;
         this.image = new Image();
         switch(Type) {
-            case "start":
+            case CommandBlockTypes.Start:
                 this.image.src = "data/textures/StartBlock.png";
                 break;
-            case "move":
+            case CommandBlockTypes.Move:
                 this.image.src = "data/textures/MoveBlock.png";
                 break;
-            case "angle":
+            case CommandBlockTypes.Angle:
                 this.image.src = "data/textures/AngleBlock.png";
                 break;
         }

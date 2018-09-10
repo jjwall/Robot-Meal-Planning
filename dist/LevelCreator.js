@@ -1,4 +1,4 @@
-define(["require", "exports", "./GridBlock", "./CommandBlock"], function (require, exports, GridBlock_1, CommandBlock_1) {
+define(["require", "exports", "./GridBlock", "./CommandBlock", "./Enums"], function (require, exports, GridBlock_1, CommandBlock_1, Enums_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function LevelCreator(gameState, levelObj, paletteColor) {
@@ -20,22 +20,22 @@ define(["require", "exports", "./GridBlock", "./CommandBlock"], function (requir
         for (var i = 0; i < levelObj["command_blocks"].length; i++) {
             switch (levelObj["command_blocks"][i]) {
                 case "start":
-                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "start");
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", Enums_1.CommandBlockTypes.Start);
                     break;
                 case "move":
-                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "move");
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", Enums_1.CommandBlockTypes.Move);
                     break;
                 case "angle":
-                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "angle");
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", Enums_1.CommandBlockTypes.Angle);
                     break;
                 case "laser":
-                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "green", "laser");
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "green", Enums_1.CommandBlockTypes.Laser);
                     break;
                 case "scan":
-                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "darkblue", "scan");
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "darkblue", Enums_1.CommandBlockTypes.Scan);
                     break;
                 case "grapple":
-                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "maroon", "grapple");
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "maroon", Enums_1.CommandBlockTypes.Grapple);
                     break;
             }
             xOffset += 55;
