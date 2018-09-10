@@ -1,4 +1,4 @@
-define(["require", "exports", "./CommandBlock", "./GridBlock", "./FlowBlock"], function (require, exports, CommandBlock_1, GridBlock_1, FlowBlock_1) {
+define(["require", "exports", "./CommandBlock", "./GridBlock", "./FlowBlock", "./Enums"], function (require, exports, CommandBlock_1, GridBlock_1, FlowBlock_1, Enums_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function SetUpEventListeners(gameState) {
@@ -14,10 +14,10 @@ define(["require", "exports", "./CommandBlock", "./GridBlock", "./FlowBlock"], f
                     }
                     else if (block instanceof GridBlock_1.GridBlock) {
                         if (gameState.commandControl) {
-                            block.commandEmpty = true;
+                            block.commandType = Enums_1.CommandBlockTypes.Empty;
                         }
                         else if (gameState.flowControl) {
-                            block.flowEmpty = true;
+                            block.flowType = Enums_1.FlowBlockTypes.Empty;
                         }
                     }
                 }

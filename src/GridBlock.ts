@@ -2,6 +2,7 @@ import { GameState } from "./main";
 import { BaseBlock } from "./BaseBlock";
 import { CommandBlock } from "./CommandBlock";
 import { FlowBlock } from "./FlowBlock";
+import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
 
 export class GridBlock extends BaseBlock {
     gameState: GameState;
@@ -9,13 +10,13 @@ export class GridBlock extends BaseBlock {
     y: number;
     h: number;
     w: number;
-    commandEmpty: boolean
-    flowEmpty: boolean
+    commandType: CommandBlockTypes;
+    flowType: FlowBlockTypes;
     color: string;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string) {
         super(GameState, X, Y, H, W, Color);
-        this.commandEmpty = true;
-        this.flowEmpty = true;
+        this.commandType = CommandBlockTypes.Empty;
+        this.flowType = FlowBlockTypes.Empty;
         this.gameState.blocks.push(this);
     }
 
@@ -30,21 +31,21 @@ export class GridBlock extends BaseBlock {
                         block.y < this.y + this.h &&
                         block.h + block.y > this.y)
                     {
-                        if (this.commandEmpty
+                        if (this.commandType === CommandBlockTypes.Empty
                             && block instanceof CommandBlock)
                         {
                             block.x = this.x;
                             block.y = this.y;
                             block.set = true;
-                            this.commandEmpty = false;
+                            this.commandType = block.type;
                         }
-                        else if (this.flowEmpty
+                        else if (this.flowType === FlowBlockTypes.Empty
                                 && block instanceof FlowBlock)
                         {
                             block.x = this.x;
                             block.y = this.y;
                             block.set = true;
-                            this.flowEmpty = false;
+                            this.flowType = block.type;
                         }
                     }
                 }

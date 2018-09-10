@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBlock_1) {
+define(["require", "exports", "./BaseBlock", "./Enums"], function (require, exports, BaseBlock_1, Enums_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var FlowBlock = (function (_super) {
@@ -24,16 +24,16 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
             _this.set = false;
             _this.image = new Image();
             switch (Type) {
-                case "up":
+                case Enums_1.FlowBlockTypes.Up:
                     _this.image.src = "data/textures/UpArrow.png";
                     break;
-                case "down":
+                case Enums_1.FlowBlockTypes.Down:
                     _this.image.src = "data/textures/DownArrow.png";
                     break;
-                case "left":
+                case Enums_1.FlowBlockTypes.Left:
                     _this.image.src = "data/textures/LeftArrow.png";
                     break;
-                case "right":
+                case Enums_1.FlowBlockTypes.Right:
                     _this.image.src = "data/textures/RightArrow.png";
                     break;
             }
@@ -69,16 +69,16 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
             _this.mouseDown = false;
             _this.image = new Image();
             switch (Type) {
-                case "up":
+                case Enums_1.FlowBlockTypes.Up:
                     _this.image.src = "data/textures/UpArrow.png";
                     break;
-                case "down":
+                case Enums_1.FlowBlockTypes.Down:
                     _this.image.src = "data/textures/DownArrow.png";
                     break;
-                case "left":
+                case Enums_1.FlowBlockTypes.Left:
                     _this.image.src = "data/textures/LeftArrow.png";
                     break;
-                case "right":
+                case Enums_1.FlowBlockTypes.Right:
                     _this.image.src = "data/textures/RightArrow.png";
                     break;
             }

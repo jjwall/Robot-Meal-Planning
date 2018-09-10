@@ -1,9 +1,10 @@
 import { GameState } from "./main";
 import { BaseBlock } from "./BaseBlock";
+import { FlowBlockTypes } from "./Enums";
 
 export class FlowBlock extends BaseBlock {
     gameState: GameState;
-    type: string;
+    type: FlowBlockTypes;
     x: number;
     y: number;
     w: number;
@@ -11,7 +12,7 @@ export class FlowBlock extends BaseBlock {
     mouseDown: boolean;
     set: boolean;
     image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: string) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: FlowBlockTypes) {
         super(GameState, X, Y, H, W, Color);
         this.gameState = GameState;
         this.type = Type;
@@ -19,16 +20,16 @@ export class FlowBlock extends BaseBlock {
         this.set = false;
         this.image = new Image();
         switch(Type) {
-            case "up":
+            case FlowBlockTypes.Up:
                 this.image.src = "data/textures/UpArrow.png";
                 break;
-            case "down":
+            case FlowBlockTypes.Down:
                 this.image.src = "data/textures/DownArrow.png";
                 break;
-            case "left":
+            case FlowBlockTypes.Left:
                 this.image.src = "data/textures/LeftArrow.png";
                 break;
-            case "right":
+            case FlowBlockTypes.Right:
                 this.image.src = "data/textures/RightArrow.png";
                 break;
         }
@@ -65,27 +66,28 @@ export class FlowBlockButton extends BaseBlock {
     h: number;
     color: string;
     mouseDown: boolean;
-    type: string;
+    type: FlowBlockTypes;
     image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: string) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: FlowBlockTypes) {
         super(GameState, X, Y, H, W, Color);
         this.type = Type;
         this.mouseDown = false;
         this.image = new Image();
         switch(Type) {
-            case "up":
+            case FlowBlockTypes.Up:
                 this.image.src = "data/textures/UpArrow.png";
                 break;
-            case "down":
+            case FlowBlockTypes.Down:
                 this.image.src = "data/textures/DownArrow.png";
                 break;
-            case "left":
+            case FlowBlockTypes.Left:
                 this.image.src = "data/textures/LeftArrow.png";
                 break;
-            case "right":
+            case FlowBlockTypes.Right:
                 this.image.src = "data/textures/RightArrow.png";
                 break;
         }
+
         this.gameState.blocks.push(this);
     }
     update() : void {

@@ -5,6 +5,7 @@ import { level1 } from "./level1";
 import { LevelCreator } from "./LevelCreator";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";
+import { FlowBlockTypes } from "./Enums";
 
 // TODO: add code matrix for program
 // TODO: push most recently clicked command / flow block to top of block array to render it on top of everything else
@@ -36,10 +37,10 @@ var gameState = new GameState();
 LevelCreator(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
 // test flow buttons
-new FlowBlockButton(gameState, 300, 5, 50, 50, "yellow", "up");
-new FlowBlockButton(gameState, 300, 60, 50, 50, "yellow", "down");
-new FlowBlockButton(gameState, 300, 115, 50, 50, "yellow", "left");
-new FlowBlockButton(gameState, 300, 170, 50, 50, "yellow", "right");
+new FlowBlockButton(gameState, 300, 5, 50, 50, "yellow", FlowBlockTypes.Up);
+new FlowBlockButton(gameState, 300, 60, 50, 50, "yellow", FlowBlockTypes.Down);
+new FlowBlockButton(gameState, 300, 115, 50, 50, "yellow", FlowBlockTypes.Left);
+new FlowBlockButton(gameState, 300, 170, 50, 50, "yellow", FlowBlockTypes.Right);
 
 function draw() : void {
     gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);

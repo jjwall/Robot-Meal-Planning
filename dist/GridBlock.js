@@ -11,15 +11,15 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./BaseBlock", "./CommandBlock", "./FlowBlock"], function (require, exports, BaseBlock_1, CommandBlock_1, FlowBlock_1) {
+define(["require", "exports", "./BaseBlock", "./CommandBlock", "./FlowBlock", "./Enums"], function (require, exports, BaseBlock_1, CommandBlock_1, FlowBlock_1, Enums_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var GridBlock = (function (_super) {
         __extends(GridBlock, _super);
         function GridBlock(GameState, X, Y, H, W, Color) {
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
-            _this.commandEmpty = true;
-            _this.flowEmpty = true;
+            _this.commandType = Enums_1.CommandBlockTypes.Empty;
+            _this.flowType = Enums_1.FlowBlockTypes.Empty;
             _this.gameState.blocks.push(_this);
             return _this;
         }
@@ -33,19 +33,19 @@ define(["require", "exports", "./BaseBlock", "./CommandBlock", "./FlowBlock"], f
                             block.x + block.w > _this.x &&
                             block.y < _this.y + _this.h &&
                             block.h + block.y > _this.y) {
-                            if (_this.commandEmpty
+                            if (_this.commandType === Enums_1.CommandBlockTypes.Empty
                                 && block instanceof CommandBlock_1.CommandBlock) {
                                 block.x = _this.x;
                                 block.y = _this.y;
                                 block.set = true;
-                                _this.commandEmpty = false;
+                                _this.commandType = block.type;
                             }
-                            else if (_this.flowEmpty
+                            else if (_this.flowType === Enums_1.FlowBlockTypes.Empty
                                 && block instanceof FlowBlock_1.FlowBlock) {
                                 block.x = _this.x;
                                 block.y = _this.y;
                                 block.set = true;
-                                _this.flowEmpty = false;
+                                _this.flowType = block.type;
                             }
                         }
                     }

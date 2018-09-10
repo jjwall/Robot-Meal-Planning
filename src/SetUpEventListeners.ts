@@ -2,6 +2,7 @@ import { GameState } from "./main";
 import { CommandBlock, CommandBlockButton } from "./CommandBlock";
 import { GridBlock } from "./GridBlock";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";
+import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
 
 export function SetUpEventListeners(gameState: GameState) {
     gameState.canvas.addEventListener('mousedown', function() : void {
@@ -18,10 +19,10 @@ export function SetUpEventListeners(gameState: GameState) {
                 else if (block instanceof GridBlock) {
                     // check radio button for flow or command control
                     if (gameState.commandControl) {
-                        block.commandEmpty = true;
+                        block.commandType = CommandBlockTypes.Empty;
                     }
                     else if (gameState.flowControl) {
-                        block.flowEmpty = true;
+                        block.flowType = FlowBlockTypes.Empty;
                     }
                 }
             }
