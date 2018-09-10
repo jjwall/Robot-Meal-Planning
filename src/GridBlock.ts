@@ -10,11 +10,15 @@ export class GridBlock extends BaseBlock {
     y: number;
     h: number;
     w: number;
+    r: number;
+    c: number;
     commandType: CommandBlockTypes;
     flowType: FlowBlockTypes;
     color: string;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Row: number, Column: number, Color: string) {
         super(GameState, X, Y, H, W, Color);
+        this.r = Row;
+        this.c = Column;
         this.commandType = CommandBlockTypes.Empty;
         this.flowType = FlowBlockTypes.Empty;
         this.gameState.blocks.push(this);
@@ -50,7 +54,7 @@ export class GridBlock extends BaseBlock {
                     }
                 }
             }
-        })
+        });
     }
 
     draw() : void {

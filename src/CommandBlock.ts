@@ -17,6 +17,7 @@ export class CommandBlock extends BaseBlock {
         super(GameState, X, Y, H, W, Color);
         this.mouseDown = true;
         this.set = false;
+        this.type = Type;
         this.image = new Image();
         switch(Type) {
             case CommandBlockTypes.Start:
@@ -69,8 +70,8 @@ export class CommandBlockButton extends BaseBlock {
     image: HTMLImageElement;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: CommandBlockTypes) {
         super(GameState, X, Y, H, W, Color);
-        this.type = Type;
         this.mouseDown = false;
+        this.type = Type;
         this.image = new Image();
         switch(Type) {
             case CommandBlockTypes.Start:

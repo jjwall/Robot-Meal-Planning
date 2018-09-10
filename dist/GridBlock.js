@@ -16,8 +16,10 @@ define(["require", "exports", "./BaseBlock", "./CommandBlock", "./FlowBlock", ".
     Object.defineProperty(exports, "__esModule", { value: true });
     var GridBlock = (function (_super) {
         __extends(GridBlock, _super);
-        function GridBlock(GameState, X, Y, H, W, Color) {
+        function GridBlock(GameState, X, Y, H, W, Row, Column, Color) {
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
+            _this.r = Row;
+            _this.c = Column;
             _this.commandType = Enums_1.CommandBlockTypes.Empty;
             _this.flowType = Enums_1.FlowBlockTypes.Empty;
             _this.gameState.blocks.push(_this);

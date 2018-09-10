@@ -6,9 +6,9 @@ define(["require", "exports", "./GridBlock", "./CommandBlock", "./Enums"], funct
         var xOffset = 5;
         var maxXOffset = 0;
         var maxYOffset = 0;
-        for (var i = 0; i < levelObj["command_palette"]["block_height"]; i++) {
-            for (var j = 0; j < levelObj["command_palette"]["block_width"]; j++) {
-                new GridBlock_1.GridBlock(gameState, xOffset, yOffset, 50, 50, paletteColor);
+        for (var r = 0; r < levelObj["command_palette"]["block_height"]; r++) {
+            for (var c = 0; c < levelObj["command_palette"]["block_width"]; c++) {
+                new GridBlock_1.GridBlock(gameState, xOffset, yOffset, 50, 50, r, c, paletteColor);
                 xOffset += 55;
             }
             yOffset += 55;

@@ -10,9 +10,9 @@ export function LevelCreator(gameState: GameState, levelObj: object, paletteColo
     let maxYOffset: number = 0;
 
     // set up grid for Command Palette
-    for (var i = 0; i < levelObj["command_palette"]["block_height"]; i++) {
-        for (var j = 0; j < levelObj["command_palette"]["block_width"]; j++) {
-            new GridBlock(gameState, xOffset, yOffset, 50, 50, paletteColor);
+    for (var r = 0; r < levelObj["command_palette"]["block_height"]; r++) {
+        for (var c = 0; c < levelObj["command_palette"]["block_width"]; c++) {
+            new GridBlock(gameState, xOffset, yOffset, 50, 50, r, c, paletteColor);
             xOffset += 55;
         }
         yOffset += 55;

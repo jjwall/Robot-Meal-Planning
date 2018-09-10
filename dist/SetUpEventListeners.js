@@ -50,6 +50,75 @@ define(["require", "exports", "./CommandBlock", "./GridBlock", "./FlowBlock", ".
                     console.log("Flow Control!");
                 }
             }
+            if (e.keyCode === 83) {
+                var programBlocks_1 = 0;
+                var visitedBlocks_1 = [];
+                var targetRow_1 = 0;
+                var targetCol_1 = 0;
+                gameState.blocks.forEach(function (block) {
+                    if (block instanceof GridBlock_1.GridBlock) {
+                        if (block.commandType !== Enums_1.CommandBlockTypes.Empty
+                            && block.flowType !== Enums_1.FlowBlockTypes.Empty) {
+                            programBlocks_1++;
+                            if (block.commandType === Enums_1.CommandBlockTypes.Start) {
+                                targetRow_1 = block.r;
+                                targetCol_1 = block.c;
+                                visitedBlocks_1.push([targetRow_1, targetCol_1]);
+                            }
+                        }
+                    }
+                });
+                for (var i = 0; i < programBlocks_1; i++) {
+                    gameState.blocks.forEach(function (block) {
+                        if (block instanceof GridBlock_1.GridBlock) {
+                            if (block.commandType !== Enums_1.CommandBlockTypes.Empty
+                                && block.flowType !== Enums_1.FlowBlockTypes.Empty) {
+                                if (block.r === targetRow_1 && block.c === targetCol_1) {
+                                    console.log(Enums_1.CommandBlockTypes[block.commandType]);
+                                    switch (block.flowType) {
+                                        case Enums_1.FlowBlockTypes.Up:
+                                            targetRow_1--;
+                                            if ((visitedBlocks_1.filter(function (block) { return block === [targetRow_1, targetCol_1]; }).length > 0)) {
+                                                programBlocks_1++;
+                                            }
+                                            else {
+                                                visitedBlocks_1.push([targetRow_1, targetCol_1]);
+                                            }
+                                            break;
+                                        case Enums_1.FlowBlockTypes.Down:
+                                            targetRow_1++;
+                                            if ((visitedBlocks_1.filter(function (block) { return block === [targetRow_1, targetCol_1]; }).length > 0)) {
+                                                programBlocks_1++;
+                                            }
+                                            else {
+                                                visitedBlocks_1.push([targetRow_1, targetCol_1]);
+                                            }
+                                            break;
+                                        case Enums_1.FlowBlockTypes.Right:
+                                            targetCol_1++;
+                                            if ((visitedBlocks_1.filter(function (block) { return block === [targetRow_1, targetCol_1]; }).length > 0)) {
+                                                programBlocks_1++;
+                                            }
+                                            else {
+                                                visitedBlocks_1.push([targetRow_1, targetCol_1]);
+                                            }
+                                            break;
+                                        case Enums_1.FlowBlockTypes.Left:
+                                            targetCol_1--;
+                                            if ((visitedBlocks_1.filter(function (block) { return block === [targetRow_1, targetCol_1]; }).length > 0)) {
+                                                programBlocks_1++;
+                                            }
+                                            else {
+                                                visitedBlocks_1.push([targetRow_1, targetCol_1]);
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
         };
     }
     exports.SetUpEventListeners = SetUpEventListeners;

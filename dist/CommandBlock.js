@@ -20,6 +20,7 @@ define(["require", "exports", "./BaseBlock", "./Enums"], function (require, expo
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
             _this.mouseDown = true;
             _this.set = false;
+            _this.type = Type;
             _this.image = new Image();
             switch (Type) {
                 case Enums_1.CommandBlockTypes.Start:
@@ -60,8 +61,8 @@ define(["require", "exports", "./BaseBlock", "./Enums"], function (require, expo
         __extends(CommandBlockButton, _super);
         function CommandBlockButton(GameState, X, Y, H, W, Color, Type) {
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
-            _this.type = Type;
             _this.mouseDown = false;
+            _this.type = Type;
             _this.image = new Image();
             switch (Type) {
                 case Enums_1.CommandBlockTypes.Start:
