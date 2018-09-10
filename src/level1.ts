@@ -6,11 +6,9 @@ export var level1 = {
         "block_height": 5
     },
     "command_blocks": [
+        "start",
         "move",
         "angle",
-        "laser",
-        "scan",
-        "grapple"
     ],
     "command_paths": [
         "up",

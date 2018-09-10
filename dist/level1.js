@@ -8,11 +8,9 @@ define(["require", "exports"], function (require, exports) {
             "block_height": 5
         },
         "command_blocks": [
+            "start",
             "move",
             "angle",
-            "laser",
-            "scan",
-            "grapple"
         ],
         "command_paths": [
             "up",

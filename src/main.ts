@@ -6,10 +6,9 @@ import { LevelCreator } from "./LevelCreator";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";
 
-// TODO: switch spacebar control button to clickable radio button
-// TODO: add start command block
-// TODO: make sprites for command blocks
 // TODO: add code matrix for program
+// TODO: push most recently clicked command / flow block to top of block array to render it on top of everything else
+// TODO: switch spacebar control button to clickable radio button
 
 export class GameState {
     canvas: HTMLCanvasElement;

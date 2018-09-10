@@ -26,11 +26,14 @@ export function LevelCreator(gameState: GameState, levelObj: object, paletteColo
     // CONSIDER: Accommodating for command palette width
     for (var i = 0; i < levelObj["command_blocks"].length; i ++) {
         switch(levelObj["command_blocks"][i]) {
+            case "start":
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "start");
+                break;
             case "move":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "orange", "move");
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "move");
                 break;
             case "angle":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "purple", "angle");
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "angle");
                 break;
             case "laser":
                 new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "green", "laser");

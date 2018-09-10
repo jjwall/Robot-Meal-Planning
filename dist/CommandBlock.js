@@ -16,10 +16,22 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
     Object.defineProperty(exports, "__esModule", { value: true });
     var CommandBlock = (function (_super) {
         __extends(CommandBlock, _super);
-        function CommandBlock(GameState, X, Y, H, W, Color) {
+        function CommandBlock(GameState, X, Y, H, W, Color, Type) {
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
             _this.mouseDown = true;
             _this.set = false;
+            _this.image = new Image();
+            switch (Type) {
+                case "start":
+                    _this.image.src = "data/textures/StartBlock.png";
+                    break;
+                case "move":
+                    _this.image.src = "data/textures/MoveBlock.png";
+                    break;
+                case "angle":
+                    _this.image.src = "data/textures/AngleBlock.png";
+                    break;
+            }
             _this.gameState.blocks.push(_this);
             return _this;
         }
@@ -37,6 +49,9 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
         CommandBlock.prototype.draw = function () {
             this.gameState.ctx.fillStyle = this.color;
             this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
+            this.gameState.ctx.translate(this.x, this.y);
+            this.gameState.ctx.drawImage(this.image, 0, 0);
+            this.gameState.ctx.translate(-this.x, -this.y);
         };
         return CommandBlock;
     }(BaseBlock_1.BaseBlock));
@@ -47,18 +62,33 @@ define(["require", "exports", "./BaseBlock"], function (require, exports, BaseBl
             var _this = _super.call(this, GameState, X, Y, H, W, Color) || this;
             _this.type = Type;
             _this.mouseDown = false;
+            _this.image = new Image();
+            switch (Type) {
+                case "start":
+                    _this.image.src = "data/textures/StartBlock.png";
+                    break;
+                case "move":
+                    _this.image.src = "data/textures/MoveBlock.png";
+                    break;
+                case "angle":
+                    _this.image.src = "data/textures/AngleBlock.png";
+                    break;
+            }
             _this.gameState.blocks.push(_this);
             return _this;
         }
         CommandBlockButton.prototype.update = function () {
             if (this.mouseDown) {
                 this.mouseDown = false;
-                new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color);
+                new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color, this.type);
             }
         };
         CommandBlockButton.prototype.draw = function () {
             this.gameState.ctx.fillStyle = this.color;
             this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
+            this.gameState.ctx.translate(this.x, this.y);
+            this.gameState.ctx.drawImage(this.image, 0, 0);
+            this.gameState.ctx.translate(-this.x, -this.y);
         };
         return CommandBlockButton;
     }(BaseBlock_1.BaseBlock));

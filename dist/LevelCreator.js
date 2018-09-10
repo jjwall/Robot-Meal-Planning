@@ -19,11 +19,14 @@ define(["require", "exports", "./GridBlock", "./CommandBlock"], function (requir
         yOffset = maxYOffset + 20;
         for (var i = 0; i < levelObj["command_blocks"].length; i++) {
             switch (levelObj["command_blocks"][i]) {
+                case "start":
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "start");
+                    break;
                 case "move":
-                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "orange", "move");
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "move");
                     break;
                 case "angle":
-                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "purple", "angle");
+                    new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", "angle");
                     break;
                 case "laser":
                     new CommandBlock_1.CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "green", "laser");
