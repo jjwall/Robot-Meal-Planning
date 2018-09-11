@@ -1,8 +1,7 @@
 /// <reference path="./declarations/json.d.ts" />
 import { BaseBlock } from "./BaseBlock";
 import { IGameState } from "./IGameState";
-// import level1 from '../data/levels/level1.json';
-import { level1 } from "./level1";
+import level1 from '../data/levels/level1.json';
 import { LevelCreator } from "./LevelCreator";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";

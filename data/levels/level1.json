@@ -5,11 +5,9 @@
         "block_height": 5
     },
     "command_blocks": [
+        "start",
         "move",
-        "angle",
-        "laser",
-        "scan",
-        "grapple"
+        "angle"
     ],
     "command_paths": [
         "up",
