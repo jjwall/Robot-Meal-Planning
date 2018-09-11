@@ -1,5 +1,6 @@
 /// <reference path="./declarations/json.d.ts" />
 import { BaseBlock } from "./BaseBlock";
+import { IGameState } from "./IGameState";
 // import level1 from '../data/levels/level1.json';
 import { level1 } from "./level1";
 import { LevelCreator } from "./LevelCreator";
@@ -20,15 +21,15 @@ export class GameState {
     mouseY: number;
     commandControl: boolean;
     flowControl: boolean;
-    constructor() {
-        this.canvas = <HTMLCanvasElement> document.getElementById("gameScreen");
-        this.ctx = <CanvasRenderingContext2D> this.canvas.getContext("2d");
-        this.rect = <ClientRect | DOMRect> this.canvas.getBoundingClientRect();
-        this.blocks = [];
-        this.mouseX = 0;
-        this.mouseY = 0;
-        this.commandControl = true;
-        this.flowControl = false;
+    constructor(obj?: IGameState) {
+        this.canvas = obj && obj.canvas || <HTMLCanvasElement> document.getElementById("gameScreen");
+        this.ctx = obj && obj.ctx || <CanvasRenderingContext2D> this.canvas.getContext("2d");
+        this.rect = obj && obj.rect || <ClientRect | DOMRect> this.canvas.getBoundingClientRect();
+        this.blocks = obj && obj.blocks || [];
+        this.mouseX = obj && obj.mouseX || 0;
+        this.mouseY = obj && obj.mouseY || 0;
+        this.commandControl = obj && obj.commandControl || true;
+        this.flowControl = obj && obj.flowControl || false;
     }
 }
 

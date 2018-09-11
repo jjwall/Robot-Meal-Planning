@@ -7,16 +7,5 @@
         "preserveConstEnums": true,
         "outDir": "dist/",
         "sourceMap": true,
-        // "watch": true,
-    },
-    // "compileOnSave": true,
-    "files": [
-        "src/main.ts",
-        "src/BaseBlock.ts",
-        "src/GridBlock.ts",
-        "src/CommandBlock.ts",
-        "src/FlowBlock.ts",
-        "src/LevelCreator.ts",
-        "src/level1.ts"
-    ]
+    }
 }
