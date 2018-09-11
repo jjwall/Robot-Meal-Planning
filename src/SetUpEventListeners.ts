@@ -64,8 +64,8 @@ export function SetUpEventListeners(gameState: GameState) {
         if (e.keyCode === 83) {
             let programBlocks = 0;
             let visitedBlocks = [];
-            let targetRow = 0;
-            let targetCol = 0;
+            let targetRow = -1;
+            let targetCol = -1;
             // run program
             gameState.blocks.forEach(block => {
                 if (block instanceof GridBlock) {
