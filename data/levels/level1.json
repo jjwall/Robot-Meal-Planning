@@ -9,7 +9,7 @@
         "move",
         "angle"
     ],
-    "command_paths": [
+    "flow_blocks": [
         "up",
         "down",
         "left",
