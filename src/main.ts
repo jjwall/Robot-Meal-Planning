@@ -19,6 +19,8 @@ export class GameState {
     mouseY: number;
     commandControl: boolean;
     flowControl: boolean;
+    programStack: any[];
+    programRunning: boolean;
     constructor(obj?: IGameState) {
         this.canvas = obj && obj.canvas || <HTMLCanvasElement> document.getElementById("gameScreen");
         this.ctx = obj && obj.ctx || <CanvasRenderingContext2D> this.canvas.getContext("2d");
@@ -28,6 +30,8 @@ export class GameState {
         this.mouseY = obj && obj.mouseY || 0;
         this.commandControl = obj && obj.commandControl || true;
         this.flowControl = obj && obj.flowControl || false;
+        this.programStack = obj && obj.programStack || [];
+        this.programRunning = obj && obj.programRunning || false;
     }
 }
 
@@ -66,4 +70,15 @@ function update() : void {
 setInterval(function() : void {
     update();
     draw();
+
+    if (gameState.programStack.length > 0 && gameState.programRunning) {
+        gameState.programStack.forEach(call => {
+            // figure out how to make these async
+            call();
+            gameState.programStack.pop();
+        });
+    }
+    else {
+        gameState.programRunning = false;
+    }
 }, 12);

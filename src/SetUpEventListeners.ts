@@ -3,6 +3,7 @@ import { CommandBlock, CommandBlockButton } from "./CommandBlock";
 import { GridBlock } from "./GridBlock";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";
 import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
+import { startNewThread } from "./ProgramExecution";
 
 export function SetUpEventListeners(gameState: GameState) {
     gameState.canvas.addEventListener('mousedown', function() : void {
@@ -62,78 +63,9 @@ export function SetUpEventListeners(gameState: GameState) {
 
         // i.e. S key pressed
         if (e.keyCode === 83) {
-            let programBlocks = 0;
-            let visitedBlocks = [];
-            let targetRow = -1;
-            let targetCol = -1;
-            // run program
-            gameState.blocks.forEach(block => {
-                if (block instanceof GridBlock) {
-                    if (block.commandType !== CommandBlockTypes.Empty
-                        && block.flowType !== FlowBlockTypes.Empty) {
-                        programBlocks++;
-                        if (block.commandType === CommandBlockTypes.Start) {
-                            targetRow = block.r;
-                            targetCol = block.c;
-                            visitedBlocks.push([targetRow, targetCol]);
-                        }
-                        // this.console.log("row: " + block.r);
-                        // this.console.log("column: " + block.c);
-                        // this.console.log("flow: " + block.flowType);
-                        // this.console.log("command: " + block.commandType);
-                    }
-                }
-            });
-            
-            for (var i = 0; i < programBlocks; i ++) {
-                gameState.blocks.forEach(block => {
-                    if (block instanceof GridBlock) {
-                        if (block.commandType !== CommandBlockTypes.Empty
-                            && block.flowType !== FlowBlockTypes.Empty) {
-                            if (block.r === targetRow && block.c === targetCol) {
-                                console.log(CommandBlockTypes[block.commandType]);
-                                switch(block.flowType) {
-                                    case FlowBlockTypes.Up:
-                                        targetRow--;
-                                        if ((visitedBlocks.filter(block => block === [targetRow, targetCol]).length > 0)) {
-                                            programBlocks++;
-                                        }
-                                        else {
-                                            visitedBlocks.push([targetRow, targetCol]);
-                                        }
-                                        break;
-                                    case FlowBlockTypes.Down:
-                                        targetRow++;
-                                        if ((visitedBlocks.filter(block => block === [targetRow, targetCol]).length > 0)) {
-                                            programBlocks++;
-                                        }
-                                        else {
-                                            visitedBlocks.push([targetRow, targetCol]);
-                                        }
-                                        break;
-                                    case FlowBlockTypes.Right:
-                                        targetCol++;
-                                        if ((visitedBlocks.filter(block => block === [targetRow, targetCol]).length > 0)) {
-                                            programBlocks++;
-                                        }
-                                        else {
-                                            visitedBlocks.push([targetRow, targetCol]);
-                                        }
-                                        break;
-                                    case FlowBlockTypes.Left:
-                                        targetCol--;
-                                        if ((visitedBlocks.filter(block => block === [targetRow, targetCol]).length > 0)) {
-                                            programBlocks++;
-                                        }
-                                        else {
-                                            visitedBlocks.push([targetRow, targetCol]);
-                                        }
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                });
+            if (!gameState.programRunning) {
+                gameState.programRunning = true;
+                startNewThread(gameState, 1);
             }
         }
     }

@@ -9,4 +9,6 @@ export interface IGameState {
     mouseY: number;
     commandControl: boolean;
     flowControl: boolean;
+    programStack: any[];
+    programRunning: boolean;
 }
