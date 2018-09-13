@@ -1,4 +1,4 @@
-import { GameState } from "./main";
+import { GameState } from "./GameState";
 import { BaseBlock } from "./BaseBlock";
 import { FlowBlockTypes } from "./Enums";
 

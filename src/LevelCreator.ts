@@ -1,4 +1,4 @@
-import { GameState } from "./main";
+import { GameState } from "./GameState";
 import { GridBlock } from "./GridBlock";
 import { CommandBlockButton } from "./CommandBlock";
 import { FlowBlockButton } from "./FlowBlock";

@@ -1,29 +1,31 @@
-import { GameState } from "./main";
+import { GameState } from "./GameState";
 import { GridBlock } from "./GridBlock";
 import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
 
-function move(gameState: GameState, block: GridBlock) {
+function moveCall(gameState: GameState, block: GridBlock) {
     console.log("move");
-    gameState.programStack.push(findNextExecution(gameState, block));
+    gameState.callStack.push(findNextCall(gameState, block));
 }
 
-function angle(gameState: GameState, block: GridBlock) {
+function angleCall(gameState: GameState, block: GridBlock) {
     console.log("angle");
-    gameState.programStack.push(findNextExecution(gameState, block));
+    gameState.callStack.push(findNextCall(gameState, block));
 }
 
-function start(gameState: GameState, block: GridBlock) {
+// function will only have findNextExecution bit
+// won't do anything except continue execution if players use it like a normal command block
+function startCall(gameState: GameState, block: GridBlock) {
     console.log("start");
-    gameState.programStack.push(findNextExecution(gameState, block));
+    gameState.callStack.push(findNextCall(gameState, block));
 }
 
-function stopThread(gameState: GameState) {
+function stopThreadCall(gameState: GameState) {
     console.log("stopping thread");
-    gameState.programStack = [];
+    gameState.callStack = [];
     gameState.programRunning = false;
 }
 
-export function startNewThread(gameState: GameState, thread: number) {
+export function startNewThreadCall(gameState: GameState, thread: number) {
     // locate thread
     gameState.blocks.forEach(block => {
         if (block instanceof GridBlock) {
@@ -31,15 +33,18 @@ export function startNewThread(gameState: GameState, thread: number) {
                 && block.flowType !== FlowBlockTypes.Empty)
             {
                 // start thread
-                gameState.programStack.push(findNextExecution(gameState, block));
+                gameState.callStack.push(findNextCall(gameState, block));
             }
         }
     });
 }
 
-function findNextExecution(gameState: GameState, block: GridBlock) : any {
+function findNextCall(gameState: GameState, block: GridBlock) : any {
     let targetRow: number;
     let targetCol: number;
+    // TODO: add conditionals
+    // this will work well here since each call finds the next call
+    // after it has already executed
     switch(block.flowType) {
         case FlowBlockTypes.Up:
             targetRow = block.r - 1;
@@ -66,21 +71,17 @@ function findNextExecution(gameState: GameState, block: GridBlock) : any {
                 && block.flowType !== FlowBlockTypes.Empty) {
                 switch(block.commandType) {
                     case CommandBlockTypes.Angle:
-                        return angle(gameState, block);
-                        break;
+                        return angleCall(gameState, block);
                     case CommandBlockTypes.Move:
-                        return move(gameState, block);
-                        break;
+                        return moveCall(gameState, block);
                     case CommandBlockTypes.Start:
-                        return start(gameState, block);
-                        break;
+                        return startCall(gameState, block);
                     default:
-                        return stopThread(gameState);
-                        break;
+                        return stopThreadCall(gameState);
                 }
             }
         }
     });
 
-    return stopThread(gameState);
+    return stopThreadCall(gameState);
 }

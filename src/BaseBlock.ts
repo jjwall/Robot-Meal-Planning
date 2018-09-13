@@ -1,4 +1,4 @@
-import { GameState } from "./main";
+import { GameState } from "./GameState";
 
 export abstract class BaseBlock {
     gameState: GameState;

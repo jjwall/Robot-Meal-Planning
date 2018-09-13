@@ -1,9 +1,9 @@
-import { GameState } from "./main";
+import { GameState } from "./GameState";
 import { CommandBlock, CommandBlockButton } from "./CommandBlock";
 import { GridBlock } from "./GridBlock";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";
 import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
-import { startNewThread } from "./ProgramExecution";
+import { startNewThreadCall } from "./ProgramExecution";
 
 export function SetUpEventListeners(gameState: GameState) {
     gameState.canvas.addEventListener('mousedown', function() : void {
@@ -65,7 +65,7 @@ export function SetUpEventListeners(gameState: GameState) {
         if (e.keyCode === 83) {
             if (!gameState.programRunning) {
                 gameState.programRunning = true;
-                startNewThread(gameState, 1);
+                startNewThreadCall(gameState, 1);
             }
         }
     }

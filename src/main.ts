@@ -1,39 +1,14 @@
 /// <reference path="./declarations/json.d.ts" />
-import { BaseBlock } from "./BaseBlock";
-import { IGameState } from "./IGameState";
+import { GameState } from "./GameState";
 import level1 from '../data/levels/level1.json';
 import { LevelCreator } from "./LevelCreator";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
 
-// TODO: add code matrix for program
+// TODO: add text-based ui elements to command blocks
+// TODO: have FlowBlockButton and CommandBlockButtons extend from their respective blocks
 // TODO: push most recently clicked command / flow block to top of block array to render it on top of everything else
 // TODO: switch spacebar control button to clickable radio button
-
-export class GameState {
-    canvas: HTMLCanvasElement;
-    ctx: CanvasRenderingContext2D;
-    rect: ClientRect | DOMRect;
-    blocks: BaseBlock[];
-    mouseX: number;
-    mouseY: number;
-    commandControl: boolean;
-    flowControl: boolean;
-    programStack: any[];
-    programRunning: boolean;
-    constructor(obj?: IGameState) {
-        this.canvas = obj && obj.canvas || <HTMLCanvasElement> document.getElementById("gameScreen");
-        this.ctx = obj && obj.ctx || <CanvasRenderingContext2D> this.canvas.getContext("2d");
-        this.rect = obj && obj.rect || <ClientRect | DOMRect> this.canvas.getBoundingClientRect();
-        this.blocks = obj && obj.blocks || [];
-        this.mouseX = obj && obj.mouseX || 0;
-        this.mouseY = obj && obj.mouseY || 0;
-        this.commandControl = obj && obj.commandControl || true;
-        this.flowControl = obj && obj.flowControl || false;
-        this.programStack = obj && obj.programStack || [];
-        this.programRunning = obj && obj.programRunning || false;
-    }
-}
 
 // set up game state
 var gameState = new GameState();
@@ -71,11 +46,11 @@ setInterval(function() : void {
     update();
     draw();
 
-    if (gameState.programStack.length > 0 && gameState.programRunning) {
-        gameState.programStack.forEach(call => {
+    if (gameState.callStack.length > 0 && gameState.programRunning) {
+        gameState.callStack.forEach(call => {
             // figure out how to make these async
             call();
-            gameState.programStack.pop();
+            gameState.callStack.pop();
         });
     }
     else {
