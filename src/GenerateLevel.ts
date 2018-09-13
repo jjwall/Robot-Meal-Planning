@@ -4,7 +4,7 @@ import { CommandBlockButton } from "./CommandBlock";
 import { FlowBlockButton } from "./FlowBlock";
 import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
 
-export function LevelCreator(gameState: GameState, levelObj: object, paletteColor: string) {
+export function GenerateLevel(gameState: GameState, levelObj: object, paletteColor: string) {
     let yOffset: number = 5;
     let xOffset: number = 5;
     let maxXOffset: number = 0;

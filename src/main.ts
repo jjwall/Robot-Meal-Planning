@@ -1,7 +1,7 @@
 /// <reference path="./declarations/json.d.ts" />
 import { GameState } from "./GameState";
 import level1 from '../data/levels/level1.json';
-import { LevelCreator } from "./LevelCreator";
+import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
 
@@ -12,7 +12,7 @@ import { FlowBlock } from "./FlowBlock";
 
 // set up game state
 var gameState = new GameState();
-LevelCreator(gameState, level1, "lightblue");
+GenerateLevel(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
 
 function draw() : void {
