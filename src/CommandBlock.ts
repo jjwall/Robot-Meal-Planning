@@ -29,6 +29,9 @@ export class CommandBlock extends BaseBlock {
             case CommandBlockTypes.Angle:
                 this.image.src = "data/textures/AngleBlock.png";
                 break;
+            case CommandBlockTypes.Thread:
+                this.image.src = "data/textures/ThreadBlock.png";
+                break;
         }
         this.gameState.blocks.push(this);
     }
@@ -82,6 +85,9 @@ export class CommandBlockButton extends BaseBlock {
                 break;
             case CommandBlockTypes.Angle:
                 this.image.src = "data/textures/AngleBlock.png";
+                break;
+            case CommandBlockTypes.Thread:
+                this.image.src = "data/textures/ThreadBlock.png";
                 break;
         }
         this.gameState.blocks.push(this);

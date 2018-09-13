@@ -38,6 +38,9 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
             case "angle":
                 new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandBlockTypes.Angle);
                 break;
+            case "thread":
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandBlockTypes.Thread);
+                break;
             case "laser":
                 new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "green", CommandBlockTypes.Laser);
                 break;

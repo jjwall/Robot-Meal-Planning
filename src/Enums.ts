@@ -3,6 +3,7 @@ export enum CommandBlockTypes {
     Start,
     Move,
     Angle,
+    Thread,
     Scan,
     Laser,
     Grapple
