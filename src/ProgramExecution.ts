@@ -84,17 +84,23 @@ function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
                     case CommandBlockTypes.Angle:
                         block.call = () => angleCall(gameState, block);
                         block.callCount = 1; // test amoun
-                        gameState.callStack.push(block);
+                        // gameState.callStack.push(block);
+                        gameState.nextCall.push(block);
+                        gameState.callStack = gameState.nextCall;
                         break;
                     case CommandBlockTypes.Move:
                         block.call = () => moveCall(gameState, block);
                         block.callCount = 20; // test amount
-                        gameState.callStack.push(block);
+                        // gameState.callStack.push(block);
+                        gameState.nextCall.push(block);
+                        gameState.callStack = gameState.nextCall;
                         break;
                     case CommandBlockTypes.Start:
                         block.call = () => startCall(gameState, block);
                         block.callCount = 0;
-                        gameState.callStack.push(block);
+                        // gameState.callStack.push(block);
+                        gameState.nextCall.push(block);
+                        gameState.callStack = gameState.nextCall;
                         break;
                     // default:
                     //     return stopThreadCall(gameState);

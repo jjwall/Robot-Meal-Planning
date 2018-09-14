@@ -60,7 +60,7 @@ setInterval(function() : void {
             }
         });
         // if (gameState.callStack.length > 0)
-        // gameState.callStack = gameState.nextCall;
+        gameState.callStack = gameState.nextCall;
     }
     else {
         gameState.programRunning = false;
