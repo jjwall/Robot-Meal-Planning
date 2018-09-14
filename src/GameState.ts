@@ -10,8 +10,7 @@ export class GameState {
     mouseY: number;
     commandControl: boolean;
     flowControl: boolean;
-    callStack: GridBlock[];
-    nextCall: GridBlock[];
+    nextStack: GridBlock[];
     programRunning: boolean;
     constructor(obj?: IGameState) {
         this.canvas = obj && obj.canvas || <HTMLCanvasElement> document.getElementById("gameScreen");
@@ -22,8 +21,7 @@ export class GameState {
         this.mouseY = obj && obj.mouseY || 0;
         this.commandControl = obj && obj.commandControl || true;
         this.flowControl = obj && obj.flowControl || false;
-        this.callStack = obj && obj.callStack || [];
-        this.nextCall = obj && obj.nextCall || [];
+        this.nextStack = obj && obj.nextStack || [];
         this.programRunning = obj && obj.programRunning || false;
     }
 }
@@ -37,7 +35,6 @@ export interface IGameState {
     mouseY: number;
     commandControl: boolean;
     flowControl: boolean;
-    callStack: any[];
-    nextCall: any[];
+    nextStack: any[];
     programRunning: boolean;
 }

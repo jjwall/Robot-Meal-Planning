@@ -46,24 +46,23 @@ setInterval(function() : void {
     update();
     draw();
 
-    gameState.nextCall = [];
+    const callStack = gameState.nextStack;
+    gameState.nextStack = [];
 
-    if (gameState.callStack.length > 0) {
-        gameState.callStack.forEach(block => {
+    if (callStack.length > 0) {
+        callStack.forEach(block => {
+            // will call command and push it back on stack
             if (block.callCount > 0) {
                 block.call();
-                gameState.nextCall.push(block);
-                gameState.callStack = gameState.nextCall;
+                gameState.nextStack.push(block);
             }
+            // else just call once and find next call
             else {
                 block.call();
             }
         });
-        // if (gameState.callStack.length > 0)
-        gameState.callStack = gameState.nextCall;
     }
     else {
         gameState.programRunning = false;
     }
-        // gameState.callStack = gameState.nextCall;
 }, 12);

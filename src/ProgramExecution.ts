@@ -29,12 +29,6 @@ function startCall(gameState: GameState, block: GridBlock) {
     findNextCall(gameState, block);
 }
 
-function stopThreadCall(gameState: GameState) {
-    console.log("stopping thread");
-    gameState.callStack = [];
-    gameState.programRunning = false;
-}
-
 export function startNewThreadCall(gameState: GameState, thread: number) {
     // locate thread
     gameState.blocks.forEach(block => {
@@ -43,7 +37,6 @@ export function startNewThreadCall(gameState: GameState, thread: number) {
                 && block.flowType !== FlowBlockTypes.Empty)
             {
                 // start thread
-                // gameState.callStack.push(findNextCall(gameState, block));
                 findNextCall(gameState, block);
             }
         }
@@ -83,27 +76,19 @@ function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
                 switch(block.commandType) {
                     case CommandBlockTypes.Angle:
                         block.call = () => angleCall(gameState, block);
-                        block.callCount = 1; // test amoun
-                        // gameState.callStack.push(block);
-                        gameState.nextCall.push(block);
-                        gameState.callStack = gameState.nextCall;
+                        block.callCount = 1; // test amount
+                        gameState.nextStack.push(block);
                         break;
                     case CommandBlockTypes.Move:
                         block.call = () => moveCall(gameState, block);
                         block.callCount = 20; // test amount
-                        // gameState.callStack.push(block);
-                        gameState.nextCall.push(block);
-                        gameState.callStack = gameState.nextCall;
+                        gameState.nextStack.push(block);
                         break;
                     case CommandBlockTypes.Start:
                         block.call = () => startCall(gameState, block);
                         block.callCount = 0;
-                        // gameState.callStack.push(block);
-                        gameState.nextCall.push(block);
-                        gameState.callStack = gameState.nextCall;
+                        gameState.nextStack.push(block);
                         break;
-                    // default:
-                    //     return stopThreadCall(gameState);
                 }
             }
         }
