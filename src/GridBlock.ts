@@ -14,6 +14,8 @@ export class GridBlock extends BaseBlock {
     c: number;
     commandType: CommandBlockTypes;
     flowType: FlowBlockTypes;
+    call: any;
+    callCount: number;
     color: string;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Row: number, Column: number, Color: string) {
         super(GameState, X, Y, H, W, Color);

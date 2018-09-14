@@ -46,14 +46,24 @@ setInterval(function() : void {
     update();
     draw();
 
-    if (gameState.callStack.length > 0 && gameState.programRunning) {
-        gameState.callStack.forEach(call => {
-            // figure out how to make these async
-            call();
-            gameState.callStack.pop();
+    gameState.nextCall = [];
+
+    if (gameState.callStack.length > 0) {
+        gameState.callStack.forEach(block => {
+            if (block.callCount > 0) {
+                block.call();
+                gameState.nextCall.push(block);
+                gameState.callStack = gameState.nextCall;
+            }
+            else {
+                block.call();
+            }
         });
+        // if (gameState.callStack.length > 0)
+        // gameState.callStack = gameState.nextCall;
     }
     else {
         gameState.programRunning = false;
     }
+        // gameState.callStack = gameState.nextCall;
 }, 12);

@@ -1,4 +1,5 @@
 import { BaseBlock } from "./BaseBlock";
+import { GridBlock } from "./GridBlock";
 
 export class GameState {
     canvas: HTMLCanvasElement;
@@ -9,7 +10,8 @@ export class GameState {
     mouseY: number;
     commandControl: boolean;
     flowControl: boolean;
-    callStack: any[];
+    callStack: GridBlock[];
+    nextCall: GridBlock[];
     programRunning: boolean;
     constructor(obj?: IGameState) {
         this.canvas = obj && obj.canvas || <HTMLCanvasElement> document.getElementById("gameScreen");
@@ -21,6 +23,7 @@ export class GameState {
         this.commandControl = obj && obj.commandControl || true;
         this.flowControl = obj && obj.flowControl || false;
         this.callStack = obj && obj.callStack || [];
+        this.nextCall = obj && obj.nextCall || [];
         this.programRunning = obj && obj.programRunning || false;
     }
 }
@@ -35,5 +38,6 @@ export interface IGameState {
     commandControl: boolean;
     flowControl: boolean;
     callStack: any[];
+    nextCall: any[];
     programRunning: boolean;
 }

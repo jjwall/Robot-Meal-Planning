@@ -3,20 +3,30 @@ import { GridBlock } from "./GridBlock";
 import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
 
 function moveCall(gameState: GameState, block: GridBlock) {
-    console.log("move");
-    gameState.callStack.push(findNextCall(gameState, block));
+    if (block.callCount > 0) {
+        console.log("move");
+        block.callCount--;
+    }
+    else {
+        findNextCall(gameState, block);
+    }
 }
 
 function angleCall(gameState: GameState, block: GridBlock) {
-    console.log("angle");
-    gameState.callStack.push(findNextCall(gameState, block));
+    if (block.callCount > 0) {
+        console.log("angle");
+        block.callCount--;
+    }
+    else {
+        findNextCall(gameState, block);
+    }
 }
 
 // function will only have findNextExecution bit
 // won't do anything except continue execution if players use it like a normal command block
 function startCall(gameState: GameState, block: GridBlock) {
     console.log("start");
-    gameState.callStack.push(findNextCall(gameState, block));
+    findNextCall(gameState, block);
 }
 
 function stopThreadCall(gameState: GameState) {
@@ -33,34 +43,35 @@ export function startNewThreadCall(gameState: GameState, thread: number) {
                 && block.flowType !== FlowBlockTypes.Empty)
             {
                 // start thread
-                gameState.callStack.push(findNextCall(gameState, block));
+                // gameState.callStack.push(findNextCall(gameState, block));
+                findNextCall(gameState, block);
             }
         }
     });
 }
 
-function findNextCall(gameState: GameState, block: GridBlock) : any {
+function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
     let targetRow: number;
     let targetCol: number;
     // TODO: add conditionals
     // this will work well here since each call finds the next call
     // after it has already executed
-    switch(block.flowType) {
+    switch(prevBlock.flowType) {
         case FlowBlockTypes.Up:
-            targetRow = block.r - 1;
-            targetCol = block.c;
+            targetRow = prevBlock.r - 1;
+            targetCol = prevBlock.c;
             break;
         case FlowBlockTypes.Down:
-            targetRow = block.r + 1;
-            targetCol = block.c;
+            targetRow = prevBlock.r + 1;
+            targetCol = prevBlock.c;
             break;
         case FlowBlockTypes.Right:
-            targetCol = block.c + 1;
-            targetRow = block.r;
+            targetCol = prevBlock.c + 1;
+            targetRow = prevBlock.r;
             break;
         case FlowBlockTypes.Left:
-            targetCol = block.c - 1;
-            targetRow = block.r;
+            targetCol = prevBlock.c - 1;
+            targetRow = prevBlock.r;
             break;
     }
 
@@ -71,17 +82,24 @@ function findNextCall(gameState: GameState, block: GridBlock) : any {
                 && block.flowType !== FlowBlockTypes.Empty) {
                 switch(block.commandType) {
                     case CommandBlockTypes.Angle:
-                        return angleCall(gameState, block);
+                        block.call = () => angleCall(gameState, block);
+                        block.callCount = 1; // test amoun
+                        gameState.callStack.push(block);
+                        break;
                     case CommandBlockTypes.Move:
-                        return moveCall(gameState, block);
+                        block.call = () => moveCall(gameState, block);
+                        block.callCount = 20; // test amount
+                        gameState.callStack.push(block);
+                        break;
                     case CommandBlockTypes.Start:
-                        return startCall(gameState, block);
-                    default:
-                        return stopThreadCall(gameState);
+                        block.call = () => startCall(gameState, block);
+                        block.callCount = 0;
+                        gameState.callStack.push(block);
+                        break;
+                    // default:
+                    //     return stopThreadCall(gameState);
                 }
             }
         }
     });
-
-    return stopThreadCall(gameState);
 }
