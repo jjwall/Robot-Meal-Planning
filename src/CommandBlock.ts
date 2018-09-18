@@ -37,11 +37,14 @@ export class CommandBlock extends BaseBlock {
     }
 
     update() : void {
+        // drag command block
         if (this.mouseDown) {
             this.x = this.gameState.mouseX - this.w/2;
             this.y = this.gameState.mouseY - this.h/2;
             this.set = false;
         }
+
+        // delete if dropping block and it doesn't have a empty grid block to be set on
         if (!this.mouseDown && !this.set) {
             var index = this.gameState.blocks.indexOf(this);
             this.gameState.blocks.splice(index, 1);

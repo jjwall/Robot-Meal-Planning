@@ -8,7 +8,7 @@ import { startNewThreadCall } from "./ProgramExecution";
 export function SetUpEventListeners(gameState: GameState) {
     gameState.canvas.addEventListener('mousedown', function() : void {
         // Collision detection between clicked offset and block.
-        gameState.blocks.forEach(function(block) : void {
+        gameState.blocks.forEach(block => {
             if (gameState.mouseY > block.y && gameState.mouseY < block.y + block.h
                 && gameState.mouseX > block.x && gameState.mouseX < block.x + block.w) {
                 if (block instanceof CommandBlock && gameState.commandControl
@@ -27,18 +27,32 @@ export function SetUpEventListeners(gameState: GameState) {
                     }
                 }
             }
-        })
+        });
+
+        // check for sliders being clicked
+        gameState.sliders.forEach(s => {
+            if (gameState.mouseY > s.sliderY && gameState.mouseY < s.sliderY + s.sliderH
+                && gameState.mouseX > s.sliderX && gameState.mouseX < s.sliderX + s.sliderW) {
+                s.mouseDown = true;
+            }
+
+        });
     }, false);
 
+    // make sure all clickable entities aren't clickable on mouseup
     gameState.canvas.addEventListener('mouseup', function() : void {
-        gameState.blocks.forEach(function(block) {
+        gameState.blocks.forEach(block => {
             if (block instanceof CommandBlock
                 || block instanceof FlowBlock) {
                 if (block.mouseDown) {
                     block.mouseDown = false;
                 }
             }
-        })
+        });
+
+        gameState.sliders.forEach(s => {
+            s.mouseDown = false;
+        });
     }, false);
 
     gameState.canvas.addEventListener('mousemove', function(evt: MouseEvent) : void {

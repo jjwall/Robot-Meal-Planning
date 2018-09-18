@@ -4,6 +4,7 @@ import level1 from '../data/levels/level1.json';
 import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
+import { Slider } from "./Slider";
 
 // TODO: add text-based ui elements to command blocks
 // TODO: have FlowBlockButton and CommandBlockButtons extend from their respective blocks
@@ -15,9 +16,18 @@ var gameState = new GameState();
 GenerateLevel(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
 
+// set up test ui elements
+gameState.sliders.push(new Slider(gameState, 80, 365));
+gameState.sliders.push(new Slider(gameState, 130, 365));
+
 function draw() : void {
     gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
     gameState.ctx.beginPath();
+
+    // render UI elements
+    gameState.sliders.forEach(slider => {
+        slider.draw();
+    });
 
     // render all non-flow blocks first
     gameState.blocks.forEach(block => {
@@ -39,7 +49,11 @@ function draw() : void {
 function update() : void {
     gameState.blocks.forEach(block => {
         block.update();
-    })
+    });
+
+    gameState.sliders.forEach(slider => {
+        slider.update();
+    });
 }
 
 setInterval(function() : void {
