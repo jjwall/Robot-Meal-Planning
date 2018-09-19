@@ -1,13 +1,14 @@
 import { GameState } from "./GameState";
 
-// to do make sure min / max percentages can be reached
 // add command and conditional types as a param and to Enums.ts
-// add optional param for "sticky" values separating in variable amount
+// add to GenerateLevel
 // maybe add support for thread starter?
 export class Slider {
     gameState: GameState;
     mouseDown: boolean;
+    snapAmount: number;
     percentage: number;
+    value: number;
     sliderX: number;
     sliderY: number;
     sliderH: number;
@@ -18,7 +19,7 @@ export class Slider {
     barH: number;
     barW: number;
     barColor: string;
-    constructor(GameState: GameState, X :number, Y: number) {
+    constructor(GameState: GameState, X :number, Y: number, SnapAmount: number = 10) {
         this.gameState = GameState;
         this.mouseDown = false;
         this.barH = 75;
@@ -31,7 +32,9 @@ export class Slider {
         this.sliderX = X;
         this.sliderY = Y + this.barH/2 - this.sliderH/2;
         this.sliderColor = "purple";
+        this.snapAmount = SnapAmount;
         this.percentage = 1 - (this.sliderY - this.barY + this.sliderH/2) / this.barH;
+        this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
     }
 
     update() : void {
@@ -39,11 +42,16 @@ export class Slider {
             if (this.barY - this.sliderH/2 < this.gameState.mouseY &&
                 this.barY + this.barH - this.sliderH/2 > this.gameState.mouseY)
             {
-                this.sliderY = this.gameState.mouseY;
-                this.percentage = 1 - (this.sliderY - this.barY + this.sliderH/2) / this.barH;
+                const tempSliderY = this.gameState.mouseY;
+                // find percentage slider is up vertical on bar
+                this.percentage = 1 - (tempSliderY - this.barY + this.sliderH/2) / this.barH;
+                // set the value to be the rounded percentage based on snap amount
+                this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
+                // set sliderY value based on new value from the rounded percantage
+                this.sliderY = this.barH + this.barY - (this.sliderH/2) - (this.value * this.barH);
+                console.log(this.value);
             }
         }
-        // console.log(this.percentage);
     }
 
     draw() : void {
