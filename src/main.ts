@@ -7,9 +7,8 @@ import { FlowBlock } from "./FlowBlock";
 import { Slider } from "./Slider";
 import { CommandBlockTypes } from "./Enums";
 
-// TODO: add text-based (numbers) ui elements to command block
-// TODO: make sliders functional
-// TODO: remove test callCount values in ProgramExecution
+// TODO: add special unit logic for start block / thread blocks since they don't follow same rules
+// -> i.e. will need to do a switch on type when updating unit values within command block buttons update method
 // TODO: add big yellow block that renders behind grid blocks to indicate which block is currently being executed
 // TODO: have FlowBlockButton and CommandBlockButtons extend from their respective blocks
 // TODO: push most recently clicked command / flow block to top of block array to render it on top of everything else

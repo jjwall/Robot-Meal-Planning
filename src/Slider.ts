@@ -56,8 +56,6 @@ export class Slider {
                 this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
                 // set sliderY value based on new value from the rounded percantage
                 this.sliderY = this.barH + this.barY - (this.sliderH/2) - (this.value * this.barH);
-                console.log(Math.round((this.value * this.maxUnits)));
-                // console.log(this.value * 10);
             }
         }
     }

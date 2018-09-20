@@ -10,6 +10,7 @@ export class CommandBlock extends BaseBlock {
     h: number;
     readonly units: number;
     readonly callCount: number;
+    readonly totalUnits: number;
     color: string;
     mouseDown: boolean;
     set: boolean;
@@ -19,6 +20,7 @@ export class CommandBlock extends BaseBlock {
         super(GameState, X, Y, H, W, Color);
         this.units = Units;
         this.callCount = CallCount;
+        this.totalUnits = this.units * this.callCount;
         this.mouseDown = true;
         this.set = false;
         this.type = Type;
@@ -61,6 +63,18 @@ export class CommandBlock extends BaseBlock {
         this.gameState.ctx.translate(this.x, this.y);
         this.gameState.ctx.drawImage(this.image, 0, 0);
         this.gameState.ctx.translate(-this.x, -this.y);
+        this.gameState.ctx.fillStyle = "black";
+        this.gameState.ctx.font = "15px Arial";
+        let offsetX = 30;
+
+        if (this.totalUnits > 99) {
+            offsetX = 25;
+        }
+        else if (this.totalUnits < 10) {
+            offsetX = 35;
+        }
+
+        this.gameState.ctx.fillText((this.totalUnits).toString(), this.x + offsetX, this.y + 48);
     }
 
     // onClick() {
@@ -76,6 +90,7 @@ export class CommandBlockButton extends BaseBlock {
     h: number;
     units: number;
     callCount: number;
+    totalUnits: number;
     color: string;
     mouseDown: boolean;
     type: CommandBlockTypes;
@@ -87,6 +102,7 @@ export class CommandBlockButton extends BaseBlock {
         this.image = new Image();
         this.units = 0;
         this.callCount = 0;
+        this.totalUnits = 0;
         switch(Type) {
             case CommandBlockTypes.Start:
                 this.image.src = "data/textures/StartBlock.png";
@@ -105,15 +121,16 @@ export class CommandBlockButton extends BaseBlock {
     }
 
     update() : void {
+        this.gameState.sliders.forEach(slider => {
+            if (slider.type === this.type) {
+                this.callCount = Math.round((slider.value * slider.maxUnits)/slider.baseUnits);
+                this.units = slider.baseUnits;
+                this.totalUnits = this.units * this.callCount;
+            }
+        });
+
         if (this.mouseDown) {
             this.mouseDown = false;
-
-            this.gameState.sliders.forEach(slider => {
-                if (slider.type === this.type) {
-                    this.callCount = Math.round((slider.value * slider.maxUnits)/slider.baseUnits);
-                    this.units = slider.baseUnits;
-                }
-            });
             new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.units, this.callCount, this.Color, this.type);
         }
     }
@@ -124,6 +141,19 @@ export class CommandBlockButton extends BaseBlock {
         this.gameState.ctx.translate(this.x, this.y);
         this.gameState.ctx.drawImage(this.image, 0, 0);
         this.gameState.ctx.translate(-this.x, -this.y);
+        this.gameState.ctx.fillStyle = "black";
+        this.gameState.ctx.font = "15px Arial";
+        let offsetX = 30;
+
+        if (this.totalUnits > 99) {
+            offsetX = 25;
+        }
+
+        else if (this.totalUnits < 10) {
+            offsetX = 35;
+        }
+        
+        this.gameState.ctx.fillText((this.totalUnits).toString(), this.x + offsetX, this.y + 48);
     }
 
 }
