@@ -2,7 +2,7 @@ import { GameState } from "./GameState";
 import { CommandBlock, CommandBlockButton } from "./CommandBlock";
 import { GridBlock } from "./GridBlock";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";
-import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
+import { CommandTypes, FlowTypes } from "./Enums";
 import { startNewThreadCall } from "./ProgramExecution";
 
 export function SetUpEventListeners(gameState: GameState) {
@@ -20,10 +20,10 @@ export function SetUpEventListeners(gameState: GameState) {
                 else if (block instanceof GridBlock) {
                     // check radio button for flow or command control
                     if (gameState.commandControl) {
-                        block.commandType = CommandBlockTypes.Empty;
+                        block.commandType = CommandTypes.Empty;
                     }
                     else if (gameState.flowControl) {
-                        block.flowType = FlowBlockTypes.Empty;
+                        block.flowType = FlowTypes.Empty;
                     }
                 }
             }

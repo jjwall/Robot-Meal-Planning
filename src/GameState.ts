@@ -3,17 +3,17 @@ import { GridBlock } from "./GridBlock";
 import { Slider } from "./Slider";
 
 export class GameState {
-    canvas: HTMLCanvasElement;
-    ctx: CanvasRenderingContext2D;
-    rect: ClientRect | DOMRect;
-    blocks: BaseBlock[];
-    sliders: Slider[];
-    mouseX: number;
-    mouseY: number;
-    commandControl: boolean;
-    flowControl: boolean;
-    nextStack: GridBlock[];
-    programRunning: boolean;
+    readonly canvas: HTMLCanvasElement;
+    readonly ctx: CanvasRenderingContext2D;
+    readonly rect: ClientRect | DOMRect;
+    public blocks: BaseBlock[];
+    public sliders: Slider[];
+    public mouseX: number;
+    public mouseY: number;
+    public commandControl: boolean;
+    public flowControl: boolean;
+    public nextStack: GridBlock[];
+    public programRunning: boolean;
     constructor(obj?: IGameState) {
         this.canvas = obj && obj.canvas || <HTMLCanvasElement> document.getElementById("gameScreen");
         this.ctx = obj && obj.ctx || <CanvasRenderingContext2D> this.canvas.getContext("2d");
@@ -30,9 +30,9 @@ export class GameState {
 }
 
 export interface IGameState {
-    canvas: HTMLCanvasElement;
-    ctx: CanvasRenderingContext2D;
-    rect: ClientRect | DOMRect;
+    readonly canvas: HTMLCanvasElement;
+    readonly ctx: CanvasRenderingContext2D;
+    readonly rect: ClientRect | DOMRect;
     blocks: BaseBlock[];
     sliders: Slider[];
     mouseX: number;

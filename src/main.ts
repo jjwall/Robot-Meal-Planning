@@ -5,7 +5,7 @@ import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
 import { Slider } from "./Slider";
-import { CommandBlockTypes } from "./Enums";
+import { CommandTypes } from "./Enums";
 
 // TODO: add special unit logic for start block / thread blocks since they don't follow same rules
 // -> i.e. will need to do a switch on type when updating unit values within command block buttons update method
@@ -24,8 +24,8 @@ GenerateLevel(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
 
 // set up test ui elements
-gameState.sliders.push(new Slider(gameState, 80, 365, 100, CommandBlockTypes.Move));
-gameState.sliders.push(new Slider(gameState, 130, 365, 360, CommandBlockTypes.Angle, 8));
+gameState.sliders.push(new Slider(gameState, 80, 365, 100, CommandTypes.Move));
+gameState.sliders.push(new Slider(gameState, 130, 365, 360, CommandTypes.Angle, 8));
 
 function draw() : void {
     gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);

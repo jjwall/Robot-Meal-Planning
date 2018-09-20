@@ -1,22 +1,22 @@
 import { GameState } from "./GameState";
 import { BaseBlock } from "./BaseBlock";
-import { CommandBlockTypes } from "./Enums";
+import { CommandTypes } from "./Enums";
 
 export class CommandBlock extends BaseBlock {
-    gameState: GameState;
-    x: number;
-    y: number;
-    w: number;
-    h: number;
+    protected gameState: GameState;
+    public x: number;
+    public y: number;
+    readonly w: number;
+    readonly h: number;
     readonly units: number;
     readonly callCount: number;
     readonly totalUnits: number;
-    color: string;
-    mouseDown: boolean;
-    set: boolean;
-    type: CommandBlockTypes;
-    image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Units: number, CallCount: number, Color: string, Type: CommandBlockTypes) {
+    readonly color: string;
+    public mouseDown: boolean;
+    public set: boolean;
+    readonly type: CommandTypes;
+    readonly image: HTMLImageElement;
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Units: number, CallCount: number, Color: string, Type: CommandTypes) {
         super(GameState, X, Y, H, W, Color);
         this.units = Units;
         this.callCount = CallCount;
@@ -26,23 +26,23 @@ export class CommandBlock extends BaseBlock {
         this.type = Type;
         this.image = new Image();
         switch(Type) {
-            case CommandBlockTypes.Start:
+            case CommandTypes.Start:
                 this.image.src = "data/textures/StartBlock.png";
                 break;
-            case CommandBlockTypes.Move:
+            case CommandTypes.Move:
                 this.image.src = "data/textures/MoveBlock.png";
                 break;
-            case CommandBlockTypes.Angle:
+            case CommandTypes.Angle:
                 this.image.src = "data/textures/AngleBlock.png";
                 break;
-            case CommandBlockTypes.Thread:
+            case CommandTypes.Thread:
                 this.image.src = "data/textures/ThreadBlock.png";
                 break;
         }
         this.gameState.blocks.push(this);
     }
 
-    update() : void {
+    public update() : void {
         // drag command block
         if (this.mouseDown) {
             this.x = this.gameState.mouseX - this.w/2;
@@ -57,7 +57,7 @@ export class CommandBlock extends BaseBlock {
         }
     }
 
-    draw() : void {
+    public draw() : void {
         this.gameState.ctx.fillStyle = this.color;
         this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
         this.gameState.ctx.translate(this.x, this.y);
@@ -83,19 +83,19 @@ export class CommandBlock extends BaseBlock {
 
 // CONSIDER: extending CommandBlock class
 export class CommandBlockButton extends BaseBlock {
-    gameState: GameState;
-    x: number;
-    y: number;
-    w: number;
-    h: number;
-    units: number;
-    callCount: number;
-    totalUnits: number;
-    color: string;
-    mouseDown: boolean;
-    type: CommandBlockTypes;
-    image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: CommandBlockTypes) {
+    protected gameState: GameState;
+    public x: number;
+    public y: number;
+    readonly w: number;
+    readonly h: number;
+    public units: number;
+    public callCount: number;
+    public totalUnits: number;
+    readonly color: string;
+    public mouseDown: boolean;
+    readonly type: CommandTypes;
+    readonly image: HTMLImageElement;
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: CommandTypes) {
         super(GameState, X, Y, H, W, Color);
         this.mouseDown = false;
         this.type = Type;
@@ -104,23 +104,23 @@ export class CommandBlockButton extends BaseBlock {
         this.callCount = 0;
         this.totalUnits = 0;
         switch(Type) {
-            case CommandBlockTypes.Start:
+            case CommandTypes.Start:
                 this.image.src = "data/textures/StartBlock.png";
                 break;
-            case CommandBlockTypes.Move:
+            case CommandTypes.Move:
                 this.image.src = "data/textures/MoveBlock.png";
                 break;
-            case CommandBlockTypes.Angle:
+            case CommandTypes.Angle:
                 this.image.src = "data/textures/AngleBlock.png";
                 break;
-            case CommandBlockTypes.Thread:
+            case CommandTypes.Thread:
                 this.image.src = "data/textures/ThreadBlock.png";
                 break;
         }
         this.gameState.blocks.push(this);
     }
 
-    update() : void {
+    public update() : void {
         this.gameState.sliders.forEach(slider => {
             if (slider.type === this.type) {
                 this.callCount = Math.round((slider.value * slider.maxUnits)/slider.baseUnits);
@@ -135,7 +135,7 @@ export class CommandBlockButton extends BaseBlock {
         }
     }
 
-    draw() : void {
+    public draw() : void {
         this.gameState.ctx.fillStyle = this.color;
         this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
         this.gameState.ctx.translate(this.x, this.y);
@@ -152,7 +152,7 @@ export class CommandBlockButton extends BaseBlock {
         else if (this.totalUnits < 10) {
             offsetX = 35;
         }
-        
+
         this.gameState.ctx.fillText((this.totalUnits).toString(), this.x + offsetX, this.y + 48);
     }
 

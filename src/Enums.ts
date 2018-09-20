@@ -1,4 +1,4 @@
-export enum CommandBlockTypes {
+export enum CommandTypes {
     Empty,
     Start,
     Move,
@@ -9,7 +9,7 @@ export enum CommandBlockTypes {
     Grapple
 }
 
-export enum FlowBlockTypes {
+export enum FlowTypes {
     Empty,
     Up,
     Down,

@@ -1,12 +1,12 @@
 import { GameState } from "./GameState";
 
 export abstract class BaseBlock {
-    gameState: GameState;
-    x: number;
-    y: number;
-    h: number;
-    w: number;
-    color: string;
+    protected gameState: GameState;
+    public x: number;
+    public y: number;
+    readonly h: number;
+    readonly w: number;
+    readonly color: string;
     constructor(public GameState: GameState,
                 public X: number,
                 public Y: number,

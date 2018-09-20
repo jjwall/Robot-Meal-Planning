@@ -2,33 +2,33 @@ import { GameState } from "./GameState";
 import { BaseBlock } from "./BaseBlock";
 import { CommandBlock } from "./CommandBlock";
 import { FlowBlock } from "./FlowBlock";
-import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
+import { CommandTypes, FlowTypes } from "./Enums";
 
 export class GridBlock extends BaseBlock {
-    gameState: GameState;
-    x: number;
-    y: number;
-    h: number;
-    w: number;
-    r: number;
-    c: number;
-    units: number; // "readonly"
-    callCount: number; // "readonly"
-    currentCallCount: number;
-    commandType: CommandBlockTypes;
-    flowType: FlowBlockTypes;
-    call: any;
-    color: string;
+    protected gameState: GameState;
+    public x: number;
+    public y: number;
+    readonly h: number;
+    readonly w: number;
+    public r: number;
+    public c: number;
+    public units: number; // public?
+    public callCount: number;
+    public currentCallCount: number;
+    public commandType: CommandTypes;
+    public flowType: FlowTypes;
+    public call: any; // change type here to generic method signature
+    readonly color: string;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Row: number, Column: number, Color: string) {
         super(GameState, X, Y, H, W, Color);
         this.r = Row;
         this.c = Column;
-        this.commandType = CommandBlockTypes.Empty;
-        this.flowType = FlowBlockTypes.Empty;
+        this.commandType = CommandTypes.Empty;
+        this.flowType = FlowTypes.Empty;
         this.gameState.blocks.push(this);
     }
 
-    update() : void {
+    public update() : void {
         // see if command block is being dropped on empty grid block
         this.gameState.blocks.forEach(block => {
             if (block instanceof CommandBlock
@@ -39,7 +39,7 @@ export class GridBlock extends BaseBlock {
                         block.y < this.y + this.h &&
                         block.h + block.y > this.y)
                     {
-                        if (this.commandType === CommandBlockTypes.Empty
+                        if (this.commandType === CommandTypes.Empty
                             && block instanceof CommandBlock)
                         {
                             block.x = this.x;
@@ -50,7 +50,7 @@ export class GridBlock extends BaseBlock {
                             this.callCount = block.callCount;
                             this.currentCallCount = block.callCount;
                         }
-                        else if (this.flowType === FlowBlockTypes.Empty
+                        else if (this.flowType === FlowTypes.Empty
                                 && block instanceof FlowBlock)
                         {
                             block.x = this.x;
@@ -65,7 +65,7 @@ export class GridBlock extends BaseBlock {
         });
     }
 
-    draw() : void {
+    public draw() : void {
         this.gameState.ctx.fillStyle = this.color;
         this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
     }

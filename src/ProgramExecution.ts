@@ -1,6 +1,6 @@
 import { GameState } from "./GameState";
 import { GridBlock } from "./GridBlock";
-import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
+import { CommandTypes, FlowTypes } from "./Enums";
 
 function moveCall(gameState: GameState, block: GridBlock) {
     if (block.currentCallCount > 0) {
@@ -33,8 +33,8 @@ export function startNewThreadCall(gameState: GameState, thread: number) {
     // locate thread
     gameState.blocks.forEach(block => {
         if (block instanceof GridBlock) {
-            if (block.commandType === CommandBlockTypes.Start //&& threadNumber === thread
-                && block.flowType !== FlowBlockTypes.Empty)
+            if (block.commandType === CommandTypes.Start //&& threadNumber === thread
+                && block.flowType !== FlowTypes.Empty)
             {
                 // start thread
                 findNextCall(gameState, block);
@@ -52,19 +52,19 @@ function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
     // this will work well here since each call finds the next call
     // after it has already executed
     switch(prevBlock.flowType) {
-        case FlowBlockTypes.Up:
+        case FlowTypes.Up:
             targetRow = prevBlock.r - 1;
             targetCol = prevBlock.c;
             break;
-        case FlowBlockTypes.Down:
+        case FlowTypes.Down:
             targetRow = prevBlock.r + 1;
             targetCol = prevBlock.c;
             break;
-        case FlowBlockTypes.Right:
+        case FlowTypes.Right:
             targetCol = prevBlock.c + 1;
             targetRow = prevBlock.r;
             break;
-        case FlowBlockTypes.Left:
+        case FlowTypes.Left:
             targetCol = prevBlock.c - 1;
             targetRow = prevBlock.r;
             break;
@@ -73,18 +73,18 @@ function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
     gameState.blocks.forEach(block => {
         if (block instanceof GridBlock) {
             if (block.r === targetRow && block.c === targetCol
-                && block.commandType !== CommandBlockTypes.Empty
-                && block.flowType !== FlowBlockTypes.Empty) {
+                && block.commandType !== CommandTypes.Empty
+                && block.flowType !== FlowTypes.Empty) {
                 switch(block.commandType) {
-                    case CommandBlockTypes.Angle:
+                    case CommandTypes.Angle:
                         block.call = () => angleCall(gameState, block);
                         gameState.nextStack.push(block);
                         break;
-                    case CommandBlockTypes.Move:
+                    case CommandTypes.Move:
                         block.call = () => moveCall(gameState, block);
                         gameState.nextStack.push(block);
                         break;
-                    case CommandBlockTypes.Start:
+                    case CommandTypes.Start:
                         block.call = () => startCall(gameState, block);
                         gameState.nextStack.push(block);
                         break;

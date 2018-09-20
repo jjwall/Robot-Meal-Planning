@@ -1,29 +1,29 @@
 import { GameState } from "./GameState";
-import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
+import { CommandTypes, FlowTypes } from "./Enums";
 
 // add command and conditional slider types as a param and to Enums.ts
 // add to GenerateLevel
 // maybe add support for thread starter?
 export class Slider {
-    gameState: GameState;
-    mouseDown: boolean;
-    snapAmount: number;
-    percentage: number;
-    value: number;
-    maxUnits: number;
+    protected gameState: GameState;
+    public mouseDown: boolean;
+    private snapAmount: number;
+    private percentage: number;
+    public value: number;
+    readonly maxUnits: number;
     readonly baseUnits: number;
-    type: CommandBlockTypes | FlowBlockTypes;
-    sliderX: number;
-    sliderY: number;
-    sliderH: number;
-    sliderW: number;
-    sliderColor: string;
-    barX: number;
-    barY: number;
-    barH: number;
-    barW: number;
-    barColor: string;
-    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, Type: CommandBlockTypes | FlowBlockTypes, SnapAmount: number = 10) {
+    readonly type: CommandTypes | FlowTypes;
+    public sliderX: number;
+    public sliderY: number;
+    readonly sliderH: number;
+    readonly sliderW: number;
+    readonly sliderColor: string;
+    public barX: number;
+    public barY: number;
+    readonly barH: number;
+    readonly barW: number;
+    readonly barColor: string;
+    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, Type: CommandTypes | FlowTypes, SnapAmount: number = 10) {
         this.gameState = GameState;
         this.mouseDown = false;
         this.maxUnits = MaxUnits;
@@ -44,7 +44,7 @@ export class Slider {
         this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
     }
 
-    update() : void {
+    public update() : void {
         if (this.mouseDown) {
             if (this.barY - this.sliderH/2 < this.gameState.mouseY &&
                 this.barY + this.barH - this.sliderH/2 > this.gameState.mouseY)
@@ -60,7 +60,7 @@ export class Slider {
         }
     }
 
-    draw() : void {
+    public draw() : void {
         // draw bar
         this.gameState.ctx.fillStyle = this.barColor;
         this.gameState.ctx.fillRect(this.barX, this.barY, this.barW, this.barH);

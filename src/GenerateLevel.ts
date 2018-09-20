@@ -2,7 +2,7 @@ import { GameState } from "./GameState";
 import { GridBlock } from "./GridBlock";
 import { CommandBlockButton } from "./CommandBlock";
 import { FlowBlockButton } from "./FlowBlock";
-import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
+import { CommandTypes, FlowTypes } from "./Enums";
 
 export function GenerateLevel(gameState: GameState, levelObj: object, paletteColor: string) {
     let yOffset: number = 5;
@@ -30,25 +30,25 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
     for (var i = 0; i < levelObj["command_blocks"].length; i ++) {
         switch(levelObj["command_blocks"][i]) {
             case "start":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandBlockTypes.Start);
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Start);
                 break;
             case "move":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandBlockTypes.Move);
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Move);
                 break;
             case "angle":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandBlockTypes.Angle);
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Angle);
                 break;
             case "thread":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandBlockTypes.Thread);
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Thread);
                 break;
             case "laser":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "green", CommandBlockTypes.Laser);
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "green", CommandTypes.Laser);
                 break;
             case "scan":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "darkblue", CommandBlockTypes.Scan);
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "darkblue", CommandTypes.Scan);
                 break;
             case "grapple":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "maroon", CommandBlockTypes.Grapple);
+                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "maroon", CommandTypes.Grapple);
                 break;
         }
         xOffset += 55;
@@ -62,16 +62,16 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
     for (var i = 0; i < levelObj["flow_blocks"].length; i ++) {
         switch(levelObj["flow_blocks"][i]) {
             case "up":
-                new FlowBlockButton(gameState, xOffset, yOffset, 50, 50, "yellow", FlowBlockTypes.Up);
+                new FlowBlockButton(gameState, xOffset, yOffset, 50, 50, "yellow", FlowTypes.Up);
                 break;
             case "left":
-                new FlowBlockButton(gameState, xOffset, yOffset, 50, 50, "yellow", FlowBlockTypes.Left);
+                new FlowBlockButton(gameState, xOffset, yOffset, 50, 50, "yellow", FlowTypes.Left);
                 break;
             case "right":
-                new FlowBlockButton(gameState, xOffset, yOffset, 50, 50, "yellow", FlowBlockTypes.Right);
+                new FlowBlockButton(gameState, xOffset, yOffset, 50, 50, "yellow", FlowTypes.Right);
                 break;
             case "down":
-                new FlowBlockButton(gameState, xOffset, yOffset, 50, 50, "yellow", FlowBlockTypes.Down);
+                new FlowBlockButton(gameState, xOffset, yOffset, 50, 50, "yellow", FlowTypes.Down);
                 break;
         }
         yOffset += 55;
