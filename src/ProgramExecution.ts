@@ -3,9 +3,9 @@ import { GridBlock } from "./GridBlock";
 import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
 
 function moveCall(gameState: GameState, block: GridBlock) {
-    if (block.callCount > 0) {
+    if (block.currentCallCount > 0) {
         console.log("move");
-        block.callCount--;
+        block.currentCallCount--;
     }
     else {
         findNextCall(gameState, block);
@@ -13,9 +13,9 @@ function moveCall(gameState: GameState, block: GridBlock) {
 }
 
 function angleCall(gameState: GameState, block: GridBlock) {
-    if (block.callCount > 0) {
+    if (block.currentCallCount > 0) {
         console.log("angle");
-        block.callCount--;
+        block.currentCallCount--;
     }
     else {
         findNextCall(gameState, block);
@@ -46,6 +46,8 @@ export function startNewThreadCall(gameState: GameState, thread: number) {
 function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
     let targetRow: number;
     let targetCol: number;
+    // reset call count
+    prevBlock.currentCallCount = prevBlock.callCount;
     // TODO: add conditionals
     // this will work well here since each call finds the next call
     // after it has already executed
@@ -76,17 +78,14 @@ function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
                 switch(block.commandType) {
                     case CommandBlockTypes.Angle:
                         block.call = () => angleCall(gameState, block);
-                        block.callCount = 1; // test amount
                         gameState.nextStack.push(block);
                         break;
                     case CommandBlockTypes.Move:
                         block.call = () => moveCall(gameState, block);
-                        block.callCount = 20; // test amount
                         gameState.nextStack.push(block);
                         break;
                     case CommandBlockTypes.Start:
                         block.call = () => startCall(gameState, block);
-                        block.callCount = 0;
                         gameState.nextStack.push(block);
                         break;
                 }

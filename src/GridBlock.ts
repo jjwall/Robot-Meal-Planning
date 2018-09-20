@@ -12,10 +12,12 @@ export class GridBlock extends BaseBlock {
     w: number;
     r: number;
     c: number;
+    units: number; // "readonly"
+    callCount: number; // "readonly"
+    currentCallCount: number;
     commandType: CommandBlockTypes;
     flowType: FlowBlockTypes;
     call: any;
-    callCount: number;
     color: string;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Row: number, Column: number, Color: string) {
         super(GameState, X, Y, H, W, Color);
@@ -44,6 +46,9 @@ export class GridBlock extends BaseBlock {
                             block.y = this.y;
                             block.set = true;
                             this.commandType = block.type;
+                            this.units = block.units;
+                            this.callCount = block.callCount;
+                            this.currentCallCount = block.callCount;
                         }
                         else if (this.flowType === FlowBlockTypes.Empty
                                 && block instanceof FlowBlock)
@@ -52,6 +57,7 @@ export class GridBlock extends BaseBlock {
                             block.y = this.y;
                             block.set = true;
                             this.flowType = block.type;
+                            // set conditional properties here if conditional block
                         }
                     }
                 }

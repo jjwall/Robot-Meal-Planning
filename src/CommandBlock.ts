@@ -8,13 +8,17 @@ export class CommandBlock extends BaseBlock {
     y: number;
     w: number;
     h: number;
+    readonly units: number;
+    readonly callCount: number;
     color: string;
     mouseDown: boolean;
     set: boolean;
     type: CommandBlockTypes;
     image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: CommandBlockTypes) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Units: number, CallCount: number, Color: string, Type: CommandBlockTypes) {
         super(GameState, X, Y, H, W, Color);
+        this.units = Units;
+        this.callCount = CallCount;
         this.mouseDown = true;
         this.set = false;
         this.type = Type;
@@ -70,6 +74,8 @@ export class CommandBlockButton extends BaseBlock {
     y: number;
     w: number;
     h: number;
+    units: number;
+    callCount: number;
     color: string;
     mouseDown: boolean;
     type: CommandBlockTypes;
@@ -79,6 +85,8 @@ export class CommandBlockButton extends BaseBlock {
         this.mouseDown = false;
         this.type = Type;
         this.image = new Image();
+        this.units = 0;
+        this.callCount = 0;
         switch(Type) {
             case CommandBlockTypes.Start:
                 this.image.src = "data/textures/StartBlock.png";
@@ -99,8 +107,14 @@ export class CommandBlockButton extends BaseBlock {
     update() : void {
         if (this.mouseDown) {
             this.mouseDown = false;
-            // TODO: Add type to CommandBlock constructor
-            new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color, this.type);
+
+            this.gameState.sliders.forEach(slider => {
+                if (slider.type === this.type) {
+                    this.callCount = Math.round((slider.value * slider.maxUnits)/slider.baseUnits);
+                    this.units = slider.baseUnits;
+                }
+            });
+            new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.units, this.callCount, this.Color, this.type);
         }
     }
 

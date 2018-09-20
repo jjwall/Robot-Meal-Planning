@@ -1,6 +1,7 @@
 import { GameState } from "./GameState";
+import { CommandBlockTypes, FlowBlockTypes } from "./Enums";
 
-// add command and conditional types as a param and to Enums.ts
+// add command and conditional slider types as a param and to Enums.ts
 // add to GenerateLevel
 // maybe add support for thread starter?
 export class Slider {
@@ -9,6 +10,9 @@ export class Slider {
     snapAmount: number;
     percentage: number;
     value: number;
+    maxUnits: number;
+    readonly baseUnits: number;
+    type: CommandBlockTypes | FlowBlockTypes;
     sliderX: number;
     sliderY: number;
     sliderH: number;
@@ -19,9 +23,13 @@ export class Slider {
     barH: number;
     barW: number;
     barColor: string;
-    constructor(GameState: GameState, X :number, Y: number, SnapAmount: number = 10) {
+    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, Type: CommandBlockTypes | FlowBlockTypes, SnapAmount: number = 10) {
         this.gameState = GameState;
         this.mouseDown = false;
+        this.maxUnits = MaxUnits;
+        this.snapAmount = SnapAmount;
+        this.baseUnits = Math.round(this.maxUnits / this.snapAmount);
+        this.type = Type;
         this.barH = 75;
         this.barW = 10;
         this.barX = X;
@@ -32,7 +40,6 @@ export class Slider {
         this.sliderX = X;
         this.sliderY = Y + this.barH/2 - this.sliderH/2;
         this.sliderColor = "purple";
-        this.snapAmount = SnapAmount;
         this.percentage = 1 - (this.sliderY - this.barY + this.sliderH/2) / this.barH;
         this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
     }
@@ -49,7 +56,8 @@ export class Slider {
                 this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
                 // set sliderY value based on new value from the rounded percantage
                 this.sliderY = this.barH + this.barY - (this.sliderH/2) - (this.value * this.barH);
-                console.log(this.value);
+                console.log(Math.round((this.value * this.maxUnits)));
+                // console.log(this.value * 10);
             }
         }
     }

@@ -5,6 +5,7 @@ import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
 import { Slider } from "./Slider";
+import { CommandBlockTypes } from "./Enums";
 
 // TODO: add text-based (numbers) ui elements to command block
 // TODO: make sliders functional
@@ -15,6 +16,8 @@ import { Slider } from "./Slider";
 // TODO: switch spacebar control button to clickable radio button
 // TODO: add base UI class / switch slider[] to baseUIElement[] in GameState
 // TODO: add execute program / stop program buttons
+// TODO: add manifold collision system for gridblock collision with flow and command blocks.
+// -> i.e. snap command block to grid block that has the biggest manifold
 
 // set up game state
 var gameState = new GameState();
@@ -22,8 +25,8 @@ GenerateLevel(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
 
 // set up test ui elements
-gameState.sliders.push(new Slider(gameState, 80, 365, 4));
-gameState.sliders.push(new Slider(gameState, 130, 365));
+gameState.sliders.push(new Slider(gameState, 80, 365, 100, CommandBlockTypes.Move));
+gameState.sliders.push(new Slider(gameState, 130, 365, 360, CommandBlockTypes.Angle, 8));
 
 function draw() : void {
     gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
@@ -71,7 +74,7 @@ setInterval(function() : void {
     if (callStack.length > 0) {
         callStack.forEach(block => {
             // will call command and push it back on stack
-            if (block.callCount > 0) {
+            if (block.currentCallCount > 0) {
                 block.call();
                 gameState.nextStack.push(block);
             }
