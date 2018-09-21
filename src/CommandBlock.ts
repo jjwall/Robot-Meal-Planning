@@ -1,14 +1,15 @@
 import { GameState } from "./GameState";
 import { BaseBlock } from "./BaseBlock";
 import { CommandTypes } from "./Enums";
+import { ICommandData } from "./GridBlock";
 
-export class CommandBlock extends BaseBlock {
+export class CommandBlock extends BaseBlock implements ICommandData {
     protected gameState: GameState;
     public x: number;
     public y: number;
     readonly w: number;
     readonly h: number;
-    readonly units: number;
+    readonly baseUnits: number;
     readonly callCount: number;
     readonly totalUnits: number;
     readonly color: string;
@@ -18,9 +19,9 @@ export class CommandBlock extends BaseBlock {
     readonly image: HTMLImageElement;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Units: number, CallCount: number, Color: string, Type: CommandTypes) {
         super(GameState, X, Y, H, W, Color);
-        this.units = Units;
+        this.baseUnits = Units;
         this.callCount = CallCount;
-        this.totalUnits = this.units * this.callCount;
+        this.totalUnits = this.baseUnits * this.callCount;
         this.mouseDown = true;
         this.set = false;
         this.type = Type;
@@ -82,13 +83,13 @@ export class CommandBlock extends BaseBlock {
 }
 
 // CONSIDER: extending CommandBlock class
-export class CommandBlockButton extends BaseBlock {
+export class CommandBlockButton extends BaseBlock implements ICommandData {
     protected gameState: GameState;
     public x: number;
     public y: number;
     readonly w: number;
     readonly h: number;
-    public units: number;
+    public baseUnits: number;
     public callCount: number;
     public totalUnits: number;
     readonly color: string;
@@ -100,7 +101,7 @@ export class CommandBlockButton extends BaseBlock {
         this.mouseDown = false;
         this.type = Type;
         this.image = new Image();
-        this.units = 0;
+        this.baseUnits = 0;
         this.callCount = 0;
         this.totalUnits = 0;
         switch(Type) {
@@ -124,14 +125,14 @@ export class CommandBlockButton extends BaseBlock {
         this.gameState.sliders.forEach(slider => {
             if (slider.type === this.type) {
                 this.callCount = Math.round((slider.value * slider.maxUnits)/slider.baseUnits);
-                this.units = slider.baseUnits;
-                this.totalUnits = this.units * this.callCount;
+                this.baseUnits = slider.baseUnits;
+                this.totalUnits = this.baseUnits * this.callCount;
             }
         });
 
         if (this.mouseDown) {
             this.mouseDown = false;
-            new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.units, this.callCount, this.Color, this.type);
+            new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.baseUnits, this.callCount, this.Color, this.type);
         }
     }
 

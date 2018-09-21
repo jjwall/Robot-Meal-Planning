@@ -12,10 +12,8 @@ export class GridBlock extends BaseBlock {
     readonly w: number;
     public r: number;
     public c: number;
-    public units: number; // public?
-    public callCount: number;
+    public commandData: ICommandData;
     public currentCallCount: number;
-    public commandType: CommandTypes;
     public flowType: FlowTypes;
     public call: any; // change type here to generic method signature
     readonly color: string;
@@ -23,9 +21,14 @@ export class GridBlock extends BaseBlock {
         super(GameState, X, Y, H, W, Color);
         this.r = Row;
         this.c = Column;
-        this.commandType = CommandTypes.Empty;
         this.flowType = FlowTypes.Empty;
         this.gameState.blocks.push(this);
+        this.commandData = {
+            baseUnits: 0,
+            totalUnits: 0,
+            callCount: 0,
+            type: CommandTypes.Empty
+        }
     }
 
     public update() : void {
@@ -39,15 +42,18 @@ export class GridBlock extends BaseBlock {
                         block.y < this.y + this.h &&
                         block.h + block.y > this.y)
                     {
-                        if (this.commandType === CommandTypes.Empty
+                        if (this.commandData.type === CommandTypes.Empty
                             && block instanceof CommandBlock)
                         {
+                            // snap command block to this empty grid square
                             block.x = this.x;
                             block.y = this.y;
                             block.set = true;
-                            this.commandType = block.type;
-                            this.units = block.units;
-                            this.callCount = block.callCount;
+                            // set commandData and currentCallCount properties
+                            this.commandData.type = block.type;
+                            this.commandData.baseUnits = block.baseUnits;
+                            this.commandData.callCount = block.callCount;
+                            this.commandData.totalUnits = block.totalUnits;
                             this.currentCallCount = block.callCount;
                         }
                         else if (this.flowType === FlowTypes.Empty
@@ -69,4 +75,26 @@ export class GridBlock extends BaseBlock {
         this.gameState.ctx.fillStyle = this.color;
         this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
     }
+}
+
+/**
+* Interface to communicate command data.
+*/
+export interface ICommandData {
+    /**
+    * Amount of units per call.
+    */
+    baseUnits: number;
+    /**
+    * Total units after all call(s).
+    */
+    totalUnits: number;
+    /**
+    * Amount of calls for a single pass of execution.
+    */
+    callCount: number;
+    /**
+    * Type of command for the execution process.
+    */
+    type: CommandTypes;
 }

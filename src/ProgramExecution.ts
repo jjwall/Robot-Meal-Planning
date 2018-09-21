@@ -33,7 +33,7 @@ export function startNewThreadCall(gameState: GameState, thread: number) {
     // locate thread
     gameState.blocks.forEach(block => {
         if (block instanceof GridBlock) {
-            if (block.commandType === CommandTypes.Start //&& threadNumber === thread
+            if (block.commandData.type === CommandTypes.Start //&& threadNumber === thread
                 && block.flowType !== FlowTypes.Empty)
             {
                 // start thread
@@ -47,7 +47,7 @@ function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
     let targetRow: number;
     let targetCol: number;
     // reset call count
-    prevBlock.currentCallCount = prevBlock.callCount;
+    prevBlock.currentCallCount = prevBlock.commandData.callCount;
     // TODO: add conditionals
     // this will work well here since each call finds the next call
     // after it has already executed
@@ -73,9 +73,9 @@ function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
     gameState.blocks.forEach(block => {
         if (block instanceof GridBlock) {
             if (block.r === targetRow && block.c === targetCol
-                && block.commandType !== CommandTypes.Empty
+                && block.commandData.type !== CommandTypes.Empty
                 && block.flowType !== FlowTypes.Empty) {
-                switch(block.commandType) {
+                switch(block.commandData.type) {
                     case CommandTypes.Angle:
                         block.call = () => angleCall(gameState, block);
                         gameState.nextStack.push(block);

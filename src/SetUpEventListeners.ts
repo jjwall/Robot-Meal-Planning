@@ -20,7 +20,7 @@ export function SetUpEventListeners(gameState: GameState) {
                 else if (block instanceof GridBlock) {
                     // check radio button for flow or command control
                     if (gameState.commandControl) {
-                        block.commandType = CommandTypes.Empty;
+                        block.commandData.type = CommandTypes.Empty;
                     }
                     else if (gameState.flowControl) {
                         block.flowType = FlowTypes.Empty;
