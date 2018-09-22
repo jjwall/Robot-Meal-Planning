@@ -3,6 +3,7 @@ import { GridBlock } from "./GridBlock";
 import { CommandBlockButton } from "./CommandBlock";
 import { FlowBlockButton } from "./FlowBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
+import { Slider } from "./Slider";
 
 export function GenerateLevel(gameState: GameState, levelObj: object, paletteColor: string) {
     let yOffset: number = 5;
@@ -33,10 +34,14 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
                 new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Start);
                 break;
             case "move":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Move);
+                let moveBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Move);
+                // set up slider, pass in reference to move callback
+                new Slider(gameState, xOffset + 20, yOffset + 60, 100, CommandTypes.Move, moveBlock.updateData);
                 break;
             case "angle":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Angle);
+                let angleBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Angle);
+                // set up slider, pass in reference to angle callback
+                new Slider(gameState, xOffset + 20, yOffset + 60, 360, CommandTypes.Angle, angleBlock.updateData, 8);
                 break;
             case "thread":
                 new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Thread);

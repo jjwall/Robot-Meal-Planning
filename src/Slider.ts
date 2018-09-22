@@ -1,8 +1,6 @@
 import { GameState } from "./GameState";
 import { CommandTypes, FlowTypes } from "./Enums";
 
-// add command and conditional slider types as a param and to Enums.ts
-// add to GenerateLevel
 // maybe add support for thread starter?
 export class Slider {
     protected gameState: GameState;
@@ -10,6 +8,7 @@ export class Slider {
     private snapAmount: number;
     private percentage: number;
     public value: number;
+    public updateDataCallBack: (calculatedCallCount: number, baseUnits: number) => void ;
     readonly maxUnits: number;
     readonly baseUnits: number;
     readonly type: CommandTypes | FlowTypes;
@@ -23,11 +22,12 @@ export class Slider {
     readonly barH: number;
     readonly barW: number;
     readonly barColor: string;
-    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, Type: CommandTypes | FlowTypes, SnapAmount: number = 10) {
+    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, Type: CommandTypes | FlowTypes, UpdateDataCallBack: (calculatedCallCount: number, baseUnits: number) => void, SnapAmount: number = 10) {
         this.gameState = GameState;
         this.mouseDown = false;
         this.maxUnits = MaxUnits;
         this.snapAmount = SnapAmount;
+        this.updateDataCallBack = UpdateDataCallBack;
         this.baseUnits = Math.round(this.maxUnits / this.snapAmount);
         this.type = Type;
         this.barH = 75;
@@ -42,6 +42,12 @@ export class Slider {
         this.sliderColor = "purple";
         this.percentage = 1 - (this.sliderY - this.barY + this.sliderH/2) / this.barH;
         this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
+
+        this.gameState.sliders.push(this);
+        
+        // initialize data
+        let calculatedCallCount = Math.round((this.value * this.maxUnits)/this.baseUnits);
+        this.updateDataCallBack(calculatedCallCount, this.baseUnits);
     }
 
     public update() : void {
@@ -56,6 +62,10 @@ export class Slider {
                 this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
                 // set sliderY value based on new value from the rounded percantage
                 this.sliderY = this.barH + this.barY - (this.sliderH/2) - (this.value * this.barH);
+
+                let calculatedCallCount = Math.round((this.value * this.maxUnits)/this.baseUnits);
+
+                this.updateDataCallBack(calculatedCallCount, this.baseUnits);
             }
         }
     }

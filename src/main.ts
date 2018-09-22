@@ -23,10 +23,6 @@ var gameState = new GameState();
 GenerateLevel(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
 
-// set up test ui elements
-gameState.sliders.push(new Slider(gameState, 80, 365, 100, CommandTypes.Move));
-gameState.sliders.push(new Slider(gameState, 130, 365, 360, CommandTypes.Angle, 8));
-
 function draw() : void {
     gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
     gameState.ctx.beginPath();

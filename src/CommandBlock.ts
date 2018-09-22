@@ -121,15 +121,16 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
         this.gameState.blocks.push(this);
     }
 
-    public update() : void {
-        this.gameState.sliders.forEach(slider => {
-            if (slider.type === this.type) {
-                this.callCount = Math.round((slider.value * slider.maxUnits)/slider.baseUnits);
-                this.baseUnits = slider.baseUnits;
-                this.totalUnits = this.baseUnits * this.callCount;
-            }
-        });
+    /**
+     * Callback function to be passed in as reference to corresponding UI.
+     */
+    public updateData = (calculatedCallCount: number, baseUnits: number): void => {
+        this.callCount = calculatedCallCount;
+        this.baseUnits = baseUnits;
+        this.totalUnits = this.baseUnits * this.callCount;
+    }
 
+    public update() : void {
         if (this.mouseDown) {
             this.mouseDown = false;
             new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.baseUnits, this.callCount, this.Color, this.type);
@@ -156,7 +157,6 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
 
         this.gameState.ctx.fillText((this.totalUnits).toString(), this.x + offsetX, this.y + 48);
     }
-
 }
 
 // export function isCommandBlock(obj: object) : obj is CommandBlock {
