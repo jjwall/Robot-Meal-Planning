@@ -33,7 +33,8 @@ export function startNewThreadCall(gameState: GameState, thread: number) {
     // locate thread
     gameState.blocks.forEach(block => {
         if (block instanceof GridBlock) {
-            if (block.commandData.type === CommandTypes.Start //&& threadNumber === thread
+            if (block.commandData.type === CommandTypes.Start
+                && block.commandData.totalUnits === thread
                 && block.flowType !== FlowTypes.Empty)
             {
                 // start thread

@@ -2,6 +2,7 @@ import { BaseUserInterface } from "./BaseUserInterface";
 import { GameState } from "./GameState"
 import { CommandBlock } from "./CommandBlock";
 import { CommandTypes } from "./Enums";
+import { GridBlock } from "./GridBlock";
 
 export class ThreadObserver implements BaseUserInterface {
     public gameState: GameState;
@@ -33,29 +34,46 @@ export class ThreadObserver implements BaseUserInterface {
     }
 
     private recalculateExistingThreadCounts() : void {
-        let tempThreadArray: CommandBlock[] = [];
+        // for visuals
+        let tempCommandThreadArray: CommandBlock[] = [];
+        // for functionality
+        let tempGridThreadArray: GridBlock[] = [];
 
         this.gameState.blocks.forEach(block => {
             if (block instanceof CommandBlock) {
                 if (block.type === CommandTypes.Start) {
-                    tempThreadArray.push(block);
+                    tempCommandThreadArray.push(block);
+                }
+            }
+            else if (block instanceof GridBlock) {
+                if (block.commandData.type === CommandTypes.Start) {
+                    tempGridThreadArray.push(block);
                 }
             }
         });
 
-        // sort temp thread array, totalUnits is the thread count
-        tempThreadArray.sort((a,b) => (a.totalUnits > b.totalUnits) ? 1 : ((b.totalUnits > a.totalUnits) ? -1 : 0));
+        // sort temp thread arrays, totalUnits is the thread count
+        // CONSIDER: making another private function called like sortAndRecalculateThreadCounts
+        tempCommandThreadArray.sort((a,b) => (a.totalUnits > b.totalUnits) ? 1 : ((b.totalUnits > a.totalUnits) ? -1 : 0));
+        tempGridThreadArray.sort((a,b) => (a.commandData.totalUnits > b.commandData.totalUnits) ? 1 : ((b.commandData.totalUnits > a.commandData.totalUnits) ? -1 : 0));
 
-        for (let i = 0; i < tempThreadArray.length; i++) {
-            if (i + 1 < tempThreadArray[i].totalUnits) {
+        for (let i = 0; i < tempCommandThreadArray.length; i++) {
+            if (i + 1 < tempCommandThreadArray[i].totalUnits) {
                 // subtract thread count if not in order i.e. 1, 2, 4. -> 4 turns into 3
-                tempThreadArray[i].totalUnits--;
+                tempCommandThreadArray[i].totalUnits--;
+            }
+        }
+
+        for (let i = 0; i < tempGridThreadArray.length; i++) {
+            if (i + 1 < tempGridThreadArray[i].commandData.totalUnits) {
+                tempGridThreadArray[i].commandData.totalUnits--;
             }
         }
     }
 
     public mouseUp() : void { 
         let tempThreadCount = 1;
+
         this.gameState.blocks.forEach(block => {
             if (block instanceof CommandBlock) {
                 if (block.type === CommandTypes.Start) {
