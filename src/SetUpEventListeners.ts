@@ -4,6 +4,8 @@ import { GridBlock } from "./GridBlock";
 import { FlowBlock, FlowBlockButton } from "./FlowBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
 import { startNewThreadCall } from "./ProgramExecution";
+import { Slider } from "./Slider";
+import { ThreadObserver } from "./ThreadObserver";
 
 export function SetUpEventListeners(gameState: GameState) {
     gameState.canvas.addEventListener('mousedown', function() : void {
@@ -30,10 +32,19 @@ export function SetUpEventListeners(gameState: GameState) {
         });
 
         // check for sliders being clicked
-        gameState.sliders.forEach(s => {
-            if (gameState.mouseY > s.sliderY && gameState.mouseY < s.sliderY + s.sliderH
-                && gameState.mouseX > s.sliderX && gameState.mouseX < s.sliderX + s.sliderW) {
-                s.mouseDown = true;
+        gameState.userInterfaces.forEach(s => {
+            if (s instanceof Slider) {
+                if (gameState.mouseY > s.sliderY && gameState.mouseY < s.sliderY + s.sliderH
+                    && gameState.mouseX > s.sliderX && gameState.mouseX < s.sliderX + s.sliderW) {
+                    s.mouseDown = true;
+                }
+            }
+            if (s instanceof ThreadObserver) {
+                if (gameState.mouseY > s.y && gameState.mouseY < s.y + s.h
+                    && gameState.mouseX > s.x && gameState.mouseX < s.x + s.w) {
+                    s.mouseDown = true;
+                }
+
             }
 
         });
@@ -51,8 +62,11 @@ export function SetUpEventListeners(gameState: GameState) {
             }
         });
 
-        gameState.sliders.forEach(s => {
-            s.mouseDown = false;
+        gameState.userInterfaces.forEach(userInterface => {
+            userInterface.mouseDown = false;
+            if (userInterface instanceof ThreadObserver) {
+                userInterface.mouseUp();
+            }
         });
     }, false);
 

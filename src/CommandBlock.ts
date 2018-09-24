@@ -11,7 +11,7 @@ export class CommandBlock extends BaseBlock implements ICommandData {
     readonly h: number;
     readonly baseUnits: number;
     readonly callCount: number;
-    readonly totalUnits: number;
+    public totalUnits: number;
     readonly color: string;
     public mouseDown: boolean;
     public set: boolean;
@@ -148,8 +148,8 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
     /**
      * Callback function to be passed in as reference to corresponding UI.
      */
-    public updateData = (calculatedCallCount: number, baseUnits: number): void => {
-        this.callCount = calculatedCallCount;
+    public updateData = (multiplicative: number, baseUnits: number): void => {
+        this.callCount = multiplicative;
         this.baseUnits = baseUnits;
         this.totalUnits = this.baseUnits * this.callCount;
     }

@@ -1,14 +1,15 @@
 import { GameState } from "./GameState";
 import { CommandTypes, FlowTypes } from "./Enums";
+import { BaseUserInterface } from "./BaseUserInterface";
 
 // maybe add support for thread starter?
-export class Slider {
-    protected gameState: GameState;
+export class Slider implements BaseUserInterface {
+    public gameState: GameState;
     public mouseDown: boolean;
     private snapAmount: number;
     private percentage: number;
     public value: number;
-    public updateDataCallBack: (calculatedCallCount: number, baseUnits: number) => void ;
+    public updateDataCallBack: (calculatedCallCount: number, baseUnits: number) => void;
     readonly maxUnits: number;
     readonly baseUnits: number;
     readonly type: CommandTypes | FlowTypes;
@@ -43,7 +44,7 @@ export class Slider {
         this.percentage = 1 - (this.sliderY - this.barY + this.sliderH/2) / this.barH;
         this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
 
-        this.gameState.sliders.push(this);
+        this.gameState.userInterfaces.push(this);
         
         // initialize data
         let calculatedCallCount = Math.round((this.value * this.maxUnits)/this.baseUnits);

@@ -4,17 +4,20 @@ import { CommandBlockButton } from "./CommandBlock";
 import { FlowBlockButton } from "./FlowBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
 import { Slider } from "./Slider";
+import { ThreadObserver } from "./ThreadObserver";
 
 export function GenerateLevel(gameState: GameState, levelObj: object, paletteColor: string) {
     let yOffset: number = 5;
     let xOffset: number = 5;
     let maxXOffset: number = 0;
     let maxYOffset: number = 0;
+    let commandPaletteH: number = levelObj["command_palette"]["block_height"];
+    let commandPaletteW: number = levelObj["command_palette"]["block_width"]
 
     // set up grid for Command Palette
     // assign row and column values to grid blocks
-    for (var r = 0; r < levelObj["command_palette"]["block_height"]; r++) {
-        for (var c = 0; c < levelObj["command_palette"]["block_width"]; c++) {
+    for (var r = 0; r < commandPaletteH; r++) {
+        for (var c = 0; c < commandPaletteW; c++) {
             new GridBlock(gameState, xOffset, yOffset, 50, 50, r, c, paletteColor);
             xOffset += 55;
         }
@@ -31,7 +34,8 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
     for (var i = 0; i < levelObj["command_blocks"].length; i ++) {
         switch(levelObj["command_blocks"][i]) {
             case "start":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Start);
+                let startBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Start);
+                new ThreadObserver(gameState, startBlock.x, startBlock.y, startBlock.h, startBlock.w, commandPaletteH * commandPaletteW, startBlock.updateData);
                 break;
             case "move":
                 let moveBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Move);

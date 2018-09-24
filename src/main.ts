@@ -4,6 +4,7 @@ import level1 from '../data/levels/level1.json';
 import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
+import { CommandBlock } from "./CommandBlock";
 
 // TODO: add special unit logic for start block / thread blocks since they don't follow same rules
 // -> i.e. will need to do a switch on type when updating unit values within command block buttons update method
@@ -26,8 +27,8 @@ function draw() : void {
     gameState.ctx.beginPath();
 
     // render UI elements
-    gameState.sliders.forEach(slider => {
-        slider.draw();
+    gameState.userInterfaces.forEach(userInterface => {
+        userInterface.draw();
     });
 
     // render all non-flow blocks first
@@ -52,8 +53,8 @@ function update() : void {
         block.update();
     });
 
-    gameState.sliders.forEach(slider => {
-        slider.update();
+    gameState.userInterfaces.forEach(userInterface => {
+        userInterface.update();
     });
 }
 
