@@ -4,8 +4,6 @@ import level1 from '../data/levels/level1.json';
 import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
-import { Slider } from "./Slider";
-import { CommandTypes } from "./Enums";
 
 // TODO: add special unit logic for start block / thread blocks since they don't follow same rules
 // -> i.e. will need to do a switch on type when updating unit values within command block buttons update method
@@ -66,7 +64,7 @@ setInterval(function() : void {
     const callStack = gameState.nextStack;
     gameState.nextStack = [];
 
-    if (callStack.length > 0) {
+    if (callStack.length > 0 && gameState.programRunning) {
         callStack.forEach(block => {
             // will call command and push it back on stack
             if (block.currentCallCount > 0) {

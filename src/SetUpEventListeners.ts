@@ -79,8 +79,15 @@ export function SetUpEventListeners(gameState: GameState) {
         // i.e. S key pressed
         if (e.keyCode === 83) {
             if (!gameState.programRunning) {
+                // start program
                 gameState.programRunning = true;
                 startNewThreadCall(gameState, 1);
+            }
+            // if S key is pressed while program is running
+            else {
+                // stop program
+                gameState.programRunning = false;
+                gameState.nextStack = [];
             }
         }
     }
