@@ -1,7 +1,5 @@
 import { GameState } from "./GameState";
 import { BaseBlock } from "./BaseBlock";
-import { CommandBlock } from "./CommandBlock";
-import { FlowBlock } from "./FlowBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
 
 export class GridBlock extends BaseBlock {
@@ -29,46 +27,6 @@ export class GridBlock extends BaseBlock {
             callCount: 0,
             type: CommandTypes.Empty
         }
-    }
-
-    public update() : void {
-        // see if command block is being dropped on empty grid block
-        this.gameState.blocks.forEach(block => {
-            if (block instanceof CommandBlock
-                || block instanceof FlowBlock) {
-                if (block.mouseDown === false) {
-                    if (block.x < this.x + this.w &&
-                        block.x + block.w > this.x &&
-                        block.y < this.y + this.h &&
-                        block.h + block.y > this.y)
-                    {
-                        if (this.commandData.type === CommandTypes.Empty
-                            && block instanceof CommandBlock)
-                        {
-                            // snap command block to this empty grid square
-                            block.x = this.x;
-                            block.y = this.y;
-                            block.set = true;
-                            // set commandData and currentCallCount properties
-                            this.commandData.type = block.type;
-                            this.commandData.baseUnits = block.baseUnits;
-                            this.commandData.callCount = block.callCount;
-                            this.commandData.totalUnits = block.totalUnits;
-                            this.currentCallCount = block.callCount;
-                        }
-                        else if (this.flowType === FlowTypes.Empty
-                                && block instanceof FlowBlock)
-                        {
-                            block.x = this.x;
-                            block.y = this.y;
-                            block.set = true;
-                            this.flowType = block.type;
-                            // set conditional properties here if conditional block
-                        }
-                    }
-                }
-            }
-        });
     }
 
     public draw() : void {

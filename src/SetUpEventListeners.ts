@@ -46,6 +46,7 @@ export function SetUpEventListeners(gameState: GameState) {
                 || block instanceof FlowBlock) {
                 if (block.mouseDown) {
                     block.mouseDown = false;
+                    block.mouseUp();
                 }
             }
         });

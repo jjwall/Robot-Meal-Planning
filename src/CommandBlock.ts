@@ -1,7 +1,7 @@
 import { GameState } from "./GameState";
 import { BaseBlock } from "./BaseBlock";
 import { CommandTypes } from "./Enums";
-import { ICommandData } from "./GridBlock";
+import { ICommandData, GridBlock } from "./GridBlock";
 
 export class CommandBlock extends BaseBlock implements ICommandData {
     protected gameState: GameState;
@@ -43,18 +43,45 @@ export class CommandBlock extends BaseBlock implements ICommandData {
         this.gameState.blocks.push(this);
     }
 
+    /**
+     * method called in SetUpEventListeners.ts
+     */
+    public mouseUp() : void {
+        // i.e. dropping block
+        this.gameState.blocks.forEach(block => {
+            if (block instanceof GridBlock && block.commandData.type === CommandTypes.Empty) {
+                if (block.x < this.x + this.w &&
+                    block.x + block.w > this.x &&
+                    block.y < this.y + this.h &&
+                    block.h + block.y > this.y)
+                {
+                    // snap this command block to empty GridBlock
+                    this.x = block.x;
+                    this.y = block.y;
+                    this.set = true;
+                    // set GridBlock's commandData and currentCallCount properties
+                    block.commandData.type = this.type;
+                    block.commandData.baseUnits = this.baseUnits;
+                    block.commandData.callCount = this.callCount;
+                    block.commandData.totalUnits = this.totalUnits;
+                    block.currentCallCount = this.callCount;
+                }
+            }
+        });
+
+        // delete if dropping block and it doesn't have a empty grid block to be set on
+        if (!this.set) {
+            var index = this.gameState.blocks.indexOf(this);
+            this.gameState.blocks.splice(index, 1);
+        }
+    }
+
     public update() : void {
         // drag command block
         if (this.mouseDown) {
             this.x = this.gameState.mouseX - this.w/2;
             this.y = this.gameState.mouseY - this.h/2;
             this.set = false;
-        }
-
-        // delete if dropping block and it doesn't have a empty grid block to be set on
-        if (!this.mouseDown && !this.set) {
-            var index = this.gameState.blocks.indexOf(this);
-            this.gameState.blocks.splice(index, 1);
         }
     }
 
@@ -77,9 +104,6 @@ export class CommandBlock extends BaseBlock implements ICommandData {
 
         this.gameState.ctx.fillText((this.totalUnits).toString(), this.x + offsetX, this.y + 48);
     }
-
-    // onClick() {
-    // }
 }
 
 // CONSIDER: extending CommandBlock class
@@ -158,9 +182,3 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
         this.gameState.ctx.fillText((this.totalUnits).toString(), this.x + offsetX, this.y + 48);
     }
 }
-
-// export function isCommandBlock(obj: object) : obj is CommandBlock {
-//     var commandBlockObj : CommandBlock = <CommandBlock>obj;
-    
-//     return commandBlockObj.mouseDown !== undefined;
-// }

@@ -1,6 +1,7 @@
 import { GameState } from "./GameState";
 import { BaseBlock } from "./BaseBlock";
 import { FlowTypes } from "./Enums";
+import { GridBlock } from "./GridBlock";
 
 export class FlowBlock extends BaseBlock {
     protected gameState: GameState;
@@ -36,18 +37,41 @@ export class FlowBlock extends BaseBlock {
         this.gameState.blocks.push(this);
     }
 
+    /**
+     * method called in SetUpEventListeners.ts
+     */
+    public mouseUp() : void {
+        // drop flow block
+        this.gameState.blocks.forEach(block => {
+            if (block instanceof GridBlock && block.flowType === FlowTypes.Empty) {
+                if (block.x < this.x + this.w &&
+                    block.x + block.w > this.x &&
+                    block.y < this.y + this.h &&
+                    block.h + block.y > this.y)
+                {
+                    // snap this flow block to empty GridBlock
+                    this.x = block.x;
+                    this.y = block.y;
+                    this.set = true;
+                    block.flowType = this.type;
+                    // set conditional properties here if conditional block
+                }
+            }
+        });
+
+        // delete if dropping block and it doesn't have an empty grid block to be set on
+        if (!this.set) {
+            var index = this.gameState.blocks.indexOf(this);
+            this.gameState.blocks.splice(index, 1);
+        }
+    }
+
     public update() : void {
         // drag flow block
         if (this.mouseDown) {
             this.x = this.gameState.mouseX - this.w/2;
             this.y = this.gameState.mouseY - this.h/2;
             this.set = false;
-        }
-
-        // delete if dropping block and it doesn't have a empty grid block to be set on
-        if (!this.mouseDown && !this.set) {
-            var index = this.gameState.blocks.indexOf(this);
-            this.gameState.blocks.splice(index, 1);
         }
     }
 
