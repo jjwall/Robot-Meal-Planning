@@ -35,7 +35,7 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
         switch(levelObj["command_blocks"][i]) {
             case "start":
                 let startBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Start);
-                new ThreadObserver(gameState, startBlock.x, startBlock.y, startBlock.h, startBlock.w, commandPaletteH * commandPaletteW, startBlock.updateData);
+                new ThreadObserver(gameState, startBlock.x, startBlock.y, startBlock.h, startBlock.w, startBlock.updateData);
                 break;
             case "move":
                 let moveBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Move);

@@ -13,7 +13,7 @@ export class GridBlock extends BaseBlock {
     public commandData: ICommandData;
     public currentCallCount: number;
     public flowType: FlowTypes;
-    public call: any; // change type here to generic method signature
+    public call: () => void;
     readonly color: string;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Row: number, Column: number, Color: string) {
         super(GameState, X, Y, H, W, Color);

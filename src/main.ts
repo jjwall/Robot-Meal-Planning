@@ -4,7 +4,6 @@ import level1 from '../data/levels/level1.json';
 import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
-import { CommandBlock } from "./CommandBlock";
 
 // TODO: add special unit logic for start block / thread blocks since they don't follow same rules
 // -> i.e. will need to do a switch on type when updating unit values within command block buttons update method

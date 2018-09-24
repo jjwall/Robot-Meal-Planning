@@ -9,9 +9,10 @@ export class Slider implements BaseUserInterface {
     private snapAmount: number;
     private percentage: number;
     public value: number;
-    public updateDataCallBack: (calculatedCallCount: number, baseUnits: number) => void;
+    public updateDataCallBack: (callCount: number, baseUnits: number, totalUnits: number) => void;
     readonly maxUnits: number;
     readonly baseUnits: number;
+    private totalUnits: number;
     readonly type: CommandTypes | FlowTypes;
     public sliderX: number;
     public sliderY: number;
@@ -23,7 +24,7 @@ export class Slider implements BaseUserInterface {
     readonly barH: number;
     readonly barW: number;
     readonly barColor: string;
-    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, Type: CommandTypes | FlowTypes, UpdateDataCallBack: (calculatedCallCount: number, baseUnits: number) => void, SnapAmount: number = 10) {
+    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, Type: CommandTypes | FlowTypes, UpdateDataCallBack: (callCount: number, baseUnits: number, totalUnits: number) => void, SnapAmount: number = 10) {
         this.gameState = GameState;
         this.mouseDown = false;
         this.maxUnits = MaxUnits;
@@ -43,12 +44,14 @@ export class Slider implements BaseUserInterface {
         this.sliderColor = "purple";
         this.percentage = 1 - (this.sliderY - this.barY + this.sliderH/2) / this.barH;
         this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
+        
+        let calculatedCallCount = Math.round((this.value * this.maxUnits)/this.baseUnits);
+        this.totalUnits = calculatedCallCount * this.baseUnits;
 
         this.gameState.userInterfaces.push(this);
         
         // initialize data
-        let calculatedCallCount = Math.round((this.value * this.maxUnits)/this.baseUnits);
-        this.updateDataCallBack(calculatedCallCount, this.baseUnits);
+        this.updateDataCallBack(calculatedCallCount, this.baseUnits, this.totalUnits);
     }
 
     public update() : void {
@@ -66,7 +69,9 @@ export class Slider implements BaseUserInterface {
 
                 let calculatedCallCount = Math.round((this.value * this.maxUnits)/this.baseUnits);
 
-                this.updateDataCallBack(calculatedCallCount, this.baseUnits);
+                this.totalUnits = calculatedCallCount * this.baseUnits
+
+                this.updateDataCallBack(calculatedCallCount, this.baseUnits, this.totalUnits);
             }
         }
     }

@@ -10,27 +10,23 @@ export class ThreadObserver implements BaseUserInterface {
     public y: number;
     public h: number;
     public w: number;
-    public maxUnits: number;
-    public baseUnits: number;
     public mouseDown: boolean;
     public threads: number;
-    updateDataCallBack: (totalThreads: number, baseUnits: number) => void;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, MaxUnits: number, UpdateDataCallBack: (totalThreads: number, baseUnits: number) => void) {
+    updateDataCallBack: (callCount: number, baseUnits: number, totalThreads: number) => void;
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, UpdateDataCallBack: (callCount: number, baseUnits: number, totalThreads: number) => void) {
         this.gameState = GameState;
         this.x = X;
         this.y = Y;
         this.h = H;
         this.w = W;
-        this.maxUnits = MaxUnits;
         this.threads = 1;
-        this.baseUnits = 1;
         this.updateDataCallBack = UpdateDataCallBack;
         this.mouseDown = false;
 
         this.gameState.userInterfaces.push(this);
 
         // initialize data
-        this.updateDataCallBack(this.threads, this.baseUnits);
+        this.updateDataCallBack(0, 1, this.threads);
     }
 
     private recalculateExistingThreadCounts() : void {
@@ -84,7 +80,7 @@ export class ThreadObserver implements BaseUserInterface {
 
         this.threads = tempThreadCount;
 
-        this.updateDataCallBack(this.threads, this.baseUnits);
+        this.updateDataCallBack(0, 1, this.threads);
 
         this.recalculateExistingThreadCounts();
     }
@@ -103,12 +99,10 @@ export class ThreadObserver implements BaseUserInterface {
 
             this.threads = tempThreadCount;
 
-            this.updateDataCallBack(this.threads, this.baseUnits);
+            this.updateDataCallBack(0, 1, this.threads);
         }
 
     }
 
-    draw() : void {
-
-    }
+    draw() : void {}
 }

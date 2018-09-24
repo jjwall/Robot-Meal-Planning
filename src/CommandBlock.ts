@@ -17,11 +17,11 @@ export class CommandBlock extends BaseBlock implements ICommandData {
     public set: boolean;
     readonly type: CommandTypes;
     readonly image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Units: number, CallCount: number, Color: string, Type: CommandTypes) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, BaseUnits: number, CallCount: number, TotalUnits: number, Color: string, Type: CommandTypes) {
         super(GameState, X, Y, H, W, Color);
-        this.baseUnits = Units;
+        this.baseUnits = BaseUnits;
         this.callCount = CallCount;
-        this.totalUnits = this.baseUnits * this.callCount;
+        this.totalUnits = TotalUnits;
         this.mouseDown = true;
         this.set = false;
         this.type = Type;
@@ -148,16 +148,16 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
     /**
      * Callback function to be passed in as reference to corresponding UI.
      */
-    public updateData = (multiplicative: number, baseUnits: number): void => {
-        this.callCount = multiplicative;
+    public updateData = (calculatedCallCount: number, baseUnits: number, totalUnits: number): void => {
+        this.callCount = calculatedCallCount;
         this.baseUnits = baseUnits;
-        this.totalUnits = this.baseUnits * this.callCount;
+        this.totalUnits = totalUnits;
     }
 
     public update() : void {
         if (this.mouseDown) {
             this.mouseDown = false;
-            new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.baseUnits, this.callCount, this.Color, this.type);
+            new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.baseUnits, this.callCount, this.totalUnits, this.Color, this.type);
         }
     }
 
