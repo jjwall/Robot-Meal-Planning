@@ -5,6 +5,7 @@ import { FlowBlockButton } from "./FlowBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
 import { Slider } from "./Slider";
 import { ThreadObserver } from "./ThreadObserver";
+import { PlusMinus } from "./PlusMinus";
 
 export function GenerateLevel(gameState: GameState, levelObj: object, paletteColor: string) {
     let yOffset: number = 5;
@@ -48,7 +49,8 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
                 new Slider(gameState, xOffset + 20, yOffset + 60, 360, CommandTypes.Angle, angleBlock.updateData, 8);
                 break;
             case "thread":
-                new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Thread);
+                let threadBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Thread);
+                new PlusMinus(gameState, 175, 360, threadBlock.updateData);
                 break;
             case "laser":
                 new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "green", CommandTypes.Laser);

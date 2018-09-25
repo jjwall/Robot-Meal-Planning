@@ -29,12 +29,12 @@ function startCall(gameState: GameState, block: GridBlock) {
     findNextCall(gameState, block);
 }
 
-export function startNewThreadCall(gameState: GameState, thread: number) {
-    // locate thread
+export function startNewThreadCall(gameState: GameState, targetThread: number, threadBlock?: GridBlock) {
+    // locate target thread and find it's next call
     gameState.blocks.forEach(block => {
         if (block instanceof GridBlock) {
             if (block.commandData.type === CommandTypes.Start
-                && block.commandData.totalUnits === thread
+                && block.commandData.totalUnits === targetThread
                 && block.flowType !== FlowTypes.Empty)
             {
                 // start thread
@@ -42,6 +42,12 @@ export function startNewThreadCall(gameState: GameState, thread: number) {
             }
         }
     });
+
+    // if available, continue on to current thread's next call
+    if (threadBlock !== undefined) {
+        console.log("thread");
+        findNextCall(gameState, threadBlock);
+    }
 }
 
 function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
@@ -87,6 +93,10 @@ function findNextCall(gameState: GameState, prevBlock: GridBlock) : void {
                         break;
                     case CommandTypes.Start:
                         block.call = () => startCall(gameState, block);
+                        gameState.nextStack.push(block);
+                        break;
+                    case CommandTypes.Thread:
+                        block.call = () => startNewThreadCall(gameState, block.commandData.totalUnits, block);
                         gameState.nextStack.push(block);
                         break;
                 }

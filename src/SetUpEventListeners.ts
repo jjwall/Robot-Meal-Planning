@@ -6,6 +6,7 @@ import { CommandTypes, FlowTypes } from "./Enums";
 import { startNewThreadCall } from "./ProgramExecution";
 import { Slider } from "./Slider";
 import { ThreadObserver } from "./ThreadObserver";
+import { PlusMinus } from "./PlusMinus";
 
 export function SetUpEventListeners(gameState: GameState) {
     gameState.canvas.addEventListener('mousedown', function() : void {
@@ -44,9 +45,20 @@ export function SetUpEventListeners(gameState: GameState) {
                     && gameState.mouseX > s.x && gameState.mouseX < s.x + s.w) {
                     s.mouseDown = true;
                 }
-
             }
-
+            
+            if (s instanceof PlusMinus) {
+                if (gameState.mouseY > s.plusY && gameState.mouseY < s.plusY + s.plusH
+                    && gameState.mouseX > s.plusX && gameState.mouseX < s.plusX + s.plusW) {
+                    s.mouseDown = true;
+                    s.mouseDownPlus = true;
+                }
+                if (gameState.mouseY > s.minusY && gameState.mouseY < s.minusY + s.minusH
+                    && gameState.mouseX > s.minusH && gameState.mouseX < s.minusX + s.minusW) {
+                    s.mouseDown = true;
+                    s.mouseDownMinus = true;
+                }
+            }
         });
     }, false);
 

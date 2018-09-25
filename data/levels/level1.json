@@ -7,7 +7,8 @@
     "command_blocks": [
         "start",
         "move",
-        "angle"
+        "angle",
+        "thread"
     ],
     "flow_blocks": [
         "up",
