@@ -40,21 +40,21 @@ export function SetUpEventListeners(gameState: GameState) {
                     s.mouseDown = true;
                 }
             }
-            if (s instanceof ThreadObserver) {
+            else if (s instanceof ThreadObserver) {
                 if (gameState.mouseY > s.y && gameState.mouseY < s.y + s.h
                     && gameState.mouseX > s.x && gameState.mouseX < s.x + s.w) {
                     s.mouseDown = true;
                 }
             }
             
-            if (s instanceof PlusMinus) {
+            else if (s instanceof PlusMinus) {
                 if (gameState.mouseY > s.plusY && gameState.mouseY < s.plusY + s.plusH
                     && gameState.mouseX > s.plusX && gameState.mouseX < s.plusX + s.plusW) {
                     s.mouseDown = true;
                     s.mouseDownPlus = true;
                 }
                 if (gameState.mouseY > s.minusY && gameState.mouseY < s.minusY + s.minusH
-                    && gameState.mouseX > s.minusH && gameState.mouseX < s.minusX + s.minusW) {
+                    && gameState.mouseX > s.minusX && gameState.mouseX < s.minusX + s.minusW) {
                     s.mouseDown = true;
                     s.mouseDownMinus = true;
                 }

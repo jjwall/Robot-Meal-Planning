@@ -4,7 +4,9 @@ import level1 from '../data/levels/level1.json';
 import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
+import { Robot } from "./Robot";
 
+// TODO: switch abstract class BaseBlock to be an interface called IBaseBlock 
 // TODO: pass reference to GameState / GameState / prop in methods (draw, update) where needed
 // -> can pass in to constructor as well
 // --> don't want to store in a class member tho
@@ -21,6 +23,10 @@ import { FlowBlock } from "./FlowBlock";
 var gameState = new GameState();
 GenerateLevel(gameState, level1, "lightblue");
 SetUpEventListeners(gameState);
+
+// test entity
+let robot = new Robot(gameState, 375, 200, 25, 25);
+gameState.entities.push(robot);
 
 function draw() : void {
     gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
@@ -45,6 +51,11 @@ function draw() : void {
         }
     });
 
+    // render all entities
+    gameState.entities.forEach(entity => {
+        entity.draw();
+    });
+
     gameState.ctx.stroke();
 }
 
@@ -56,6 +67,10 @@ function update() : void {
     gameState.userInterfaces.forEach(userInterface => {
         userInterface.update();
     });
+
+    // gameState.entities.forEach(entity => {
+    //     entity.update();
+    // });
 }
 
 setInterval(function() : void {

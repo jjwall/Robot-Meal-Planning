@@ -1,12 +1,14 @@
 import { BaseBlock } from "./BaseBlock";
 import { GridBlock } from "./GridBlock";
 import { IBaseUserInterface } from "./IBaseUserInterface";
+import { IBaseEntity } from "./IBaseEntity";
 
 export class GameState {
     readonly canvas: HTMLCanvasElement;
     readonly ctx: CanvasRenderingContext2D;
     readonly rect: ClientRect | DOMRect;
     public blocks: BaseBlock[];
+    public entities: IBaseEntity[];
     public userInterfaces: IBaseUserInterface[];
     public mouseX: number;
     public mouseY: number;
@@ -19,6 +21,7 @@ export class GameState {
         this.ctx = obj && obj.ctx || <CanvasRenderingContext2D> this.canvas.getContext("2d");
         this.rect = obj && obj.rect || <ClientRect | DOMRect> this.canvas.getBoundingClientRect();
         this.blocks = obj && obj.blocks || [];
+        this.entities = obj && obj.entities || [];
         this.userInterfaces = obj && obj.userInterfaces || [];
         this.mouseX = obj && obj.mouseX || 0;
         this.mouseY = obj && obj.mouseY || 0;
@@ -34,6 +37,7 @@ export interface IGameState {
     readonly ctx: CanvasRenderingContext2D;
     readonly rect: ClientRect | DOMRect;
     blocks: BaseBlock[];
+    entities: IBaseEntity[];
     userInterfaces: IBaseUserInterface[];
     mouseX: number;
     mouseY: number;

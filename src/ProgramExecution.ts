@@ -1,11 +1,19 @@
 import { GameState } from "./GameState";
 import { GridBlock } from "./GridBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
+import { Robot } from "./Robot";
 
 function moveCall(gameState: GameState, block: GridBlock) {
     if (block.currentCallCount > 0) {
         console.log("move");
         block.currentCallCount--;
+
+        gameState.entities.forEach(entity => {
+            // CONSIDER passing in reference to robot in these call functions
+            if (entity instanceof Robot) {
+                entity.move(2); // test value
+            }
+        });
     }
     else {
         findNextCall(gameState, block);
@@ -16,6 +24,13 @@ function angleCall(gameState: GameState, block: GridBlock) {
     if (block.currentCallCount > 0) {
         console.log("angle");
         block.currentCallCount--;
+
+        gameState.entities.forEach(entity => {
+            // CONSIDER passing in reference to robot in these call functions
+            if (entity instanceof Robot) {
+                entity.turnClockWise(45); // test value
+            }
+        });
     }
     else {
         findNextCall(gameState, block);
