@@ -5,6 +5,9 @@ import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
 
+// TODO: pass reference to GameState / GameState / prop in methods (draw, update) where needed
+// -> can pass in to constructor as well
+// --> don't want to store in a class member tho
 // TODO: add big yellow block that renders behind grid blocks to indicate which block is currently being executed
 // TODO: have FlowBlockButton and CommandBlockButtons extend from their respective blocks
 // TODO: push most recently clicked command / flow block to top of block array to render it on top of everything else

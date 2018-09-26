@@ -1,10 +1,10 @@
-import { BaseUserInterface } from "./BaseUserInterface";
+import { IBaseUserInterface } from "./IBaseUserInterface";
 import { GameState } from "./GameState"
 import { CommandBlock } from "./CommandBlock";
 import { CommandTypes } from "./Enums";
 import { GridBlock } from "./GridBlock";
 
-export class ThreadObserver implements BaseUserInterface {
+export class ThreadObserver implements IBaseUserInterface {
     public gameState: GameState;
     public x: number;
     public y: number;

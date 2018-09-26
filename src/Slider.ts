@@ -1,9 +1,9 @@
 import { GameState } from "./GameState";
 import { CommandTypes, FlowTypes } from "./Enums";
-import { BaseUserInterface } from "./BaseUserInterface";
+import { IBaseUserInterface } from "./IBaseUserInterface";
 
 // maybe add support for thread starter?
-export class Slider implements BaseUserInterface {
+export class Slider implements IBaseUserInterface {
     public gameState: GameState;
     public mouseDown: boolean;
     private snapAmount: number;

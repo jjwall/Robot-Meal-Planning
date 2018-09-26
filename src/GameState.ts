@@ -1,14 +1,13 @@
 import { BaseBlock } from "./BaseBlock";
 import { GridBlock } from "./GridBlock";
-import { Slider } from "./Slider";
-import { BaseUserInterface } from "./BaseUserInterface";
+import { IBaseUserInterface } from "./IBaseUserInterface";
 
 export class GameState {
     readonly canvas: HTMLCanvasElement;
     readonly ctx: CanvasRenderingContext2D;
     readonly rect: ClientRect | DOMRect;
     public blocks: BaseBlock[];
-    public userInterfaces: BaseUserInterface[];
+    public userInterfaces: IBaseUserInterface[];
     public mouseX: number;
     public mouseY: number;
     public commandControl: boolean;
@@ -35,7 +34,7 @@ export interface IGameState {
     readonly ctx: CanvasRenderingContext2D;
     readonly rect: ClientRect | DOMRect;
     blocks: BaseBlock[];
-    userInterfaces: BaseUserInterface[];
+    userInterfaces: IBaseUserInterface[];
     mouseX: number;
     mouseY: number;
     commandControl: boolean;

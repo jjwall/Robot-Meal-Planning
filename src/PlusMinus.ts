@@ -1,7 +1,7 @@
-import { BaseUserInterface } from "./BaseUserInterface";
+import { IBaseUserInterface } from "./IBaseUserInterface";
 import { GameState } from "./GameState";
 
-export class PlusMinus implements BaseUserInterface {
+export class PlusMinus implements IBaseUserInterface {
     gameState: GameState;
     mouseDown: boolean;
     plusX: number;
