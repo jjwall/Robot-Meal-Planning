@@ -2,13 +2,14 @@ import { IBaseEntity } from "IBaseEntity";
 import { GameState } from "./GameState";
 
 export class Robot implements IBaseEntity {
-    gameState: GameState;
-    x: number;
-    y: number;
-    h: number;
-    w: number;
-    angle: number;
-    color: string;
+    protected gameState: GameState;
+    public x: number;
+    public y: number;
+    public h: number;
+    public w: number;
+    public angle: number;
+    readonly color: string;
+    readonly image: HTMLImageElement;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number) {
         this.gameState = GameState;
         this.x = X;
@@ -17,6 +18,8 @@ export class Robot implements IBaseEntity {
         this.w = W;
         this.angle = 0;
         this.color = "grey";
+        this.image = new Image();
+        this.image.src = "data/textures/RobotGun.png";
     }
 
     public update() : void {
@@ -28,6 +31,7 @@ export class Robot implements IBaseEntity {
         this.gameState.ctx.rotate(this.angle * Math.PI/180);
         this.gameState.ctx.fillStyle = this.color;
         this.gameState.ctx.fillRect(-this.h/2, -this.w/2, this.w, this.h);
+        this.gameState.ctx.drawImage(this.image, -this.w/2, -this.h/2);
         this.gameState.ctx.rotate(-(this.angle * Math.PI/180));
         this.gameState.ctx.translate(-this.x, -this.y);
     }
