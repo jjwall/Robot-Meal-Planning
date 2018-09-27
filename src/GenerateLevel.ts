@@ -41,12 +41,12 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
             case "move":
                 let moveBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Move);
                 // set up slider, pass in reference to move callback
-                new Slider(gameState, xOffset + 20, yOffset + 60, 100, CommandTypes.Move, moveBlock.updateData);
+                new Slider(gameState, xOffset + 20, yOffset + 60, 100, .5, CommandTypes.Move, moveBlock.updateData);
                 break;
             case "angle":
                 let angleBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Angle);
                 // set up slider, pass in reference to angle callback
-                new Slider(gameState, xOffset + 20, yOffset + 60, 360, CommandTypes.Angle, angleBlock.updateData, 8);
+                new Slider(gameState, xOffset + 20, yOffset + 60, 360, 1, CommandTypes.Angle, angleBlock.updateData, 8);
                 break;
             case "thread":
                 let threadBlock = new CommandBlockButton(gameState, xOffset, yOffset, 50, 50, "thistle", CommandTypes.Thread);

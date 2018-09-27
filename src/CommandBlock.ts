@@ -11,16 +11,18 @@ export class CommandBlock extends BaseBlock implements ICommandData {
     readonly h: number;
     readonly baseUnits: number;
     readonly callCount: number;
+    public unitsPerCall: number;
     public totalUnits: number;
     readonly color: string;
     public mouseDown: boolean;
     public set: boolean;
     readonly type: CommandTypes;
     readonly image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, BaseUnits: number, CallCount: number, TotalUnits: number, Color: string, Type: CommandTypes) {
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, BaseUnits: number, CallCount: number, UnitsPerCall: number, TotalUnits: number, Color: string, Type: CommandTypes) {
         super(GameState, X, Y, H, W, Color);
         this.baseUnits = BaseUnits;
         this.callCount = CallCount;
+        this.unitsPerCall = UnitsPerCall;
         this.totalUnits = TotalUnits;
         this.mouseDown = true;
         this.set = false;
@@ -59,11 +61,23 @@ export class CommandBlock extends BaseBlock implements ICommandData {
                     this.x = block.x;
                     this.y = block.y;
                     this.set = true;
+
+                    const thisCommandData: ICommandData = {
+                        type: this.type,
+                        baseUnits: this.baseUnits,
+                        callCount: this.callCount,
+                        unitsPerCall: this.unitsPerCall,
+                        totalUnits: this.totalUnits,
+                    }
+
                     // set GridBlock's commandData and currentCallCount properties
-                    block.commandData.type = this.type;
-                    block.commandData.baseUnits = this.baseUnits;
-                    block.commandData.callCount = this.callCount;
-                    block.commandData.totalUnits = this.totalUnits;
+                    block.commandData.type = thisCommandData.type;
+                    block.commandData.baseUnits = thisCommandData.baseUnits;
+                    block.commandData.callCount = thisCommandData.callCount;
+                    block.commandData.unitsPerCall = thisCommandData.unitsPerCall;
+                    block.commandData.totalUnits = thisCommandData.totalUnits;
+
+                    // set currentCallCount equal to callCount
                     block.currentCallCount = this.callCount;
                 }
             }
@@ -115,6 +129,7 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
     readonly h: number;
     public baseUnits: number;
     public callCount: number;
+    public unitsPerCall: number;
     public totalUnits: number;
     readonly color: string;
     public mouseDown: boolean;
@@ -127,6 +142,7 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
         this.image = new Image();
         this.baseUnits = 0;
         this.callCount = 0;
+        this.unitsPerCall = 0;
         this.totalUnits = 0;
         switch(Type) {
             case CommandTypes.Start:
@@ -148,16 +164,27 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
     /**
      * Callback function to be passed in as reference to corresponding UI.
      */
-    public updateData = (calculatedCallCount: number, baseUnits: number, totalUnits: number): void => {
-        this.callCount = calculatedCallCount;
-        this.baseUnits = baseUnits;
-        this.totalUnits = totalUnits;
+    public updateData = (CallCount: number, BaseUnits: number, UnitsPerCall: number, TotalUnits: number): void => {
+        this.callCount = CallCount;
+        this.baseUnits = BaseUnits;
+        this.unitsPerCall = UnitsPerCall;
+        this.totalUnits = TotalUnits;
     }
 
     public update() : void {
         if (this.mouseDown) {
             this.mouseDown = false;
-            new CommandBlock(this.gameState, this.x, this.y, this.h, this.w, this.baseUnits, this.callCount, this.totalUnits, this.Color, this.type);
+            new CommandBlock(this.gameState,
+                            this.x,
+                            this.y, 
+                            this.h, 
+                            this.w, 
+                            this.baseUnits, 
+                            this.callCount, 
+                            this.unitsPerCall, 
+                            this.totalUnits, 
+                            this.Color, 
+                            this.type);
         }
     }
 

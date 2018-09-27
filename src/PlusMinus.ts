@@ -16,8 +16,8 @@ export class PlusMinus implements IBaseUserInterface {
     mouseDownMinus: boolean;
     targetThread: number;
     color: string;
-    updateDataCallBack: (callCount: number, baseUnits: number, totalUnits: number) => void;
-    constructor(GameState: GameState, X: number, Y: number, UpdateDataCallBack: (callCount: number, baseUnits: number, totalUnits: number) => void) {
+    updateDataCallBack: (callCount: number, baseUnits: number, unitsPerCall: number, totalUnits: number) => void;
+    constructor(GameState: GameState, X: number, Y: number, UpdateDataCallBack: (callCount: number, baseUnits: number, unitsPerCall: number, totalUnits: number) => void) {
         this.gameState = GameState;
         this.minusX = X;
         this.minusY = Y;
@@ -33,7 +33,7 @@ export class PlusMinus implements IBaseUserInterface {
         this.mouseDownMinus = false;
         this.mouseDownPlus = false;
         this.targetThread = 1;
-        this.updateDataCallBack(0, 1, this.targetThread);
+        this.updateDataCallBack(0, 1, 0, this.targetThread);
 
         this.gameState.userInterfaces.push(this);
     }
@@ -42,7 +42,7 @@ export class PlusMinus implements IBaseUserInterface {
             this.mouseDownPlus = false;
             this.mouseDown = false;
             this.targetThread++;
-            this.updateDataCallBack(0, 1, this.targetThread)
+            this.updateDataCallBack(0, 1, 0, this.targetThread)
         }
         else if (this.mouseDownMinus) {
             this.mouseDownMinus = false;
@@ -50,7 +50,7 @@ export class PlusMinus implements IBaseUserInterface {
 
             if (this.targetThread > 1) {
                 this.targetThread--;
-                this.updateDataCallBack(0, 1, this.targetThread);
+                this.updateDataCallBack(0, 1, 0, this.targetThread);
             }
         }
 

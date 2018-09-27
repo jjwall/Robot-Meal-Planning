@@ -9,8 +9,9 @@ export class Slider implements IBaseUserInterface {
     private snapAmount: number;
     private percentage: number;
     public value: number;
-    public updateDataCallBack: (callCount: number, baseUnits: number, totalUnits: number) => void;
+    public updateDataCallBack: (callCount: number, baseUnits: number, unitsPerCall: number, totalUnits: number) => void;
     readonly maxUnits: number;
+    readonly unitsPerCall: number;
     readonly baseUnits: number;
     private totalUnits: number;
     readonly type: CommandTypes | FlowTypes;
@@ -24,10 +25,11 @@ export class Slider implements IBaseUserInterface {
     readonly barH: number;
     readonly barW: number;
     readonly barColor: string;
-    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, Type: CommandTypes | FlowTypes, UpdateDataCallBack: (callCount: number, baseUnits: number, totalUnits: number) => void, SnapAmount: number = 10) {
+    constructor(GameState: GameState, X :number, Y: number, MaxUnits: number, UnitsPerCall: number, Type: CommandTypes | FlowTypes, UpdateDataCallBack: (callCount: number, baseUnits: number, unitsPerCall: number, totalUnits: number) => void, SnapAmount: number = 10) {
         this.gameState = GameState;
         this.mouseDown = false;
         this.maxUnits = MaxUnits;
+        this.unitsPerCall = UnitsPerCall;
         this.snapAmount = SnapAmount;
         this.updateDataCallBack = UpdateDataCallBack;
         this.baseUnits = Math.round(this.maxUnits / this.snapAmount);
@@ -44,14 +46,13 @@ export class Slider implements IBaseUserInterface {
         this.sliderColor = "purple";
         this.percentage = 1 - (this.sliderY - this.barY + this.sliderH/2) / this.barH;
         this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
-        
-        let calculatedCallCount = Math.round((this.value * this.maxUnits)/this.baseUnits);
-        this.totalUnits = calculatedCallCount * this.baseUnits;
+        this.totalUnits = Math.round((this.value * this.maxUnits));
 
         this.gameState.userInterfaces.push(this);
-        
+
         // initialize data
-        this.updateDataCallBack(calculatedCallCount, this.baseUnits, this.totalUnits);
+        let calculatedCallCount = this.totalUnits / this.unitsPerCall;
+        this.updateDataCallBack(calculatedCallCount, this.baseUnits, this.unitsPerCall, this.totalUnits);
     }
 
     public update() : void {
@@ -66,12 +67,12 @@ export class Slider implements IBaseUserInterface {
                 this.value = Math.round(this.percentage * this.snapAmount) / this.snapAmount;
                 // set sliderY value based on new value from the rounded percantage
                 this.sliderY = this.barH + this.barY - (this.sliderH/2) - (this.value * this.barH);
+                // set total units to be value (ratio) of slider times max units
+                this.totalUnits = Math.round((this.value * this.maxUnits));
+                // callCount for callBack will be totalUnits divided by unitsPerCall
+                const calculatedCallCount = this.totalUnits / this.unitsPerCall;
 
-                let calculatedCallCount = Math.round((this.value * this.maxUnits)/this.baseUnits);
-
-                this.totalUnits = calculatedCallCount * this.baseUnits
-
-                this.updateDataCallBack(calculatedCallCount, this.baseUnits, this.totalUnits);
+                this.updateDataCallBack(calculatedCallCount, this.baseUnits, this.unitsPerCall, this.totalUnits);
             }
         }
     }

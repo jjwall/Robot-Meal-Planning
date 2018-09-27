@@ -12,8 +12,8 @@ export class ThreadObserver implements IBaseUserInterface {
     public w: number;
     public mouseDown: boolean;
     public threads: number;
-    updateDataCallBack: (callCount: number, baseUnits: number, totalThreads: number) => void;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, UpdateDataCallBack: (callCount: number, baseUnits: number, totalThreads: number) => void) {
+    updateDataCallBack: (callCount: number, baseUnits: number, unitsPerCall: number, totalThreads: number) => void;
+    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, UpdateDataCallBack: (callCount: number, baseUnits: number, unitsPerCall: number, totalThreads: number) => void) {
         this.gameState = GameState;
         this.x = X;
         this.y = Y;
@@ -26,7 +26,7 @@ export class ThreadObserver implements IBaseUserInterface {
         this.gameState.userInterfaces.push(this);
 
         // initialize data
-        this.updateDataCallBack(0, 1, this.threads);
+        this.updateDataCallBack(0, 1, 0, this.threads);
     }
 
     private recalculateExistingThreadCounts() : void {
@@ -80,7 +80,7 @@ export class ThreadObserver implements IBaseUserInterface {
 
         this.threads = tempThreadCount;
 
-        this.updateDataCallBack(0, 1, this.threads);
+        this.updateDataCallBack(0, 1, 0, this.threads);
 
         this.recalculateExistingThreadCounts();
     }
@@ -99,7 +99,7 @@ export class ThreadObserver implements IBaseUserInterface {
 
             this.threads = tempThreadCount;
 
-            this.updateDataCallBack(0, 1, this.threads);
+            this.updateDataCallBack(0, 1, 0, this.threads);
         }
 
     }

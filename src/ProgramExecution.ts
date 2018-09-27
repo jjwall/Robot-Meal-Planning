@@ -11,7 +11,7 @@ function moveCall(gameState: GameState, block: GridBlock) {
         gameState.entities.forEach(entity => {
             // CONSIDER passing in reference to robot in these call functions
             if (entity instanceof Robot) {
-                entity.move(2); // test value
+                entity.move(block.commandData.unitsPerCall);
             }
         });
     }
@@ -28,7 +28,7 @@ function angleCall(gameState: GameState, block: GridBlock) {
         gameState.entities.forEach(entity => {
             // CONSIDER passing in reference to robot in these call functions
             if (entity instanceof Robot) {
-                entity.turnClockWise(45); // test value
+                entity.turnClockWise(block.commandData.unitsPerCall);
             }
         });
     }

@@ -24,6 +24,7 @@ export class GridBlock extends BaseBlock {
         this.commandData = {
             baseUnits: 0,
             totalUnits: 0,
+            unitsPerCall: 0,
             callCount: 0,
             type: CommandTypes.Empty
         }
@@ -40,11 +41,15 @@ export class GridBlock extends BaseBlock {
 */
 export interface ICommandData {
     /**
-    * Amount of units per call.
+    * Minimum amount of units per execution and common denominator.
     */
     baseUnits: number;
     /**
-    * Total units after all call(s).
+     * Units per call.
+     */
+    unitsPerCall: number;
+    /**
+    * Total units after pass of execution i.e. after all call(s).
     */
     totalUnits: number;
     /**
