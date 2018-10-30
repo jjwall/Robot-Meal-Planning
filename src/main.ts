@@ -1,6 +1,6 @@
 /// <reference path="./declarations/json.d.ts" />
 import { GameState } from "./GameState";
-import level1 from '../data/levels/level1.json';
+import level1 from "../data/levels/level1.json";
 import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
@@ -9,8 +9,10 @@ import { IBaseUserInterface } from "./IBaseUserInterface";
 import { IBaseEntity } from "./IBaseEntity";
 import { BaseBlock } from "./BaseBlock";
 
-// TODO: switch abstract class BaseBlock to be an interface called IBaseBlock 
-// TODO: pass reference to GameState / GameState / prop in methods (draw, update) where needed
+// TODO: pass in PROPERTIES of GameState to various methods to clarify and
+// make succinct the dependencies for the method
+// ^TODO: switch abstract class BaseBlock to be an interface called IBaseBlock 
+// ^TODO: pass reference to GameState / GameState / prop in methods (draw, update) where needed
 // -> can pass in to constructor as well
 // --> don't want to store in a class member tho
 // TODO: add big yellow block that renders behind grid blocks to indicate which block is currently being executed
@@ -69,9 +71,10 @@ function update(blocks: BaseBlock[], uis: IBaseUserInterface[]) : void {
 }
 
 // Main function
-(function(canvas: number) {
+(function(canvas: HTMLCanvasElement) {
     // set up game state
-    var gameState = new GameState();
+    var gameState = new GameState(canvas);
+
     GenerateLevel(gameState, level1, "lightblue");
     SetUpEventListeners(gameState);
 
@@ -104,4 +107,4 @@ function update(blocks: BaseBlock[], uis: IBaseUserInterface[]) : void {
             gameState.programRunning = false;
         }
     }, 12);
-})(0);
+})(<HTMLCanvasElement> document.getElementById("gameScreen"));
