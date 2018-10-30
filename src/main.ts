@@ -5,6 +5,9 @@ import { GenerateLevel } from "./GenerateLevel";
 import { SetUpEventListeners } from "./SetUpEventListeners";
 import { FlowBlock } from "./FlowBlock";
 import { Robot } from "./Robot";
+import { IBaseUserInterface } from "./IBaseUserInterface";
+import { IBaseEntity } from "./IBaseEntity";
+import { BaseBlock } from "./BaseBlock";
 
 // TODO: switch abstract class BaseBlock to be an interface called IBaseBlock 
 // TODO: pass reference to GameState / GameState / prop in methods (draw, update) where needed
@@ -19,81 +22,86 @@ import { Robot } from "./Robot";
 // TODO: add manifold collision system for gridblock collision with flow and command blocks.
 // -> i.e. snap command block to grid block that has the biggest manifold
 
-// set up game state
-var gameState = new GameState();
-GenerateLevel(gameState, level1, "lightblue");
-SetUpEventListeners(gameState);
 
-// test entity
-let robot = new Robot(gameState, 375, 200, 25, 25);
-gameState.entities.push(robot);
-
-function draw() : void {
-    gameState.ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
-    gameState.ctx.beginPath();
+function draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, uis: IBaseUserInterface[], entities: IBaseEntity[], blocks: BaseBlock[]) : void {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
 
     // render UI elements
-    gameState.userInterfaces.forEach(userInterface => {
+    uis.forEach(userInterface => {
         userInterface.draw();
     });
 
     // render all non-flow blocks first
-    gameState.blocks.forEach(block => {
+    blocks.forEach(block => {
         if (!(block instanceof FlowBlock)) {
             block.draw();
         }
     });
 
     // render all flow blocks last to layer them on top of command blocks
-    gameState.blocks.forEach(block => {
+    blocks.forEach(block => {
         if (block instanceof FlowBlock) {
             block.draw();
         }
     });
 
     // render all entities
-    gameState.entities.forEach(entity => {
+    entities.forEach(entity => {
         entity.draw();
     });
 
-    gameState.ctx.stroke();
+    ctx.stroke();
 }
 
-function update() : void {
-    gameState.blocks.forEach(block => {
+function update(blocks: BaseBlock[], uis: IBaseUserInterface[]) : void {
+    blocks.forEach(block => {
         block.update();
     });
 
-    gameState.userInterfaces.forEach(userInterface => {
+    uis.forEach(userInterface => {
         userInterface.update();
     });
 
-    // gameState.entities.forEach(entity => {
+    // entities.forEach(entity => {
     //     entity.update();
     // });
 }
 
-setInterval(function() : void {
-    update();
-    draw();
+// Main function
+(function(canvas: number) {
+    // set up game state
+    var gameState = new GameState();
+    GenerateLevel(gameState, level1, "lightblue");
+    SetUpEventListeners(gameState);
 
-    const callStack = gameState.nextStack;
-    gameState.nextStack = [];
+    // Test entity
+    let robot = new Robot(gameState, 375, 200, 25, 25);
+    gameState.entities.push(robot);
 
-    if (callStack.length > 0 && gameState.programRunning) {
-        callStack.forEach(block => {
-            // will call command and push it back on stack
-            if (block.currentCallCount > 0) {
-                block.call();
-                gameState.nextStack.push(block);
-            }
-            // else just call once and find next call
-            else {
-                block.call();
-            }
-        });
-    }
-    else {
-        gameState.programRunning = false;
-    }
-}, 12);
+    // Event pump
+    setInterval(function() : void {
+        update(gameState.blocks, gameState.userInterfaces);
+        draw(gameState.ctx, gameState.canvas, gameState.userInterfaces, gameState.entities, gameState.blocks);
+
+        const callStack = gameState.nextStack;
+        gameState.nextStack = [];
+
+        if (callStack.length > 0 && gameState.programRunning) {
+            callStack.forEach(block => {
+                // will call command and push it back on stack
+                if (block.currentCallCount > 0) {
+                    block.call();
+                    gameState.nextStack.push(block);
+                }
+                // else just call once and find next call
+                else {
+                    block.call();
+                }
+            });
+        }
+        else {
+            gameState.programRunning = false;
+        }
+    }, 12);
+})(0);
