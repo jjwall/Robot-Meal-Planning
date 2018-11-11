@@ -1,4 +1,4 @@
-import { BaseBlock } from "./BaseBlock";
+import { IBaseBlock } from "./IBaseBlock";
 import { GridBlock } from "./GridBlock";
 import { IBaseUserInterface } from "./IBaseUserInterface";
 import { IBaseEntity } from "./IBaseEntity";
@@ -7,7 +7,7 @@ export class GameState {
     readonly canvas: HTMLCanvasElement;
     readonly ctx: CanvasRenderingContext2D;
     readonly rect: ClientRect | DOMRect;
-    public blocks: BaseBlock[] = [];
+    public blocks: IBaseBlock[] = [];
     public entities: IBaseEntity[] = [];
     public userInterfaces: IBaseUserInterface[] = [];
     public mouseX: number = 0;

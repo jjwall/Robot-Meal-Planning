@@ -1,9 +1,9 @@
 import { GameState } from "./GameState";
-import { BaseBlock } from "./BaseBlock";
+import { IBaseBlock } from "./IBaseBlock";
 import { FlowTypes } from "./Enums";
 import { GridBlock } from "./GridBlock";
 
-export class FlowBlock extends BaseBlock {
+export class FlowBlock implements IBaseBlock {
     protected gameState: GameState;
     readonly type: FlowTypes;
     public x: number;
@@ -12,10 +12,15 @@ export class FlowBlock extends BaseBlock {
     readonly h: number;
     public mouseDown: boolean;
     public set: boolean;
+    public color: string;
     readonly image: HTMLImageElement;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: FlowTypes) {
-        super(GameState, X, Y, H, W, Color);
         this.gameState = GameState;
+        this.x = X;
+        this.y = Y;
+        this.h = H;
+        this.w = W;
+        this.color = Color;
         this.type = Type;
         this.mouseDown = true;
         this.set = false;
@@ -85,7 +90,7 @@ export class FlowBlock extends BaseBlock {
 }
 
 // CONSIDER: Extending FlowBlock here
-export class FlowBlockButton extends BaseBlock {
+export class FlowBlockButton implements IBaseBlock {
     protected gameState: GameState;
     public x: number;
     public y: number;
@@ -96,7 +101,12 @@ export class FlowBlockButton extends BaseBlock {
     readonly type: FlowTypes;
     readonly image: HTMLImageElement;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: FlowTypes) {
-        super(GameState, X, Y, H, W, Color);
+        this.gameState = GameState;
+        this.x = X;
+        this.y = Y;
+        this.h = H;
+        this.w = W;
+        this.color = Color;
         this.type = Type;
         this.mouseDown = false;
         this.image = new Image();
@@ -121,7 +131,7 @@ export class FlowBlockButton extends BaseBlock {
     public update() : void {
         if (this.mouseDown) {
             this.mouseDown = false;
-            new FlowBlock(this.gameState, this.x, this.y, this.h, this.w, this.Color, this.type);
+            new FlowBlock(this.gameState, this.x, this.y, this.h, this.w, this.color, this.type);
         }
     }
 

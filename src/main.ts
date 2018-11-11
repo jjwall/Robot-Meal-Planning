@@ -7,7 +7,7 @@ import { FlowBlock } from "./FlowBlock";
 import { Robot } from "./Robot";
 import { IBaseUserInterface } from "./IBaseUserInterface";
 import { IBaseEntity } from "./IBaseEntity";
-import { BaseBlock } from "./BaseBlock";
+import { IBaseBlock } from "./IBaseBlock";
 
 // TODO: pass in PROPERTIES of GameState to various methods to clarify and
 // make succinct the dependencies for the method
@@ -25,7 +25,7 @@ import { BaseBlock } from "./BaseBlock";
 // -> i.e. snap command block to grid block that has the biggest manifold
 
 
-function draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, uis: IBaseUserInterface[], entities: IBaseEntity[], blocks: BaseBlock[]) : void {
+function draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, uis: IBaseUserInterface[], entities: IBaseEntity[], blocks: IBaseBlock[]) : void {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
 
@@ -56,7 +56,7 @@ function draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, uis: IBa
     ctx.stroke();
 }
 
-function update(blocks: BaseBlock[], uis: IBaseUserInterface[]) : void {
+function update(blocks: IBaseBlock[], uis: IBaseUserInterface[]) : void {
     blocks.forEach(block => {
         block.update();
     });

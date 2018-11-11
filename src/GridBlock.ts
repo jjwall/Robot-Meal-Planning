@@ -1,8 +1,8 @@
 import { GameState } from "./GameState";
-import { BaseBlock } from "./BaseBlock";
+import { IBaseBlock } from "./IBaseBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
 
-export class GridBlock extends BaseBlock {
+export class GridBlock implements IBaseBlock {
     protected gameState: GameState;
     public x: number;
     public y: number;
@@ -16,7 +16,12 @@ export class GridBlock extends BaseBlock {
     public call: () => void;
     readonly color: string;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Row: number, Column: number, Color: string) {
-        super(GameState, X, Y, H, W, Color);
+        this.gameState = GameState;
+        this.x = X;
+        this.y = Y;
+        this.h = H;
+        this.w = W;
+        this.color = Color;
         this.r = Row;
         this.c = Column;
         this.flowType = FlowTypes.Empty;
@@ -34,6 +39,8 @@ export class GridBlock extends BaseBlock {
         this.gameState.ctx.fillStyle = this.color;
         this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
     }
+
+    public update() : void {}
 }
 
 /**

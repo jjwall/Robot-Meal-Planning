@@ -1,9 +1,9 @@
 import { GameState } from "./GameState";
-import { BaseBlock } from "./BaseBlock";
+import { IBaseBlock } from "./IBaseBlock";
 import { CommandTypes } from "./Enums";
 import { ICommandData, GridBlock } from "./GridBlock";
 
-export class CommandBlock extends BaseBlock implements ICommandData {
+export class CommandBlock implements ICommandData, IBaseBlock {
     protected gameState: GameState;
     public x: number;
     public y: number;
@@ -19,7 +19,12 @@ export class CommandBlock extends BaseBlock implements ICommandData {
     readonly type: CommandTypes;
     readonly image: HTMLImageElement;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, BaseUnits: number, CallCount: number, UnitsPerCall: number, TotalUnits: number, Color: string, Type: CommandTypes) {
-        super(GameState, X, Y, H, W, Color);
+        this.gameState = GameState;
+        this.x = X;
+        this.y = Y;
+        this.h = H;
+        this.w = W;
+        this.color = Color;
         this.baseUnits = BaseUnits;
         this.callCount = CallCount;
         this.unitsPerCall = UnitsPerCall;
@@ -121,7 +126,7 @@ export class CommandBlock extends BaseBlock implements ICommandData {
 }
 
 // CONSIDER: extending CommandBlock class
-export class CommandBlockButton extends BaseBlock implements ICommandData {
+export class CommandBlockButton implements ICommandData, IBaseBlock {
     protected gameState: GameState;
     public x: number;
     public y: number;
@@ -136,7 +141,12 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
     readonly type: CommandTypes;
     readonly image: HTMLImageElement;
     constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Color: string, Type: CommandTypes) {
-        super(GameState, X, Y, H, W, Color);
+        this.gameState = GameState;
+        this.x = X;
+        this.y = Y;
+        this.h = H;
+        this.w = W;
+        this.color = Color;
         this.mouseDown = false;
         this.type = Type;
         this.image = new Image();
@@ -183,7 +193,7 @@ export class CommandBlockButton extends BaseBlock implements ICommandData {
                             this.callCount, 
                             this.unitsPerCall, 
                             this.totalUnits, 
-                            this.Color, 
+                            this.color, 
                             this.type);
         }
     }
