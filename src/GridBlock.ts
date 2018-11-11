@@ -3,7 +3,6 @@ import { IBaseBlock } from "./IBaseBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
 
 export class GridBlock implements IBaseBlock {
-    protected gameState: GameState;
     public x: number;
     public y: number;
     readonly h: number;
@@ -15,8 +14,8 @@ export class GridBlock implements IBaseBlock {
     public flowType: FlowTypes;
     public call: () => void;
     readonly color: string;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, Row: number, Column: number, Color: string) {
-        this.gameState = GameState;
+    constructor(baseBlocks: IBaseBlock[], X: number, Y: number, H: number, W: number, Row: number, Column: number, Color: string) {
+        baseBlocks.push(this);
         this.x = X;
         this.y = Y;
         this.h = H;
@@ -25,7 +24,6 @@ export class GridBlock implements IBaseBlock {
         this.r = Row;
         this.c = Column;
         this.flowType = FlowTypes.Empty;
-        this.gameState.blocks.push(this);
         this.commandData = {
             baseUnits: 0,
             totalUnits: 0,
@@ -35,9 +33,9 @@ export class GridBlock implements IBaseBlock {
         }
     }
 
-    public draw() : void {
-        this.gameState.ctx.fillStyle = this.color;
-        this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
+    public draw(ctx: CanvasRenderingContext2D) : void {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.w, this.h);
     }
 
     public update() : void {}

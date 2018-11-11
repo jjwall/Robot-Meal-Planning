@@ -19,7 +19,7 @@ export function GenerateLevel(gameState: GameState, levelObj: object, paletteCol
     // assign row and column values to grid blocks
     for (var r = 0; r < commandPaletteH; r++) {
         for (var c = 0; c < commandPaletteW; c++) {
-            new GridBlock(gameState, xOffset, yOffset, 50, 50, r, c, paletteColor);
+            new GridBlock(gameState.blocks, xOffset, yOffset, 50, 50, r, c, paletteColor);
             xOffset += 55;
         }
         yOffset += 55;

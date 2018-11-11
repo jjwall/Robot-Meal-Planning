@@ -11,7 +11,6 @@ import { IBaseBlock } from "./IBaseBlock";
 
 // TODO: pass in PROPERTIES of GameState to various methods to clarify and
 // make succinct the dependencies for the method
-// ^TODO: switch abstract class BaseBlock to be an interface called IBaseBlock 
 // ^TODO: pass reference to GameState / GameState / prop in methods (draw, update) where needed
 // -> can pass in to constructor as well
 // --> don't want to store in a class member tho
@@ -37,7 +36,7 @@ function draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, uis: IBa
     // render all non-flow blocks first
     blocks.forEach(block => {
         if (!(block instanceof FlowBlock)) {
-            block.draw();
+            block.draw(ctx);
         }
     });
 

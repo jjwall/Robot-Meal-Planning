@@ -4,6 +4,6 @@ export interface IBaseBlock {
     readonly h: number;
     readonly w: number;
     readonly color: string;
-    draw(): void;
+    draw(ctx: CanvasRenderingContext2D): void;
     update(): void;
 }
