@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1541982046394" clover="3.2.0">
-  <project timestamp="1541982046394" name="All files">
+<coverage generated="1541985968777" clover="3.2.0">
+  <project timestamp="1541985968778" name="All files">
     <metrics statements="52" coveredstatements="52" conditionals="4" coveredconditionals="4" methods="8" coveredmethods="8" elements="64" coveredelements="64" complexity="0" loc="52" ncloc="52" packages="1" files="3" classes="3">
       <file name="Enums.ts" path="C:\Users\Gizmolo\Desktop\projects\Robot-Meal-Planning\src\Enums.ts">
         <metrics statements="21" coveredstatements="21" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>

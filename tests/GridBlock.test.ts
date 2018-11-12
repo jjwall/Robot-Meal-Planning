@@ -9,6 +9,13 @@ describe('GridBlock', () => {
 
     it("constructs", () => {
         expect(g).toBeInstanceOf(GridBlock);
+        expect(g.x).toBe(10);
+        expect(g.y).toBe(10);
+        expect(g.h).toBe(10);
+        expect(g.w).toBe(10);
+        expect(g.r).toBe(10);
+        expect(g.c).toBe(10);
+        expect(g.color).toBe("color");
     });
 
     it("draws to canvas", () => {

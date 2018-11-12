@@ -12,7 +12,15 @@ import { GameState } from "../src/GameState";
 // // import canvas from "canvas";
 
 test('constucts an instance of GameState', () => {
-    expect(new GameState(
-        document.createElement('canvas'))
-    ).toBeInstanceOf(GameState);
+    let gs = new GameState(document.createElement('canvas'));
+    expect(gs).toBeInstanceOf(GameState);
+    expect(gs.blocks).toEqual([]);
+    expect(gs.entities).toEqual([]);
+    expect(gs.userInterfaces).toEqual([]);
+    expect(gs.mouseX).toBe(0);
+    expect(gs.mouseY).toBe(0);
+    expect(gs.commandControl).toBeTruthy();
+    expect(gs.flowControl).toBeFalsy();
+    expect(gs.nextStack).toEqual([]);
+    expect(gs.programRunning).toBeFalsy();
 });
