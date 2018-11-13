@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for SetUpEventListeners.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="prettify.css" />
+    <link rel="stylesheet" href="base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="index.html">All files</a> SetUpEventListeners.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/62</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/70</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/62</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { GameState } from "./GameState";
+<span class="cstat-no" title="statement not covered" >import { CommandBlock, CommandBlockButton } from "./CommandBlock";</span>
+<span class="cstat-no" title="statement not covered" >import { GridBlock } from "./GridBlock";</span>
+<span class="cstat-no" title="statement not covered" >import { FlowBlock, FlowBlockButton } from "./FlowBlock";</span>
+<span class="cstat-no" title="statement not covered" >import { CommandTypes, FlowTypes } from "./Enums";</span>
+<span class="cstat-no" title="statement not covered" >import { startNewThreadCall } from "./ProgramExecution";</span>
+<span class="cstat-no" title="statement not covered" >import { Slider } from "./Slider";</span>
+<span class="cstat-no" title="statement not covered" >import { ThreadObserver } from "./ThreadObserver";</span>
+<span class="cstat-no" title="statement not covered" >import { PlusMinus } from "./PlusMinus";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >SetUpEventListeners(gameState: GameState) {</span></span>
+<span class="cstat-no" title="statement not covered" >    gameState.canvas.addEventListener('mousedown', <span class="fstat-no" title="function not covered" >function() : void {</span></span>
+        // Collision detection between clicked offset and block.
+<span class="cstat-no" title="statement not covered" >        gameState.blocks.forEach(<span class="fstat-no" title="function not covered" >block =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (gameState.mouseY &gt; block.y &amp;&amp; gameState.mouseY &lt; block.y + block.h</span>
+                &amp;&amp; gameState.mouseX &gt; block.x &amp;&amp; gameState.mouseX &lt; block.x + block.w) {
+<span class="cstat-no" title="statement not covered" >                if (block instanceof CommandBlock &amp;&amp; gameState.commandControl</span>
+                    || block instanceof CommandBlockButton &amp;&amp; gameState.commandControl
+                    || block instanceof FlowBlock &amp;&amp; gameState.flowControl
+                    || block instanceof FlowBlockButton &amp;&amp; gameState.flowControl) {
+<span class="cstat-no" title="statement not covered" >                    block.mouseDown = true;</span>
+                }
+                else <span class="cstat-no" title="statement not covered" >if (block instanceof GridBlock) {</span>
+                    // check radio button for flow or command control
+<span class="cstat-no" title="statement not covered" >                    if (gameState.commandControl) {</span>
+<span class="cstat-no" title="statement not covered" >                        block.commandData.type = CommandTypes.Empty;</span>
+                    }
+                    else <span class="cstat-no" title="statement not covered" >if (gameState.flowControl) {</span>
+<span class="cstat-no" title="statement not covered" >                        block.flowType = FlowTypes.Empty;</span>
+                    }
+                }
+            }
+        });
+&nbsp;
+        // check for sliders being clicked
+<span class="cstat-no" title="statement not covered" >        gameState.userInterfaces.forEach(<span class="fstat-no" title="function not covered" >s =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (s instanceof Slider) {</span>
+<span class="cstat-no" title="statement not covered" >                if (gameState.mouseY &gt; s.sliderY &amp;&amp; gameState.mouseY &lt; s.sliderY + s.sliderH</span>
+                    &amp;&amp; gameState.mouseX &gt; s.sliderX &amp;&amp; gameState.mouseX &lt; s.sliderX + s.sliderW) {
+<span class="cstat-no" title="statement not covered" >                    s.mouseDown = true;</span>
+                }
+            }
+            else <span class="cstat-no" title="statement not covered" >if (s instanceof ThreadObserver) {</span>
+<span class="cstat-no" title="statement not covered" >                if (gameState.mouseY &gt; s.y &amp;&amp; gameState.mouseY &lt; s.y + s.h</span>
+                    &amp;&amp; gameState.mouseX &gt; s.x &amp;&amp; gameState.mouseX &lt; s.x + s.w) {
+<span class="cstat-no" title="statement not covered" >                    s.mouseDown = true;</span>
+                }
+            }
+            
+            else <span class="cstat-no" title="statement not covered" >if (s instanceof PlusMinus) {</span>
+<span class="cstat-no" title="statement not covered" >                if (gameState.mouseY &gt; s.plusY &amp;&amp; gameState.mouseY &lt; s.plusY + s.plusH</span>
+                    &amp;&amp; gameState.mouseX &gt; s.plusX &amp;&amp; gameState.mouseX &lt; s.plusX + s.plusW) {
+<span class="cstat-no" title="statement not covered" >                    s.mouseDown = true;</span>
+<span class="cstat-no" title="statement not covered" >                    s.mouseDownPlus = true;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                if (gameState.mouseY &gt; s.minusY &amp;&amp; gameState.mouseY &lt; s.minusY + s.minusH</span>
+                    &amp;&amp; gameState.mouseX &gt; s.minusX &amp;&amp; gameState.mouseX &lt; s.minusX + s.minusW) {
+<span class="cstat-no" title="statement not covered" >                    s.mouseDown = true;</span>
+<span class="cstat-no" title="statement not covered" >                    s.mouseDownMinus = true;</span>
+                }
+            }
+        });
+    }, false);
+&nbsp;
+    // make sure all clickable entities aren't clickable on mouseup
+<span class="cstat-no" title="statement not covered" >    gameState.canvas.addEventListener('mouseup', <span class="fstat-no" title="function not covered" >function() : void {</span></span>
+<span class="cstat-no" title="statement not covered" >        gameState.blocks.forEach(<span class="fstat-no" title="function not covered" >block =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (block instanceof CommandBlock</span>
+                || block instanceof FlowBlock) {
+<span class="cstat-no" title="statement not covered" >                if (block.mouseDown) {</span>
+<span class="cstat-no" title="statement not covered" >                    block.mouseDown = false;</span>
+<span class="cstat-no" title="statement not covered" >                    block.mouseUp(gameState.blocks);</span>
+                }
+            }
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        gameState.userInterfaces.forEach(<span class="fstat-no" title="function not covered" >userInterface =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            userInterface.mouseDown = false;</span>
+<span class="cstat-no" title="statement not covered" >            if (userInterface instanceof ThreadObserver) {</span>
+<span class="cstat-no" title="statement not covered" >                userInterface.mouseUp();</span>
+            }
+        });
+    }, false);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    gameState.canvas.addEventListener('mousemove', <span class="fstat-no" title="function not covered" >function(</span>evt: MouseEvent) : void {</span>
+<span class="cstat-no" title="statement not covered" >        gameState.mouseX = (evt.clientX - gameState.rect.left) / (gameState.rect.right - gameState.rect.left) * gameState.canvas.width;</span>
+<span class="cstat-no" title="statement not covered" >        gameState.mouseY = (evt.clientY - gameState.rect.top) / (gameState.rect.bottom - gameState.rect.top) * gameState.canvas.height;</span>
+    }, false);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    window.onkeyup = <span class="fstat-no" title="function not covered" >function(</span>e) {</span>
+        // i.e. SpaceBar pressed
+<span class="cstat-no" title="statement not covered" >        if (e.keyCode === 32) {</span>
+<span class="cstat-no" title="statement not covered" >            if (gameState.flowControl) {</span>
+<span class="cstat-no" title="statement not covered" >                gameState.flowControl = false;</span>
+<span class="cstat-no" title="statement not covered" >                gameState.commandControl = true;</span>
+<span class="cstat-no" title="statement not covered" >                console.log("Command Control!");</span>
+            }
+            else <span class="cstat-no" title="statement not covered" >if (gameState.commandControl) {</span>
+<span class="cstat-no" title="statement not covered" >                gameState.commandControl = false;</span>
+<span class="cstat-no" title="statement not covered" >                gameState.flowControl = true;</span>
+<span class="cstat-no" title="statement not covered" >                console.log("Flow Control!");</span>
+            }
+        }
+&nbsp;
+        // i.e. S key pressed
+<span class="cstat-no" title="statement not covered" >        if (e.keyCode === 83) {</span>
+<span class="cstat-no" title="statement not covered" >            if (!gameState.programRunning) {</span>
+                // start program
+<span class="cstat-no" title="statement not covered" >                gameState.programRunning = true;</span>
+<span class="cstat-no" title="statement not covered" >                startNewThreadCall(gameState, 1);</span>
+            }
+            // if S key is pressed while program is running
+            else {
+                // stop program
+<span class="cstat-no" title="statement not covered" >                gameState.programRunning = false;</span>
+<span class="cstat-no" title="statement not covered" >                gameState.nextStack = [];</span>
+            }
+        }
+    }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 12 2018 21:57:49 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="sorter.js"></script>
+</body>
+</html>

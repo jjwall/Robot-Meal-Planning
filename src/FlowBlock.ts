@@ -45,7 +45,7 @@ export class FlowBlock implements IBaseBlock {
     /**
      * method called in SetUpEventListeners.ts
      */
-    public mouseUp() : void {
+    public mouseUp(baseBlocks: IBaseBlock[]) : void {
         // drop flow block
         this.gameState.blocks.forEach(block => {
             if (block instanceof GridBlock && block.flowType === FlowTypes.Empty) {

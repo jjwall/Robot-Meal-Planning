@@ -55,9 +55,9 @@ function draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, uis: IBa
     ctx.stroke();
 }
 
-function update(blocks: IBaseBlock[], uis: IBaseUserInterface[]) : void {
+function update(blocks: IBaseBlock[], uis: IBaseUserInterface[], mouseX: number, mouseY: number) : void {
     blocks.forEach(block => {
-        block.update();
+        block.update(mouseX, mouseY);
     });
 
     uis.forEach(userInterface => {
@@ -83,7 +83,7 @@ function update(blocks: IBaseBlock[], uis: IBaseUserInterface[]) : void {
 
     // Event pump
     setInterval(function() : void {
-        update(gameState.blocks, gameState.userInterfaces);
+        update(gameState.blocks, gameState.userInterfaces, gameState.mouseX, gameState.mouseY);
         draw(gameState.ctx, gameState.canvas, gameState.userInterfaces, gameState.entities, gameState.blocks);
 
         const callStack = gameState.nextStack;

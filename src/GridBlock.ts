@@ -1,4 +1,3 @@
-import { GameState } from "./GameState";
 import { IBaseBlock } from "./IBaseBlock";
 import { CommandTypes, FlowTypes } from "./Enums";
 

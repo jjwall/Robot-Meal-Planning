@@ -4,7 +4,6 @@ import { CommandTypes } from "./Enums";
 import { ICommandData, GridBlock } from "./GridBlock";
 
 export class CommandBlock implements ICommandData, IBaseBlock {
-    protected gameState: GameState;
     public x: number;
     public y: number;
     readonly w: number;
@@ -18,8 +17,7 @@ export class CommandBlock implements ICommandData, IBaseBlock {
     public set: boolean;
     readonly type: CommandTypes;
     readonly image: HTMLImageElement;
-    constructor(GameState: GameState, X: number, Y: number, H: number, W: number, BaseUnits: number, CallCount: number, UnitsPerCall: number, TotalUnits: number, Color: string, Type: CommandTypes) {
-        this.gameState = GameState;
+    constructor(baseBlocks: IBaseBlock[], X: number, Y: number, H: number, W: number, BaseUnits: number, CallCount: number, UnitsPerCall: number, TotalUnits: number, Color: string, Type: CommandTypes) {
         this.x = X;
         this.y = Y;
         this.h = H;
@@ -47,15 +45,16 @@ export class CommandBlock implements ICommandData, IBaseBlock {
                 this.image.src = "data/textures/ThreadBlock.png";
                 break;
         }
-        this.gameState.blocks.push(this);
+
+        baseBlocks.push(this);
     }
 
     /**
      * method called in SetUpEventListeners.ts
      */
-    public mouseUp() : void {
+    public mouseUp(baseBlocks: IBaseBlock[]) : void {
         // i.e. dropping block
-        this.gameState.blocks.forEach(block => {
+        baseBlocks.forEach(block => {
             if (block instanceof GridBlock && block.commandData.type === CommandTypes.Empty) {
                 if (block.x < this.x + this.w &&
                     block.x + block.w > this.x &&
@@ -90,28 +89,28 @@ export class CommandBlock implements ICommandData, IBaseBlock {
 
         // delete if dropping block and it doesn't have a empty grid block to be set on
         if (!this.set) {
-            var index = this.gameState.blocks.indexOf(this);
-            this.gameState.blocks.splice(index, 1);
+            var index = baseBlocks.indexOf(this);
+            baseBlocks.splice(index, 1);
         }
     }
 
-    public update() : void {
+    public update(mouseX: number, mouseY: number) : void {
         // drag command block
         if (this.mouseDown) {
-            this.x = this.gameState.mouseX - this.w/2;
-            this.y = this.gameState.mouseY - this.h/2;
+            this.x = mouseX - this.w/2;
+            this.y = mouseY - this.h/2;
             this.set = false;
         }
     }
 
-    public draw() : void {
-        this.gameState.ctx.fillStyle = this.color;
-        this.gameState.ctx.fillRect(this.x, this.y, this.w, this.h);
-        this.gameState.ctx.translate(this.x, this.y);
-        this.gameState.ctx.drawImage(this.image, 0, 0);
-        this.gameState.ctx.translate(-this.x, -this.y);
-        this.gameState.ctx.fillStyle = "black";
-        this.gameState.ctx.font = "15px Arial";
+    public draw(ctx: CanvasRenderingContext2D) : void {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.translate(this.x, this.y);
+        ctx.drawImage(this.image, 0, 0);
+        ctx.translate(-this.x, -this.y);
+        ctx.fillStyle = "black";
+        ctx.font = "15px Arial";
         let offsetX = 30;
 
         if (this.totalUnits > 99) {
@@ -121,7 +120,7 @@ export class CommandBlock implements ICommandData, IBaseBlock {
             offsetX = 35;
         }
 
-        this.gameState.ctx.fillText((this.totalUnits).toString(), this.x + offsetX, this.y + 48);
+        ctx.fillText((this.totalUnits).toString(), this.x + offsetX, this.y + 48);
     }
 }
 
@@ -184,7 +183,7 @@ export class CommandBlockButton implements ICommandData, IBaseBlock {
     public update() : void {
         if (this.mouseDown) {
             this.mouseDown = false;
-            new CommandBlock(this.gameState,
+            new CommandBlock(this.gameState.blocks,
                             this.x,
                             this.y, 
                             this.h, 

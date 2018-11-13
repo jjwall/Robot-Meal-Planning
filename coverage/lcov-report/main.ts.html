@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for main.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="prettify.css" />
+    <link rel="stylesheet" href="base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="index.html">All files</a> main.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/41</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/// &lt;reference path="./declarations/json.d.ts" /&gt;
+<span class="cstat-no" title="statement not covered" >import { GameState } from "./GameState";</span>
+<span class="cstat-no" title="statement not covered" >import level1 from "../data/levels/level1.json";</span>
+<span class="cstat-no" title="statement not covered" >import { GenerateLevel } from "./GenerateLevel";</span>
+<span class="cstat-no" title="statement not covered" >import { SetUpEventListeners } from "./SetUpEventListeners";</span>
+<span class="cstat-no" title="statement not covered" >import { FlowBlock } from "./FlowBlock";</span>
+<span class="cstat-no" title="statement not covered" >import { Robot } from "./Robot";</span>
+import { IBaseUserInterface } from "./IBaseUserInterface";
+import { IBaseEntity } from "./IBaseEntity";
+import { IBaseBlock } from "./IBaseBlock";
+&nbsp;
+// TODO: pass in PROPERTIES of GameState to various methods to clarify and
+// make succinct the dependencies for the method
+// ^TODO: pass reference to GameState / GameState / prop in methods (draw, update) where needed
+// -&gt; can pass in to constructor as well
+// --&gt; don't want to store in a class member tho
+// TODO: add big yellow block that renders behind grid blocks to indicate which block is currently being executed
+// TODO: have FlowBlockButton and CommandBlockButtons extend from their respective blocks
+// TODO: push most recently clicked command / flow block to top of block array to render it on top of everything else
+// TODO: switch spacebar control button to clickable radio button
+// TODO: add base UI class / switch slider[] to baseUIElement[] in GameState
+// TODO: add execute program / stop program buttons
+// TODO: add manifold collision system for gridblock collision with flow and command blocks.
+// -&gt; i.e. snap command block to grid block that has the biggest manifold
+&nbsp;
+&nbsp;
+function <span class="fstat-no" title="function not covered" >draw(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, uis: IBaseUserInterface[], entities: IBaseEntity[], blocks: IBaseBlock[]) : void {</span>
+<span class="cstat-no" title="statement not covered" >    ctx.clearRect(0, 0, canvas.width, canvas.height);</span>
+<span class="cstat-no" title="statement not covered" >    ctx.beginPath();</span>
+&nbsp;
+    // render UI elements
+<span class="cstat-no" title="statement not covered" >    uis.forEach(<span class="fstat-no" title="function not covered" >userInterface =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        userInterface.draw();</span>
+    });
+&nbsp;
+    // render all non-flow blocks first
+<span class="cstat-no" title="statement not covered" >    blocks.forEach(<span class="fstat-no" title="function not covered" >block =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!(block instanceof FlowBlock)) {</span>
+<span class="cstat-no" title="statement not covered" >            block.draw(ctx);</span>
+        }
+    });
+&nbsp;
+    // render all flow blocks last to layer them on top of command blocks
+<span class="cstat-no" title="statement not covered" >    blocks.forEach(<span class="fstat-no" title="function not covered" >block =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (block instanceof FlowBlock) {</span>
+<span class="cstat-no" title="statement not covered" >            block.draw();</span>
+        }
+    });
+&nbsp;
+    // render all entities
+<span class="cstat-no" title="statement not covered" >    entities.forEach(<span class="fstat-no" title="function not covered" >entity =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        entity.draw();</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    ctx.stroke();</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >update(blocks: IBaseBlock[], uis: IBaseUserInterface[], mouseX: number, mouseY: number) : void {</span>
+<span class="cstat-no" title="statement not covered" >    blocks.forEach(<span class="fstat-no" title="function not covered" >block =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        block.update(mouseX, mouseY);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    uis.forEach(<span class="fstat-no" title="function not covered" >userInterface =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        userInterface.update();</span>
+    });
+&nbsp;
+    // entities.forEach(entity =&gt; {
+    //     entity.update();
+    // });
+}
+&nbsp;
+// Main function
+<span class="cstat-no" title="statement not covered" >(<span class="fstat-no" title="function not covered" >function(</span>canvas: HTMLCanvasElement) {</span>
+    // set up game state
+    var gameState = <span class="cstat-no" title="statement not covered" >new GameState(canvas);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    GenerateLevel(gameState, level1, "lightblue");</span>
+<span class="cstat-no" title="statement not covered" >    SetUpEventListeners(gameState);</span>
+&nbsp;
+    // Test entity
+    let robot = <span class="cstat-no" title="statement not covered" >new Robot(gameState, 375, 200, 25, 25);</span>
+<span class="cstat-no" title="statement not covered" >    gameState.entities.push(robot);</span>
+&nbsp;
+    // Event pump
+<span class="cstat-no" title="statement not covered" >    setInterval(<span class="fstat-no" title="function not covered" >function() : void {</span></span>
+<span class="cstat-no" title="statement not covered" >        update(gameState.blocks, gameState.userInterfaces, gameState.mouseX, gameState.mouseY);</span>
+<span class="cstat-no" title="statement not covered" >        draw(gameState.ctx, gameState.canvas, gameState.userInterfaces, gameState.entities, gameState.blocks);</span>
+&nbsp;
+        const callStack = <span class="cstat-no" title="statement not covered" >gameState.nextStack;</span>
+<span class="cstat-no" title="statement not covered" >        gameState.nextStack = [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (callStack.length &gt; 0 &amp;&amp; gameState.programRunning) {</span>
+<span class="cstat-no" title="statement not covered" >            callStack.forEach(<span class="fstat-no" title="function not covered" >block =&gt; {</span></span>
+                // will call command and push it back on stack
+<span class="cstat-no" title="statement not covered" >                if (block.currentCallCount &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                    block.call();</span>
+<span class="cstat-no" title="statement not covered" >                    gameState.nextStack.push(block);</span>
+                }
+                // else just call once and find next call
+                else {
+<span class="cstat-no" title="statement not covered" >                    block.call();</span>
+                }
+            });
+        }
+        else {
+<span class="cstat-no" title="statement not covered" >            gameState.programRunning = false;</span>
+        }
+    }, 12);
+})(&lt;HTMLCanvasElement&gt; document.getElementById("gameScreen"));
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 12 2018 21:57:49 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="sorter.js"></script>
+</body>
+</html>

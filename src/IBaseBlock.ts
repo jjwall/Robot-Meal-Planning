@@ -5,5 +5,5 @@ export interface IBaseBlock {
     readonly w: number;
     readonly color: string;
     draw(ctx: CanvasRenderingContext2D): void;
-    update(): void;
+    update(mouseX: number, mouseY: number): void;
 }
