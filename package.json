@@ -48,7 +48,6 @@
     "moduleFileExtensions": [
       "ts",
       "js"
-    ],
-    "collectCoverage": true
+    ]
   }
 }
